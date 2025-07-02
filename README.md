@@ -6,7 +6,7 @@ Welcome to **GSMArena-Mobile-Brands**! This project is a simple yet practical ex
 
 ## 📸 Screenshot
 
-![Project Screenshot](https://i.ibb.co/S4fBwyHQ/gsmarena-scrapper-desktop.png)
+![Project Screenshot](https://i.ibb.co/35wSjwnB/gsmarena-offline-app-win-desktop.png)
 
 ---
 
