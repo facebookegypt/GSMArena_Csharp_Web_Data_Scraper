@@ -5,30 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\services\\scraperservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\services\\scraperservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\models\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\models\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\services\\csvservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\services\\csvservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\models\\phone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\models\\phone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,85 +14,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Brand.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Models\\Brand.cs",
-              "RelativeDocumentMoniker": "clsGsmar\\Models\\Brand.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Models\\Brand.cs",
-              "RelativeToolTip": "clsGsmar\\Models\\Brand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T23:00:20.298Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CsvService.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\CsvService.cs",
-              "RelativeDocumentMoniker": "clsGsmar\\Services\\CsvService.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\CsvService.cs",
-              "RelativeToolTip": "clsGsmar\\Services\\CsvService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T22:52:33.907Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ScraperService.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\ScraperService.cs",
-              "RelativeDocumentMoniker": "clsGsmar\\Services\\ScraperService.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\ScraperService.cs",
-              "RelativeToolTip": "clsGsmar\\Services\\ScraperService.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAUwIkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T22:41:37.529Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Phone.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Models\\Phone.cs",
-              "RelativeDocumentMoniker": "clsGsmar\\Models\\Phone.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Models\\Phone.cs",
-              "RelativeToolTip": "clsGsmar\\Models\\Phone.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T22:39:44.619Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.Designer.cs",
-              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\MainForm.Designer.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.Designer.cs",
-              "RelativeToolTip": "GSMArena-Mobile-Brands\\MainForm.Designer.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAAAJQAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T20:11:30.628Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MainForm.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs",
-              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\MainForm.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs",
-              "RelativeToolTip": "GSMArena-Mobile-Brands\\MainForm.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAvwJAAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T19:44:04.365Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -127,7 +29,7 @@
               "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs [Design]",
               "RelativeToolTip": "GSMArena-Mobile-Brands\\MainForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T16:35:10.049Z",
+              "WhenOpened": "2025-07-02T03:24:35.706Z",
               "EditorCaption": " [Design]"
             }
           ]

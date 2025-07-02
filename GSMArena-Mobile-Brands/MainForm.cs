@@ -147,7 +147,6 @@ namespace GSMArena_Mobile_Brands
                 e.SuppressKeyPress = true;
             }
         }
-
     }
 }
     

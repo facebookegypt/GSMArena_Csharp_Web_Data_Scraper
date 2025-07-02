@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             DGVscrap = new DataGridView();
             groupBox1 = new GroupBox();
             statusStripSc = new StatusStrip();
@@ -37,15 +38,15 @@
             ScrapBtn = new Button();
             SearchTextBox = new TextBox();
             LblSearch = new Label();
-            PictureBoxPreview = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)DGVscrap).BeginInit();
             groupBox1.SuspendLayout();
             statusStripSc.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureBoxPreview).BeginInit();
             SuspendLayout();
             // 
             // DGVscrap
             // 
+            DGVscrap.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            DGVscrap.BackgroundColor = Color.Azure;
             DGVscrap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGVscrap.Location = new Point(12, 158);
             DGVscrap.Name = "DGVscrap";
@@ -54,6 +55,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.BackColor = Color.Azure;
             groupBox1.Controls.Add(statusStripSc);
             groupBox1.Controls.Add(ProgressBarSc);
             groupBox1.Controls.Add(ScrapBtn);
@@ -92,6 +95,7 @@
             // 
             // ProgressBarSc
             // 
+            ProgressBarSc.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ProgressBarSc.Location = new Point(529, 78);
             ProgressBarSc.Name = "ProgressBarSc";
             ProgressBarSc.Size = new Size(241, 23);
@@ -99,6 +103,9 @@
             // 
             // ScrapBtn
             // 
+            ScrapBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            ScrapBtn.Image = Properties.Resources.Edit;
+            ScrapBtn.ImageAlign = ContentAlignment.MiddleLeft;
             ScrapBtn.Location = new Point(529, 15);
             ScrapBtn.Name = "ScrapBtn";
             ScrapBtn.Size = new Size(241, 57);
@@ -128,23 +135,15 @@
             LblSearch.TabIndex = 2;
             LblSearch.Text = "Search";
             // 
-            // PictureBoxPreview
-            // 
-            PictureBoxPreview.Location = new Point(717, 179);
-            PictureBoxPreview.Name = "PictureBoxPreview";
-            PictureBoxPreview.Size = new Size(65, 69);
-            PictureBoxPreview.TabIndex = 6;
-            PictureBoxPreview.TabStop = false;
-            PictureBoxPreview.Visible = false;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(800, 586);
-            Controls.Add(PictureBoxPreview);
             Controls.Add(groupBox1);
             Controls.Add(DGVscrap);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             Text = "GSMArena Scrapper by evry1falls (Acc. Ahmed Samir) @https://adonetaccess2003.blogspot.com";
             Load += MainForm_Load;
@@ -153,7 +152,6 @@
             groupBox1.PerformLayout();
             statusStripSc.ResumeLayout(false);
             statusStripSc.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureBoxPreview).EndInit();
             ResumeLayout(false);
         }
 
@@ -167,7 +165,6 @@
         private StatusStrip statusStripSc;
         private ProgressBar ProgressBarSc;
         private ToolStripStatusLabel tstlChkCon;
-        private PictureBox PictureBoxPreview;
         private ToolStripStatusLabel tstlMessage;
     }
 }
