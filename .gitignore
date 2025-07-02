@@ -1,0 +1,40 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio cache/options directory
+vs/
+
+# Test Results
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+
+# Node.js dependencies (if applicable)
+node_modules/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Azure and publish settings
+*.Publish.xml
+*.azurePubxml
+
+# Others
+Thumbs.db
+Desktop.ini

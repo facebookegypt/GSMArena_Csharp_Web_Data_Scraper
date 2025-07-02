@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSMArena-Mobile-Brands", "GSMArena-Mobile-Brands\GSMArena-Mobile-Brands.csproj", "{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clsGsmar", "clsGsmar\clsGsmar.csproj", "{B4E36906-12D9-44DD-A538-2ED8B1C707F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E36906-12D9-44DD-A538-2ED8B1C707F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E36906-12D9-44DD-A538-2ED8B1C707F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E36906-12D9-44DD-A538-2ED8B1C707F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E36906-12D9-44DD-A538-2ED8B1C707F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84BDF802-79E2-4378-982E-78D88A94ECAE}
+	EndGlobalSection
+EndGlobal
