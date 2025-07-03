@@ -128,12 +128,16 @@
             // 
             // LblSearch
             // 
-            LblSearch.AutoSize = true;
+            LblSearch.BackColor = Color.Transparent;
+            LblSearch.Image = Properties.Resources.magnifier;
+            LblSearch.ImageAlign = ContentAlignment.MiddleLeft;
             LblSearch.Location = new Point(6, 31);
             LblSearch.Name = "LblSearch";
-            LblSearch.Size = new Size(42, 15);
+            LblSearch.Size = new Size(79, 15);
             LblSearch.TabIndex = 2;
             LblSearch.Text = "Search";
+            LblSearch.TextAlign = ContentAlignment.MiddleCenter;
+            LblSearch.UseCompatibleTextRendering = true;
             // 
             // MainForm
             // 
