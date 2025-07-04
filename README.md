@@ -3,10 +3,10 @@
 Welcome to **GSMArena-Mobile-Brands**! This project is a simple yet practical example of web scraping in .NET / C#. It fetches and lists mobile phone brands directly from the GSMArena website. Perfect for learning or prototyping scraping workflows.
 
 ---
-# 🧮 Scraped phones count today *July 05, 2025*
+# 🧮 Scraped phones count today July 05, 2025
 
-Brands: 125
-Phones: 4330 phones
+* Brands: **125**
+* Phones: **4330** phones
 ---
 
 ## 📸 Screenshot
