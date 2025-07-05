@@ -31,9 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             DGVscrap = new DataGridView();
             groupBox1 = new GroupBox();
+            AllRadio = new RadioButton();
+            ModelRadio = new RadioButton();
+            BrandRadio = new RadioButton();
             statusStripSc = new StatusStrip();
             tstlChkCon = new ToolStripStatusLabel();
             tstlMessage = new ToolStripStatusLabel();
+            tstMsg = new ToolStripStatusLabel();
             ProgressBarSc = new ProgressBar();
             ScrapBtn = new Button();
             SearchTextBox = new TextBox();
@@ -57,6 +61,9 @@
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.Azure;
+            groupBox1.Controls.Add(AllRadio);
+            groupBox1.Controls.Add(ModelRadio);
+            groupBox1.Controls.Add(BrandRadio);
             groupBox1.Controls.Add(statusStripSc);
             groupBox1.Controls.Add(ProgressBarSc);
             groupBox1.Controls.Add(ScrapBtn);
@@ -69,9 +76,42 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Search (names, brands, description)";
             // 
+            // AllRadio
+            // 
+            AllRadio.AutoSize = true;
+            AllRadio.Location = new Point(359, 29);
+            AllRadio.Name = "AllRadio";
+            AllRadio.Size = new Size(39, 19);
+            AllRadio.TabIndex = 8;
+            AllRadio.TabStop = true;
+            AllRadio.Text = "All";
+            AllRadio.UseVisualStyleBackColor = true;
+            // 
+            // ModelRadio
+            // 
+            ModelRadio.AutoSize = true;
+            ModelRadio.Location = new Point(214, 29);
+            ModelRadio.Name = "ModelRadio";
+            ModelRadio.Size = new Size(59, 19);
+            ModelRadio.TabIndex = 7;
+            ModelRadio.TabStop = true;
+            ModelRadio.Text = "Model";
+            ModelRadio.UseVisualStyleBackColor = true;
+            // 
+            // BrandRadio
+            // 
+            BrandRadio.AutoSize = true;
+            BrandRadio.Location = new Point(96, 29);
+            BrandRadio.Name = "BrandRadio";
+            BrandRadio.Size = new Size(56, 19);
+            BrandRadio.TabIndex = 6;
+            BrandRadio.TabStop = true;
+            BrandRadio.Text = "Brand";
+            BrandRadio.UseVisualStyleBackColor = true;
+            // 
             // statusStripSc
             // 
-            statusStripSc.Items.AddRange(new ToolStripItem[] { tstlChkCon, tstlMessage });
+            statusStripSc.Items.AddRange(new ToolStripItem[] { tstlChkCon, tstlMessage, tstMsg });
             statusStripSc.Location = new Point(3, 115);
             statusStripSc.Name = "statusStripSc";
             statusStripSc.RenderMode = ToolStripRenderMode.ManagerRenderMode;
@@ -92,6 +132,11 @@
             tstlMessage.BorderStyle = Border3DStyle.Raised;
             tstlMessage.Name = "tstlMessage";
             tstlMessage.Size = new Size(4, 17);
+            // 
+            // tstMsg
+            // 
+            tstMsg.Name = "tstMsg";
+            tstMsg.Size = new Size(0, 17);
             // 
             // ProgressBarSc
             // 
@@ -122,6 +167,7 @@
             SearchTextBox.Size = new Size(466, 23);
             SearchTextBox.TabIndex = 3;
             SearchTextBox.Text = "Leave blank to scrap all";
+            SearchTextBox.MouseClick += SearchTextBox_MouseClick;
             SearchTextBox.TextChanged += SearchTextBox_TextChanged;
             SearchTextBox.KeyDown += SearchTextBox_KeyDown;
             SearchTextBox.Leave += SearchTextBox_Leave;
@@ -170,5 +216,9 @@
         private ProgressBar ProgressBarSc;
         private ToolStripStatusLabel tstlChkCon;
         private ToolStripStatusLabel tstlMessage;
+        private RadioButton AllRadio;
+        private RadioButton ModelRadio;
+        private RadioButton BrandRadio;
+        private ToolStripStatusLabel tstMsg;
     }
 }

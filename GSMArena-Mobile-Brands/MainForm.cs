@@ -4,14 +4,21 @@ namespace GSMArena_Mobile_Brands
 {
     public partial class MainForm : Form
     {
+        private ScraperService _scraper;
         string placeHolder = "Leave blank to scrap all";
         public MainForm()
         {
             InitializeComponent();
         }
-        private ScraperService _scraper;
+        private void DGVscrap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DGVHelper.CellContentClick(DGVscrap, e);
+        }
         private async void MainForm_Load(object sender, EventArgs e)
         {
+            KeyPreview = true;
+            AllRadio.Checked = true;
+            DGVscrap.CellContentClick += DGVscrap_CellContentClick;
             tstlMessage.Text = "Checking internet connection...";
 
             bool isConnected = await ChkCon.IsInternetAvailableAsync();
@@ -54,28 +61,22 @@ namespace GSMArena_Mobile_Brands
                 SearchTextBox.ForeColor = Color.DarkGray;
             }
         }
-
+        private List<Phone> _allPhones = [];
         private async void ScrapBtn_Click(object sender, EventArgs e)
         {
-            if (SearchTextBox.Text != placeHolder)
-            { }
-            else
-            { //Scrap everything
-            }
+            // Check internet connectivity
             bool isConnected = await ChkCon.IsInternetAvailableAsync();
-            if (isConnected)
-            {
-                ScrapBtn.Enabled = true; tstlChkCon.Text = "Connected";
-                tstlMessage.Text = "Ready";
-            }
-            else
+            if (!isConnected)
             {
                 ScrapBtn.Enabled = false;
                 tstlChkCon.Text = "No Internet";
                 tstlMessage.Text = "Please check your connection.";
+                return;
             }
-            tstlMessage.Text = "Starting scrape...";
+
             ScrapBtn.Enabled = false;
+            tstlChkCon.Text = "Connected";
+            tstlMessage.Text = "Starting scrape...";
             ProgressBarSc.Style = ProgressBarStyle.Marquee;
 
             var progress = new Progress<string>(msg =>
@@ -83,22 +84,44 @@ namespace GSMArena_Mobile_Brands
                 tstlMessage.Text = msg;
             });
 
-            List<Phone> results = new List<Phone>();
-
             try
             {
-                if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+                //  Determine if we scrape all or search by brand
+                if (string.IsNullOrWhiteSpace(SearchTextBox.Text) || SearchTextBox.Text == placeHolder)
                 {
-                    // Scrape all brands
-                    results = await _scraper.ScrapeAllPhonesAsync(progress);
+                    // Scrape ALL brands (names + phone counts)
+                    var results = await _scraper.GetBrandsAsync(progress);
+
+                    // Store for filtering
+                    _allBrands = results;
+
+                    // Bind to DataGridView with columns + header checkbox
+                    DGVHelper.SetupDataGridViewColumns(DGVscrap);
+                    DGVHelper.BindData(DGVscrap, _allBrands);
+                    // First, disable all editing:
+                    DGVscrap.ReadOnly = false; // Allow selective editing
+
+                    foreach (DataGridViewColumn col in DGVscrap.Columns)
+                    {
+                        // Make all columns ReadOnly
+                        col.ReadOnly = true;
+                    }
+
+                    // Enable editing only for the checkbox column
+                    if (DGVscrap.Columns.Contains("ChkCell"))
+                    {
+                        DGVscrap.Columns["ChkCell"].ReadOnly = false;
+                    }
+                    DGVHelper.AddHeaderCheckBox(DGVscrap, HeaderCheckBox_Clicked);
+
+
+                    tstlMessage.Text = $"Done. {results.Count} brands loaded.";
                 }
                 else
                 {
-                    // Scrape by brand
-                    results = await _scraper.ScrapePhonesByBrandAsync(SearchTextBox.Text.Trim(), progress);
+                    // For now, no single-brand search for brand list
+                    tstlMessage.Text = "Please leave search box blank to load all brands.";
                 }
-
-                DGVscrap.DataSource = results;
             }
             catch (Exception ex)
             {
@@ -108,35 +131,58 @@ namespace GSMArena_Mobile_Brands
             {
                 ProgressBarSc.Style = ProgressBarStyle.Blocks;
                 ScrapBtn.Enabled = true;
-                tstlMessage.Text = $"Done. {results.Count} phones loaded.";
-                _allPhones = results;
-                DGVscrap.DataSource = _allPhones;
-
             }
         }
-        private List<Phone> _allPhones = new List<Phone>();
+        private List<Brand> _allBrands = new List<Brand>();
+        private void HeaderCheckBox_Clicked(object sender, EventArgs e)
+        {
+            DGVHelper.HeaderCheckBox_Clicked(sender, DGVscrap);
+        }
+
         private void ApplySearchFilter()
         {
-            if (_allPhones == null || !_allPhones.Any())
+            if (_allPhones == null || _allPhones.Count == 0)
             {
+                tstMsg.Text = "Scrap first then filter";
                 return;
             }
 
             string filter = SearchTextBox.Text.Trim().ToLower();
 
-            if (string.IsNullOrEmpty(filter))
+            if (string.IsNullOrEmpty(filter) || filter == placeHolder.ToLower())
             {
+                tstMsg.Text = "Specify a filter.";
                 DGVscrap.DataSource = _allPhones;
+                return;
+            }
+
+            List<Phone> filtered;
+
+            if (BrandRadio.Checked)
+            {
+                // Filter only by brand
+                filtered = _allPhones
+                    .Where(p => p.Brand?.ToLower().Contains(filter) ?? false)
+                    .ToList();
+            }
+            else if (ModelRadio.Checked)
+            {
+                // Filter only by model name
+                filtered = _allPhones
+                    .Where(p => p.Model?.ToLower().Contains(filter) ?? false)
+                    .ToList();
             }
             else
             {
-                var filtered = _allPhones
-                    .Where(p => (p.Brand?.ToLower().Contains(filter) ?? false)
-                             || (p.Model?.ToLower().Contains(filter) ?? false))
+                // Default: filter both brand and model
+                filtered = _allPhones
+                    .Where(p =>
+                        (p.Brand?.ToLower().Contains(filter) ?? false) ||
+                        (p.Model?.ToLower().Contains(filter) ?? false))
                     .ToList();
-
-                DGVscrap.DataSource = filtered;
             }
+
+            DGVscrap.DataSource = filtered;
         }
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -146,6 +192,15 @@ namespace GSMArena_Mobile_Brands
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
+
+        private void SearchTextBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            SearchTextBox.SelectAll();
         }
     }
 }
