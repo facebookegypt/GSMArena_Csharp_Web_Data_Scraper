@@ -1,28 +1,30 @@
 using clsGsmar.Models;
 using clsGsmar.Tools;
+
 namespace GSMArena_Mobile_Brands
 {
     public partial class MainForm : Form
     {
         private ScraperService _scraper;
-        string placeHolder = "Leave blank to scrap all";
+        private readonly string placeHolder = "Leave blank to scrap all";
+        private List<Brand> _allBrands = new List<Brand>();
+
         public MainForm()
         {
             InitializeComponent();
         }
-        private void DGVscrap_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DGVHelper.CellContentClick(DGVscrap, e);
-        }
+
+        // Handles form load event
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            KeyPreview = true;
-            AllRadio.Checked = true;
+            KeyPreview = true; // Allows form to capture Esc key globally
+            AllRadio.Checked = true; // Default mode
             DGVscrap.CellContentClick += DGVscrap_CellContentClick;
+
             tstlMessage.Text = "Checking internet connection...";
+            groupBox1.Enabled = false;
 
             bool isConnected = await ChkCon.IsInternetAvailableAsync();
-
             if (isConnected)
             {
                 tstlChkCon.Text = "Connected";
@@ -37,34 +39,11 @@ namespace GSMArena_Mobile_Brands
                 ScrapBtn.Enabled = false;
             }
         }
-        private void SearchTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (SearchTextBox.Text == placeHolder)
-            {
-                SearchTextBox.Clear();
-                SearchTextBox.ForeColor = Color.Black;
-            }
-        }
-        private void SearchTextBox_Leave(object sender, EventArgs e)
-        {
-            if (SearchTextBox.Text == placeHolder)
-            {
-                SearchTextBox.ForeColor = Color.DarkGray;
-            }
-            else
-            {
-                SearchTextBox.ForeColor = Color.Black;
-            }
-            if (string.IsNullOrEmpty(SearchTextBox.Text))
-            {
-                SearchTextBox.Text = placeHolder;
-                SearchTextBox.ForeColor = Color.DarkGray;
-            }
-        }
-        private List<Phone> _allPhones = [];
+
+        // Click event for the Scrape button
         private async void ScrapBtn_Click(object sender, EventArgs e)
         {
-            // Check internet connectivity
+            // Check internet before starting
             bool isConnected = await ChkCon.IsInternetAvailableAsync();
             if (!isConnected)
             {
@@ -86,42 +65,25 @@ namespace GSMArena_Mobile_Brands
 
             try
             {
-                //  Determine if we scrape all or search by brand
-                if (string.IsNullOrWhiteSpace(SearchTextBox.Text) || SearchTextBox.Text == placeHolder)
-                {
-                    // Scrape ALL brands (names + phone counts)
-                    var results = await _scraper.GetBrandsAsync(progress);
+                // Get all brands with counts
+                var results = await _scraper.GetBrandsAsync(progress);
+                _allBrands = results;
 
-                    // Store for filtering
-                    _allBrands = results;
+                // Setup and bind DataGridView
+                DGVHelper.SetupDataGridViewColumns(DGVscrap);
+                DGVHelper.BindData(DGVscrap, _allBrands);
 
-                    // Bind to DataGridView with columns + header checkbox
-                    DGVHelper.SetupDataGridViewColumns(DGVscrap);
-                    DGVHelper.BindData(DGVscrap, _allBrands);
-                    // First, disable all editing:
-                    DGVscrap.ReadOnly = false; // Allow selective editing
+                // Make all columns readonly except for the checkbox column
+                DGVscrap.ReadOnly = false;
+                foreach (DataGridViewColumn col in DGVscrap.Columns)
+                    col.ReadOnly = true;
 
-                    foreach (DataGridViewColumn col in DGVscrap.Columns)
-                    {
-                        // Make all columns ReadOnly
-                        col.ReadOnly = true;
-                    }
+                if (DGVscrap.Columns.Contains("ChkCell"))
+                    DGVscrap.Columns["ChkCell"].ReadOnly = false;
 
-                    // Enable editing only for the checkbox column
-                    if (DGVscrap.Columns.Contains("ChkCell"))
-                    {
-                        DGVscrap.Columns["ChkCell"].ReadOnly = false;
-                    }
-                    DGVHelper.AddHeaderCheckBox(DGVscrap, HeaderCheckBox_Clicked);
+                DGVHelper.AddHeaderCheckBox(DGVscrap, HeaderCheckBox_Clicked);
 
-
-                    tstlMessage.Text = $"Done. {results.Count} brands loaded.";
-                }
-                else
-                {
-                    // For now, no single-brand search for brand list
-                    tstlMessage.Text = "Please leave search box blank to load all brands.";
-                }
+                tstlMessage.Text = $"Done. {results.Count} brands loaded.";
             }
             catch (Exception ex)
             {
@@ -131,79 +93,106 @@ namespace GSMArena_Mobile_Brands
             {
                 ProgressBarSc.Style = ProgressBarStyle.Blocks;
                 ScrapBtn.Enabled = true;
+                groupBox1.Enabled = true;
             }
         }
-        private List<Brand> _allBrands = new List<Brand>();
+
+        // Live filtering by brand name as user types
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (DGVscrap.Rows.Count == 0)
+                return;
+
+            string filter = SearchTextBox.Text.Trim().ToLower();
+
+            foreach (DataGridViewRow row in DGVscrap.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (AllRadio.Checked)
+                {
+                    row.Visible = true;
+                }
+                else if (BrandRadio.Checked)
+                {
+                    var brandName = row.Cells["BrName"]?.Value?.ToString()?.ToLower() ?? "";
+
+                    if (string.IsNullOrEmpty(filter) || filter == placeHolder.ToLower())
+                    {
+                        row.Visible = true;
+                    }
+                    else
+                    {
+                        row.Visible = brandName.Contains(filter);
+                    }
+                }
+            }
+        }
+
+        // Restore placeholder styling when leaving Search box
+        private void SearchTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(SearchTextBox.Text) || SearchTextBox.Text == placeHolder)
+            {
+                SearchTextBox.Text = placeHolder;
+                SearchTextBox.ForeColor = Color.DarkGray;
+            }
+            else
+            {
+                SearchTextBox.ForeColor = Color.Black;
+            }
+        }
+
+        // Select-all header checkbox click
         private void HeaderCheckBox_Clicked(object sender, EventArgs e)
         {
             DGVHelper.HeaderCheckBox_Clicked(sender, DGVscrap);
         }
 
-        private void ApplySearchFilter()
+        // Cell checkbox click
+        private void DGVscrap_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (_allPhones == null || _allPhones.Count == 0)
-            {
-                tstMsg.Text = "Scrap first then filter";
-                return;
-            }
-
-            string filter = SearchTextBox.Text.Trim().ToLower();
-
-            if (string.IsNullOrEmpty(filter) || filter == placeHolder.ToLower())
-            {
-                tstMsg.Text = "Specify a filter.";
-                DGVscrap.DataSource = _allPhones;
-                return;
-            }
-
-            List<Phone> filtered;
-
-            if (BrandRadio.Checked)
-            {
-                // Filter only by brand
-                filtered = _allPhones
-                    .Where(p => p.Brand?.ToLower().Contains(filter) ?? false)
-                    .ToList();
-            }
-            else if (ModelRadio.Checked)
-            {
-                // Filter only by model name
-                filtered = _allPhones
-                    .Where(p => p.Model?.ToLower().Contains(filter) ?? false)
-                    .ToList();
-            }
-            else
-            {
-                // Default: filter both brand and model
-                filtered = _allPhones
-                    .Where(p =>
-                        (p.Brand?.ToLower().Contains(filter) ?? false) ||
-                        (p.Model?.ToLower().Contains(filter) ?? false))
-                    .ToList();
-            }
-
-            DGVscrap.DataSource = filtered;
-        }
-        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                ApplySearchFilter();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-            if (e.KeyCode == Keys.Escape)
-            {
-                Close();
-            }
+            DGVHelper.CellContentClick(DGVscrap, e);
         }
 
+        // Search box click selects all text for easy replace
         private void SearchTextBox_MouseClick(object sender, MouseEventArgs e)
         {
             SearchTextBox.SelectAll();
         }
+
+        // Radio button: All mode disables filtering
+        private void AllRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AllRadio.Checked)
+            {
+                SearchTextBox.Clear();
+                SearchTextBox.ReadOnly = true;
+
+                // Reset all rows visible
+                foreach (DataGridViewRow row in DGVscrap.Rows)
+                    row.Visible = true;
+            }
+        }
+
+        // Radio button: Brand mode enables filter textbox
+        private void BrandRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BrandRadio.Checked)
+            {
+                SearchTextBox.ReadOnly = false;
+                SearchTextBox.Clear();
+                SearchTextBox.Select();
+            }
+        }
+
+        // Form-level keydown for Esc to close
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }
-    
-    
-    

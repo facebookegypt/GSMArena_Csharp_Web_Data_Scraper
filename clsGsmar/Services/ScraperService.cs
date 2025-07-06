@@ -27,7 +27,50 @@ public class ScraperService
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
     "Mozilla/5.0 (X11; Linux i686; rv:124.0) Gecko/20100101 Firefox/124.0"
 };
-    private async Task<string> TryGetHtmlAsync(string url, IProgress<string> progress = null)
+    //Plan A: No user-agents neither Proxy
+    private bool IsBlockedOrEmpty(string html)
+    {
+        if (string.IsNullOrWhiteSpace(html)) return true;
+
+        html = html.ToLower();
+
+        return html.Contains("enable javascript") ||
+               html.Contains("403 forbidden") ||
+               html.Contains("robot check") ||
+               html.Contains("are you human") ||
+               html.Contains("access denied");
+    }
+
+    private async Task<string> GetHtmlSmartAsync(string url, IProgress<string> progress = null)
+    {
+        var _httpClient = new HttpClient();
+    try
+    {
+        // Try default HttpClient first
+        progress?.Report("Trying direct connection...");
+        var html = await _httpClient.GetStringAsync(url);
+
+        if (!IsBlockedOrEmpty(html))
+        {
+            return html;
+        }
+
+        progress?.Report("Blocked or empty response. Trying fallback...");
+    }
+    catch (HttpRequestException ex)
+    {
+        progress?.Report($"Direct connection failed: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        progress?.Report($"Unexpected error on direct connection: {ex.Message}");
+    }
+
+    // Use fallback with proxies/user-agents
+    return await TryGetHtmlWithFallbackAsync(url, progress);
+}
+
+    private async Task<string> TryGetHtmlWithFallbackAsync(string url, IProgress<string> progress = null)
     {
         foreach (var proxy in _proxies)
         {
@@ -142,7 +185,7 @@ public class ScraperService
 
         try
         {
-            string html = await TryGetHtmlAsync(url, progress);
+            string html = await GetHtmlSmartAsync(url, progress);
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);
 
@@ -205,7 +248,7 @@ public class ScraperService
 
         try
         {
-            var html = await TryGetHtmlAsync(brandUrl, progress);
+            var html = await GetHtmlSmartAsync(brandUrl, progress);
 
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);

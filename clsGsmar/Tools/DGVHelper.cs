@@ -11,11 +11,13 @@ namespace clsGsmar.Tools
 
         public static void SetupDataGridViewColumns(DataGridView dgv)
         {
-        dgv .AllowUserToAddRows = false;
-        dgv .AllowUserToDeleteRows = false;
-            dgv.AllowUserToResizeRows = false;
-           dgv.AllowUserToResizeColumns = true;
-            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        dgv.AllowUserToAddRows = false;
+        dgv.AllowUserToDeleteRows = false;
+        dgv.AllowUserToResizeRows = false;
+        dgv.AllowUserToResizeColumns = true;
+        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        dgv.RowHeadersWidth = 25;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
 
 
