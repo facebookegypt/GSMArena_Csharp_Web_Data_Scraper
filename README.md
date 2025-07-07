@@ -19,6 +19,14 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ![Project Screenshot](https://i.ibb.co/gZj3MzgD/GSMArena-Scraper-Win-Forms-Project.png)
 
+## 📸 Screenshot [WaitForm]
+
+![WaitForm screenshot](https://i.ibb.co/3yJg9h65/GSMArena-Win-Form-Csharp-scraper.png)
+
+## 📸 Screenshot [WaitForm]
+
+![Phone Perview screenshot](https://i.ibb.co/3m1QXqSq/GSMArena-scraper-waitform.png)
+
 ---
 
 ## ⚙️ Steps and Progress
