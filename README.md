@@ -23,13 +23,13 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ## ⚙️ Steps and Progress
 
-*-1️⃣ Initialized repo and set up scraping with console output.
-*-2️⃣ Fetched brand list from GSMArena and parsed brand details.
--3️⃣ Designed WinForms UI with DataGridView.
--4️⃣ Added columns: Brand ID, Brand Name, URL, Phone Count, Select checkbox.
--5️⃣ Implemented Select-All checkbox header.
--6️⃣ Resolved Git conflicts and merged local and remote histories.
--7️⃣ Documented project and progress here for clarity.
+* 1️⃣ Initialized repo and set up scraping with console output.
+* 2️⃣ Fetched brand list from GSMArena and parsed brand details.
+* 3️⃣ Designed WinForms UI with DataGridView.
+* 4️⃣ Added columns: Brand ID, Brand Name, URL, Phone Count, Select checkbox.
+* 5️⃣ Implemented Select-All checkbox header.
+* 6️⃣ Resolved Git conflicts and merged local and remote histories.
+* 7️⃣ Documented project and progress here for clarity.
 
 ---
 
@@ -42,10 +42,10 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ## 💼 Hire Me
 
-✅ Over 10 years of .NET experience
-✅ WinForms, WPF, ASP.NET, Web APIs
-✅ Database integration (MS Access, SQL Server, MySQL)
-✅ Clean architecture and maintainability
+* ✅ Over 10 years of .NET experience
+* ✅ WinForms, WPF, ASP.NET, Web APIs
+* ✅ Database integration (MS Access, SQL Server, MySQL)
+* ✅ Clean architecture and maintainability
 
 👉 [Hire Me on Upwork](https://www.upwork.com/freelancers/~012da5549a3c293425)
 
