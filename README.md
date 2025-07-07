@@ -1,6 +1,7 @@
 # 📱 GSMArena-Mobile-Brands
 
 Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile brand data from GSMArena with a C# WinForms desktop application. We progressively built this by first scraping brands in console mode, then designing a WinForms UI with a DataGridView to show brand IDs, names, URLs, phone counts, and a Select-All checkbox column.
+
 ![image](https://i.ibb.co/Z6frQLgH/web-data-scraping-service-GSMArena-csharp-vs2022.png)
 ---
 
@@ -22,13 +23,13 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ## ⚙️ Steps and Progress
 
-1️⃣ Initialized repo and set up scraping with console output.
-2️⃣ Fetched brand list from GSMArena and parsed brand details.
-3️⃣ Designed WinForms UI with DataGridView.
-4️⃣ Added columns: Brand ID, Brand Name, URL, Phone Count, Select checkbox.
-5️⃣ Implemented Select-All checkbox header.
-6️⃣ Resolved Git conflicts and merged local and remote histories.
-7️⃣ Documented project and progress here for clarity.
+-1️⃣ Initialized repo and set up scraping with console output.
+-2️⃣ Fetched brand list from GSMArena and parsed brand details.
+-3️⃣ Designed WinForms UI with DataGridView.
+-4️⃣ Added columns: Brand ID, Brand Name, URL, Phone Count, Select checkbox.
+-5️⃣ Implemented Select-All checkbox header.
+-6️⃣ Resolved Git conflicts and merged local and remote histories.
+-7️⃣ Documented project and progress here for clarity.
 
 ---
 
