@@ -1,60 +1,50 @@
 # 📱 GSMArena-Mobile-Brands
 
-Welcome to **GSMArena-Mobile-Brands**! This project is a simple yet practical example of web scraping in .NET / C#. It fetches and lists mobile phone brands directly from the GSMArena website. Perfect for learning or prototyping scraping workflows.
-
----
-# 🧮 Scraped phones count today July 05, 2025
-
-* Brands: **125**
-* Phones: **4330** phones
----
-
-## 📸 Screenshot
-
-![Project Screenshot](https://i.ibb.co/35wSjwnB/gsmarena-offline-app-win-desktop.png)
-
+Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile brand data from GSMArena with a C# WinForms desktop application. We progressively built this by first scraping brands in console mode, then designing a WinForms UI with a DataGridView to show brand IDs, names, URLs, phone counts, and a Select-All checkbox column.
+![image](https://i.ibb.co/Z6frQLgH/web-data-scraping-service-GSMArena-csharp-vs2022.png)
 ---
 
 ## 🚀 Features
 
 * Scrapes GSMArena mobile brand list
+* Parses brand IDs, names, URLs, and phone counts
+* Displays results in a WinForms DataGridView with a Select-All feature
 * Clean, easy-to-read C# code
-* Simple console-based design for easy testing
-* Ready for extension to scrape models, specs, and images
+* Prepares for next steps (scraping selected brand phones)
 
 ---
 
-## ⚙️ How to Use
+## 📸 Screenshot
 
-1. **Clone this repository**:
+![Project Screenshot](https://i.ibb.co/gZj3MzgD/GSMArena-Scraper-Win-Forms-Project.png)
 
-   ```bash
-   git clone https://github.com/facebookegypt/GSMArena-Mobile-Brands.git
-   ```
+---
 
-2. **Open in Visual Studio or any .NET IDE**
+## ⚙️ Steps and Progress
 
-3. **Restore NuGet packages if needed**
-
-4. **Build and run** the project
-
-5. **Check the console output** for the scraped brand list
+1️⃣ Initialized repo and set up scraping with console output.
+2️⃣ Fetched brand list from GSMArena and parsed brand details.
+3️⃣ Designed WinForms UI with DataGridView.
+4️⃣ Added columns: Brand ID, Brand Name, URL, Phone Count, Select checkbox.
+5️⃣ Implemented Select-All checkbox header.
+6️⃣ Resolved Git conflicts and merged local and remote histories.
+7️⃣ Documented project and progress here for clarity.
 
 ---
 
 ## 📰 Related Resources
 
 📌 Learn more about .NET development, ADO.NET, MS Access integration, and practical tutorials on my blog:
-
 👉 [ADO.NET Access 2003 Blog](https://adonetaccess2003.blogspot.com)
 
 ---
 
 ## 💼 Hire Me
 
-Looking for an experienced .NET developer who delivers quality and clear code?
-
-✅ Over 10 years of experience with .NET Framework and .NET Core ✅ WinForms, WPF, Web APIs, ASP.NET ✅ Database integration (MS Access, SQL Server, MySQL) ✅ Focus on clean architecture and maintainability
+✅ Over 10 years of .NET experience
+✅ WinForms, WPF, ASP.NET, Web APIs
+✅ Database integration (MS Access, SQL Server, MySQL)
+✅ Clean architecture and maintainability
 
 👉 [Hire Me on Upwork](https://www.upwork.com/freelancers/~012da5549a3c293425)
 
@@ -62,13 +52,12 @@ Looking for an experienced .NET developer who delivers quality and clear code?
 
 ## ❓ Questions or Need Help?
 
-I love helping fellow developers! Feel free to:
-
 * Open an [Issue](https://github.com/facebookegypt/GSMArena-Mobile-Brands/issues) on GitHub
-* Reach out via [Stack Overflow](https://stackoverflow.com/users/mylogins/12179259) for technical questions
+* Ask via [Stack Overflow](https://stackoverflow.com/users/12179259/evry1falls)
+* Comment via [Blogger Post](https://adonetaccess2003.blogspot.com/2025/07/gsmarena-scraper-csharp-winforms-net.html)
 
 ---
 
 ## 📜 License
-
+MIT License
 Free for educational and personal use. Contributions and forks are welcome!
