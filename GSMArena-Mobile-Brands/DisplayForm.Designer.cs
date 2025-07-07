@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TreeNode treeNode1 = new TreeNode("Models / Phones");
+            TreeNode treeNode2 = new TreeNode("Models / Phones");
             TRVmodels = new TreeView();
             groupBox1 = new GroupBox();
-            pictureBox1 = new PictureBox();
+            Phon_Img = new PictureBox();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Phon_Img).BeginInit();
             SuspendLayout();
             // 
             // TRVmodels
@@ -44,10 +44,10 @@
             TRVmodels.FullRowSelect = true;
             TRVmodels.Location = new Point(0, 0);
             TRVmodels.Name = "TRVmodels";
-            treeNode1.Name = "Node0";
-            treeNode1.NodeFont = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            treeNode1.Text = "Models / Phones";
-            TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeNode2.Name = "Node0";
+            treeNode2.NodeFont = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            treeNode2.Text = "Models / Phones";
+            TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode2 });
             TRVmodels.ShowNodeToolTips = true;
             TRVmodels.Size = new Size(179, 450);
             TRVmodels.TabIndex = 0;
@@ -57,7 +57,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(pictureBox1);
+            groupBox1.Controls.Add(Phon_Img);
             groupBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.Brown;
             groupBox1.Location = new Point(185, 0);
@@ -67,15 +67,16 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Details";
             // 
-            // pictureBox1
+            // Phon_Img
             // 
-            pictureBox1.Dock = DockStyle.Left;
-            pictureBox1.Location = new Point(3, 29);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(117, 184);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
+            Phon_Img.Dock = DockStyle.Left;
+            Phon_Img.Location = new Point(3, 29);
+            Phon_Img.Name = "Phon_Img";
+            Phon_Img.Size = new Size(117, 184);
+            Phon_Img.SizeMode = PictureBoxSizeMode.Zoom;
+            Phon_Img.TabIndex = 3;
+            Phon_Img.TabStop = false;
+            Phon_Img.MouseEnter += pictureBox1_MouseEnter;
             // 
             // DisplayForm
             // 
@@ -90,7 +91,7 @@
             Load += DisplayForm_Load;
             KeyDown += DisplayForm_KeyDown;
             groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Phon_Img).EndInit();
             ResumeLayout(false);
         }
 
@@ -98,6 +99,6 @@
 
         private TreeView TRVmodels;
         private GroupBox groupBox1;
-        private PictureBox pictureBox1;
+        private PictureBox Phon_Img;
     }
 }

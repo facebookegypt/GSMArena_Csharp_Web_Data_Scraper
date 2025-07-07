@@ -143,7 +143,7 @@
             TstGet.Size = new Size(158, 36);
             TstGet.Text = "Scrap Selected Brands";
             TstGet.TextAlign = ContentAlignment.MiddleLeft;
-            TstGet.Click += TstGet_ClickAsync;
+            TstGet.Click += TstGet_Click;
             TstGet.MouseDown += TstGet_MouseDown;
             TstGet.MouseEnter += TstGet_MouseEnter;
             TstGet.MouseLeave += TstGet_MouseLeave;

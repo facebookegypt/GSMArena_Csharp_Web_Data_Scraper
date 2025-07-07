@@ -68,7 +68,7 @@ namespace GSMArena_Mobile_Brands
         {
             try
             {
-                pictureBox1.Image = null; // Clear old image
+                Phon_Img.Image = null; // Clear old image
 
                 if (string.IsNullOrWhiteSpace(url))
                     return;
@@ -78,14 +78,14 @@ namespace GSMArena_Mobile_Brands
                     var bytes = await client.GetByteArrayAsync(url);
                     using (var ms = new MemoryStream(bytes))
                     {
-                        pictureBox1.Image = Image.FromStream(ms);
+                        Phon_Img.Image = Image.FromStream(ms);
                     }
                 }
             }
             catch
             {
                 // Optional: fallback image or error handling
-                pictureBox1.Image = Properties.Resources.ImageNotFound;
+                Phon_Img.Image = Properties.Resources.ImageNotFound;
             }
         }
 
@@ -125,6 +125,18 @@ namespace GSMArena_Mobile_Brands
             if (e.KeyCode == Keys.Escape)
             {
                 this.Dispose();
+            }
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            if (Phon_Img.Image != null || TRVmodels.SelectedNode == null)
+            {
+                Form frmPicPrev = new Form();
+                frmPicPrev.Size = Phon_Img.Size * 4;
+                frmPicPrev.BackgroundImage = Phon_Img.Image;
+                frmPicPrev.BackgroundImageLayout = ImageLayout.Zoom;
+                frmPicPrev.ShowDialog();
             }
         }
     }

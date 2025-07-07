@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UI-Class\**" />
+    <EmbeddedResource Remove="UI-Class\**" />
+    <None Remove="UI-Class\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\clsGsmar\clsGsmar.csproj" />
   </ItemGroup>
 

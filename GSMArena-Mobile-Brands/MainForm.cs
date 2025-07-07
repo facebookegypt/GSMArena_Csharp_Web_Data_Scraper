@@ -1,5 +1,6 @@
 using clsGsmar.Models;
 using clsGsmar.Tools;
+using GSMArena_Mobile_Brands.Properties;
 using static System.Windows.Forms.AxHost;
 
 namespace GSMArena_Mobile_Brands
@@ -10,6 +11,7 @@ namespace GSMArena_Mobile_Brands
         private readonly string placeHolder = "Leave blank to scrap all";
         private readonly string TstGetplaceHolder = "Scrap Selected Brands";
         private List<Brand> _allBrands = new List<Brand>();
+        private Image _loadingGif;
 
         public MainForm()
         {
@@ -44,10 +46,10 @@ namespace GSMArena_Mobile_Brands
             KeyPreview = true; // Allows form to capture Esc key globally
             AllRadio.Checked = true; // Default mode
             DGVscrap.CellContentClick += DGVscrap_CellContentClick;
-
+            
             tstlMessage.Text = "Checking internet connection...";
             groupBox1.Enabled = false;
-
+            _loadingGif = Resources.loading;
             bool isConnected = await ChkCon.IsInternetAvailableAsync();
             if (isConnected)
             {
@@ -286,20 +288,85 @@ namespace GSMArena_Mobile_Brands
                 TstGet.Text = $"{TstGetplaceHolder} ({joined})";
             }
         }
+        private async Task<Dictionary<string, List<Phone>>> FetchWithWaitAsync(List<Brand> selectedBrands)
+        {
+            // Create the wait form
+            var waitForm = new WaitForm(this);
+            waitForm.Setup("Fetching selected brands...", _loadingGif);
+            waitForm.StartPosition = FormStartPosition.CenterParent;
 
-        private async void TstGet_ClickAsync(object sender, EventArgs e)
+            // Show the wait form modelessly on the UI thread
+            waitForm.Show();
+
+            try
+            {
+                // Start scraping in background
+                var results = await Task.Run(() => _scraper.ScrapeSelectedBrandsAsync(selectedBrands));
+
+                return results;
+            }
+            finally
+            {
+                // Ensure the wait form closes on the UI thread
+                if (waitForm.InvokeRequired)
+                    waitForm.Invoke(new Action(() => waitForm.Close()));
+                else
+                    waitForm.Close();
+            }
+        }
+
+        private async void TstGet_Click(object sender, EventArgs e)
         {
             try
             {
+                // Disable controls
+                ScrapBtn.Enabled = false;
+                DGVscrap.Enabled = false;
+                TstGet.Enabled = false;
+
+                // Get selected brands
                 var selectedBrands = GetCheckedBrands();
-                var results = await _scraper.ScrapeSelectedBrandsAsync(selectedBrands);
-                var displayForm = new DisplayForm(results);
-                displayForm.ShowDialog();
+                if (selectedBrands.Count == 0)
+                {
+                    MessageBox.Show("Please select at least one brand.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Start WaitForm (modeless)
+                var waitForm = new WaitForm(this);
+                waitForm.Show(this);
+
+                // Actually do the scraping in background
+                Dictionary<string, List<Phone>> results = null;
+                await Task.Run(async () =>
+                {
+                    results = await _scraper.ScrapeSelectedBrandsAsync(selectedBrands);
+                });
+
+                // Close wait form safely
+                waitForm.Invoke(new Action(() => waitForm.Close()));
+
+                // Show result
+                if (results != null)
+                {
+                    var displayForm = new DisplayForm(results);
+                    displayForm.ShowDialog();
+                }
             }
-            catch (Exception ex) { 
-            tstMsg.Text = ex.Message;
-            Cursor.Current= Cursors.WaitCursor;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                //  Re-enable controls
+                ScrapBtn.Enabled = true;
+                DGVscrap.Enabled = true;
+                TstGet.Enabled = true;
             }
         }
+
+
+
     }
 }
