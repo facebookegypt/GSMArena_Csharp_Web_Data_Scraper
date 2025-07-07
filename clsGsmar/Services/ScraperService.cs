@@ -40,6 +40,92 @@ public class ScraperService
                html.Contains("are you human") ||
                html.Contains("access denied");
     }
+    private int GetTotalPages(string html)
+    {
+        var doc = new HtmlAgilityPack.HtmlDocument();
+        doc.LoadHtml(html);
+
+        var nav = doc.DocumentNode.SelectSingleNode("//div[@class='nav-pages']");
+        if (nav == null) return 1;
+
+        var pageLinks = nav.SelectNodes(".//a");
+        if (pageLinks == null) return 1;
+
+        int maxPage = 1;
+        foreach (var link in pageLinks)
+        {
+            if (int.TryParse(link.InnerText.Trim(), out int num))
+            {
+                if (num > maxPage) maxPage = num;
+            }
+        }
+        return maxPage;
+    }
+
+
+    private string GetPagedUrl(string brandUrl, int page)
+    {
+        if (page == 1)
+            return brandUrl;
+
+        var lastPart = brandUrl.Split('/').LastOrDefault();
+        if (string.IsNullOrEmpty(lastPart)) return brandUrl;
+
+        if (lastPart.EndsWith(".php"))
+            lastPart = lastPart.Replace(".php", "");
+
+        var parts = lastPart.Split('-').ToList();
+        if (parts.Count < 2) return brandUrl;
+
+        var brandId = parts.Last();
+        parts.RemoveAt(parts.Count - 1);
+        var prefix = string.Join("-", parts);
+
+        var baseUrl = brandUrl.Substring(0, brandUrl.LastIndexOf('/'));
+        return $"{baseUrl}/{prefix}-f-{brandId}-0-p{page}.php";
+    }
+
+
+
+
+    private List<Phone> ParsePhonesFromHtml(string html, string brandName)
+    {
+        var phones = new List<Phone>();
+        var doc = new HtmlAgilityPack.HtmlDocument();
+        doc.LoadHtml(html);
+
+        var phoneLinks = doc.DocumentNode.SelectNodes("//div[@class='makers']//ul//li//a");
+        if (phoneLinks != null)
+        {
+            foreach (var link in phoneLinks)
+            {
+                var href = link.GetAttributeValue("href", "");
+                var detailUrl = "https://www.gsmarena.com/" + href;
+
+                var imgNode = link.SelectSingleNode(".//img");
+                var imgUrl = imgNode?.GetAttributeValue("src", "");
+
+                var nameNode = link.SelectSingleNode(".//strong");
+                var modelName = nameNode?.InnerText.Trim() ?? "";
+
+                var specNode = link.SelectSingleNode(".//span");
+                var spec = specNode?.InnerText.Trim() ?? "";
+
+                if (!string.IsNullOrEmpty(modelName))
+                {
+                    phones.Add(new Phone
+                    {
+                        Brand = brandName,
+                        Model = System.Net.WebUtility.HtmlDecode(modelName),
+                        Url = detailUrl,
+                        ImageUrl = imgUrl,
+                        SpecsPreview = spec
+                    });
+                }
+            }
+        }
+        return phones;
+    }
 
     private async Task<string> GetHtmlSmartAsync(string url, IProgress<string> progress = null)
     {
@@ -242,55 +328,78 @@ public class ScraperService
     // Private method to scrape all phones for a given brand page
     private async Task<List<Phone>> GetPhonesForBrandAsync(string brandUrl, string brandName, IProgress<string> progress = null)
     {
-        var phones = new List<Phone>();
+        var allPhones = new List<Phone>();
+        int currentPage = 1;
+        bool morePages = true;
 
-        progress?.Report($"Downloading brand page: {brandName}");
-
-        try
+        while (morePages)
         {
-            var html = await GetHtmlSmartAsync(brandUrl, progress);
+            // Compute paged URL
+            string pageUrl = GetPagedUrl(brandUrl, currentPage);
+            progress?.Report($"Downloading page {currentPage} of {brandName}...");
 
-            var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(html);
-
-            var phoneLinks = doc.DocumentNode.SelectNodes("//div[@class='makers']//ul//li//a");
-
-            if (phoneLinks != null)
+            var html = await GetHtmlSmartAsync(pageUrl, progress);
+            if (string.IsNullOrWhiteSpace(html))
             {
-                foreach (var link in phoneLinks)
-                {
-                    var href = link.GetAttributeValue("href", "");
-                    var detailUrl = "https://www.gsmarena.com/" + href;
-
-                    var imgNode = link.SelectSingleNode(".//img");
-                    var imgUrl = imgNode?.GetAttributeValue("src", "");
-
-                    var nameNode = link.SelectSingleNode(".//strong");
-                    var modelName = nameNode?.InnerText.Trim() ?? "";
-
-                    var specNode = link.SelectSingleNode(".//span");
-                    var spec = specNode?.InnerText.Trim() ?? "";
-
-                    if (!string.IsNullOrEmpty(modelName))
-                    {
-                        phones.Add(new Phone
-                        {
-                            Brand = brandName,
-                            Model = System.Net.WebUtility.HtmlDecode(modelName),
-                            Url = detailUrl,
-                            ImageUrl = imgUrl,
-                            SpecsPreview = spec
-                        });
-                    }
-                }
+                progress?.Report($"No HTML returned for {pageUrl}");
+                break;
             }
-            progress?.Report($"Found {phones.Count} phones for {brandName}.");
-        }
-        catch (Exception ex)
-        {
-            progress?.Report($"Error scraping {brandName}: {ex.Message}");
+
+            // Parse phones from this page
+            var phones = ParsePhonesFromHtml(html, brandName);
+            if (phones.Count == 0)
+            {
+                progress?.Report($"No more phones found on page {currentPage} of {brandName}");
+                break;
+            }
+
+            allPhones.AddRange(phones);
+            currentPage++;
+
+            // Check if this page had a "Next" link
+            morePages = HasNextPage(html, currentPage);
+            await Task.Delay(_random.Next(1200, 3000));
         }
 
-        return phones;
+        progress?.Report($"Finished {brandName}: {allPhones.Count} phones total.");
+        return allPhones;
     }
+    private bool HasNextPage(string html, int currentPage)
+    {
+        var doc = new HtmlAgilityPack.HtmlDocument();
+        doc.LoadHtml(html);
+
+        var nav = doc.DocumentNode.SelectSingleNode("//div[@class='nav-pages']");
+        if (nav == null) return false;
+
+        var links = nav.SelectNodes(".//a");
+        if (links == null) return false;
+
+        // Look for next page link
+        foreach (var link in links)
+        {
+            if (int.TryParse(link.InnerText.Trim(), out int pageNum))
+            {
+                if (pageNum >= currentPage)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+
+    public async Task<Dictionary<string, List<Phone>>> ScrapeSelectedBrandsAsync(List<Brand> selectedBrands, IProgress<string> progress = null)
+    {
+        var result = new Dictionary<string, List<Phone>>();
+
+        foreach (var brand in selectedBrands)
+        {
+            progress?.Report($"Scraping brand: {brand.Name}");
+            var phones = await GetPhonesForBrandAsync(brand.Url, brand.Name, progress);
+            result[brand.Name] = phones;
+        }
+
+        return result;
+    }
+
 }

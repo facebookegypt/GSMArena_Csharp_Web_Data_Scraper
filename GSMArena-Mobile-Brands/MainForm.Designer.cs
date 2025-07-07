@@ -37,12 +37,12 @@
             tstlChkCon = new ToolStripStatusLabel();
             tstlMessage = new ToolStripStatusLabel();
             tstMsg = new ToolStripStatusLabel();
+            TstGet = new ToolStripStatusLabel();
             SearchTextBox = new TextBox();
             LblSearch = new Label();
             groupBox2 = new GroupBox();
             ProgressBarSc = new ProgressBar();
             ScrapBtn = new Button();
-            TstBtn = new ToolStripSplitButton();
             ((System.ComponentModel.ISupportInitialize)DGVscrap).BeginInit();
             groupBox1.SuspendLayout();
             statusStripSc.SuspendLayout();
@@ -101,11 +101,11 @@
             // 
             // statusStripSc
             // 
-            statusStripSc.Items.AddRange(new ToolStripItem[] { tstlChkCon, tstlMessage, tstMsg, TstBtn });
-            statusStripSc.Location = new Point(3, 99);
+            statusStripSc.Items.AddRange(new ToolStripItem[] { tstlChkCon, tstlMessage, tstMsg, TstGet });
+            statusStripSc.Location = new Point(3, 96);
             statusStripSc.Name = "statusStripSc";
             statusStripSc.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            statusStripSc.Size = new Size(498, 38);
+            statusStripSc.Size = new Size(498, 41);
             statusStripSc.TabIndex = 5;
             statusStripSc.Text = "statusStrip1";
             // 
@@ -114,19 +114,40 @@
             tstlChkCon.BorderSides = ToolStripStatusLabelBorderSides.Right;
             tstlChkCon.BorderStyle = Border3DStyle.Raised;
             tstlChkCon.Name = "tstlChkCon";
-            tstlChkCon.Size = new Size(4, 33);
+            tstlChkCon.Size = new Size(4, 36);
             // 
             // tstlMessage
             // 
             tstlMessage.BorderSides = ToolStripStatusLabelBorderSides.Right;
             tstlMessage.BorderStyle = Border3DStyle.Raised;
             tstlMessage.Name = "tstlMessage";
-            tstlMessage.Size = new Size(4, 33);
+            tstlMessage.Size = new Size(4, 36);
             // 
             // tstMsg
             // 
             tstMsg.Name = "tstMsg";
-            tstMsg.Size = new Size(0, 33);
+            tstMsg.Size = new Size(0, 36);
+            // 
+            // TstGet
+            // 
+            TstGet.AutoToolTip = true;
+            TstGet.BorderSides = ToolStripStatusLabelBorderSides.Right;
+            TstGet.BorderStyle = Border3DStyle.Raised;
+            TstGet.Enabled = false;
+            TstGet.ForeColor = Color.Red;
+            TstGet.Image = Properties.Resources.Color_balance;
+            TstGet.ImageScaling = ToolStripItemImageScaling.None;
+            TstGet.ImageTransparentColor = Color.Azure;
+            TstGet.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
+            TstGet.Name = "TstGet";
+            TstGet.Size = new Size(158, 36);
+            TstGet.Text = "Scrap Selected Brands";
+            TstGet.TextAlign = ContentAlignment.MiddleLeft;
+            TstGet.Click += TstGet_ClickAsync;
+            TstGet.MouseDown += TstGet_MouseDown;
+            TstGet.MouseEnter += TstGet_MouseEnter;
+            TstGet.MouseLeave += TstGet_MouseLeave;
+            TstGet.MouseHover += TstGet_MouseHover;
             // 
             // SearchTextBox
             // 
@@ -189,15 +210,6 @@
             ScrapBtn.UseVisualStyleBackColor = true;
             ScrapBtn.Click += ScrapBtn_Click;
             // 
-            // TstBtn
-            // 
-            TstBtn.Image = Properties.Resources.Color_balance;
-            TstBtn.ImageScaling = ToolStripItemImageScaling.None;
-            TstBtn.ImageTransparentColor = Color.Magenta;
-            TstBtn.Name = "TstBtn";
-            TstBtn.Size = new Size(173, 36);
-            TstBtn.Text = "Scrap Selected Brands.";
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -236,6 +248,6 @@
         private GroupBox groupBox2;
         private ProgressBar ProgressBarSc;
         private Button ScrapBtn;
-        private ToolStripSplitButton TstBtn;
+        private ToolStripStatusLabel TstGet;
     }
 }

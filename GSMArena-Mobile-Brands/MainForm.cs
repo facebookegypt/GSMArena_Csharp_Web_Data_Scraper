@@ -1,5 +1,6 @@
 using clsGsmar.Models;
 using clsGsmar.Tools;
+using static System.Windows.Forms.AxHost;
 
 namespace GSMArena_Mobile_Brands
 {
@@ -7,11 +8,34 @@ namespace GSMArena_Mobile_Brands
     {
         private ScraperService _scraper;
         private readonly string placeHolder = "Leave blank to scrap all";
+        private readonly string TstGetplaceHolder = "Scrap Selected Brands";
         private List<Brand> _allBrands = new List<Brand>();
 
         public MainForm()
         {
             InitializeComponent();
+        }
+        private List<Brand> GetCheckedBrands()
+        {
+            var checkedBrands = new List<Brand>();
+
+            foreach (DataGridViewRow row in DGVscrap.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool isChecked = Convert.ToBoolean(row.Cells["ChkCell"].Value);
+                if (isChecked)
+                {
+                    checkedBrands.Add(new Brand
+                    {
+                        Name = row.Cells["BrName"].Value?.ToString(),
+                        Url = row.Cells["BrUrl"].Value?.ToString(),
+                        PhoneCount = int.TryParse(row.Cells["Pcnt"].Value?.ToString(), out var pcnt) ? pcnt : 0
+                    });
+                }
+            }
+
+            return checkedBrands;
         }
 
         // Handles form load event
@@ -72,6 +96,7 @@ namespace GSMArena_Mobile_Brands
                 // Setup and bind DataGridView
                 DGVHelper.SetupDataGridViewColumns(DGVscrap);
                 DGVHelper.BindData(DGVscrap, _allBrands);
+                UpdateTstGetEnabledState();
 
                 // Make all columns readonly except for the checkbox column
                 DGVscrap.ReadOnly = false;
@@ -147,12 +172,15 @@ namespace GSMArena_Mobile_Brands
         private void HeaderCheckBox_Clicked(object sender, EventArgs e)
         {
             DGVHelper.HeaderCheckBox_Clicked(sender, DGVscrap);
+            UpdateTstGetEnabledState();
         }
 
         // Cell checkbox click
         private void DGVscrap_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DGVHelper.CellContentClick(DGVscrap, e);
+            UpdateTstGetEnabledState();
+            UpdateTstGetText();
         }
 
         // Search box click selects all text for easy replace
@@ -192,6 +220,85 @@ namespace GSMArena_Mobile_Brands
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+        private void UpdateTstGetEnabledState()
+        {
+            int checkedCount = 0;
+
+            foreach (DataGridViewRow row in DGVscrap.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["ChkCell"]?.Value) == true)
+                {
+                    checkedCount++;
+                }
+            }
+            TstGet.Enabled = checkedCount > 0;
+        }
+
+        private void TstGet_MouseHover(object sender, EventArgs e)
+        {
+            TstGet.ForeColor = Color.DarkGreen;
+            TstGet.Font = new Font(TstGet.Font, FontStyle.Bold);
+        }
+
+        private void TstGet_MouseDown(object sender, MouseEventArgs e)
+        {
+            TstGet.Font = new Font(TstGet.Font, FontStyle.Bold);
+        }
+
+        private void TstGet_MouseLeave(object sender, EventArgs e)
+        {
+            TstGet.ForeColor = Color.Red;
+            TstGet.Font = new Font(TstGet.Font, FontStyle.Regular);
+        }
+
+        private void TstGet_MouseEnter(object sender, EventArgs e)
+        {
+            TstGet.ForeColor = Color.DarkGreen;
+            TstGet.Font = new Font(TstGet.Font, FontStyle.Bold);
+        }
+        private void UpdateTstGetText()
+        {
+            var selectedBrands = new List<string>();
+
+            foreach (DataGridViewRow row in DGVscrap.Rows)
+            {
+                if (!row.IsNewRow && Convert.ToBoolean(row.Cells["ChkCell"]?.Value) == true)
+                {
+                    string brandName = row.Cells["BrName"]?.Value?.ToString() ?? "";
+                    if (!string.IsNullOrWhiteSpace(brandName))
+                        selectedBrands.Add(brandName);
+                }
+            }
+
+            if (selectedBrands.Count == 0)
+            {
+                TstGet.Text = TstGetplaceHolder;
+            }
+            else if (selectedBrands.Count == DGVscrap.Rows.Count)
+            {
+                TstGet.Text = "Scrap All Brands";
+            }
+            else
+            {
+                string joined = string.Join(", ", selectedBrands);
+                TstGet.Text = $"{TstGetplaceHolder} ({joined})";
+            }
+        }
+
+        private async void TstGet_ClickAsync(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedBrands = GetCheckedBrands();
+                var results = await _scraper.ScrapeSelectedBrandsAsync(selectedBrands);
+                var displayForm = new DisplayForm(results);
+                displayForm.ShowDialog();
+            }
+            catch (Exception ex) { 
+            tstMsg.Text = ex.Message;
+            Cursor.Current= Cursors.WaitCursor;
             }
         }
     }
