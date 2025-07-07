@@ -36,7 +36,7 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 ## 📰 Related Resources
 
 📌 Learn more about .NET development, ADO.NET, MS Access integration, and practical tutorials on my blog:
-👉 [ADO.NET Access 2003 Blog](https://adonetaccess2003.blogspot.com)
+👉 [ADO.NET Access 2003 Blog](https://adonetaccess2003.blogspot.com/2025/07/gsmarena-scraper-csharp-winforms-net.html)
 
 ---
 
