@@ -336,9 +336,9 @@ namespace GSMArena_Mobile_Brands
                 // Start WaitForm (modeless)
                 var waitForm = new WaitForm(this);
                 waitForm.Location = new Point(
-this.Location.X + (this.Width - waitForm.Width) / 2,
-this.Location.Y + (this.Height - waitForm.Height) / 2
-);
+                    this.Location.X + (this.Width - waitForm.Width) / 2,
+                    this.Location.Y + (this.Height - waitForm.Height) / 2
+                    );
                 waitForm.Show(this);
 
                 // Actually do the scraping in background

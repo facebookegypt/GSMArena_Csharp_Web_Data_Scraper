@@ -127,7 +127,7 @@ public class ScraperService
         return phones;
     }
 
-    private async Task<string> GetHtmlSmartAsync(string url, IProgress<string> progress = null)
+    public async Task<string> GetHtmlSmartAsync(string url, IProgress<string> progress = null)
     {
         var _httpClient = new HttpClient();
     try

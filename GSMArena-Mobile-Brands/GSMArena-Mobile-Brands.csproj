@@ -18,7 +18,53 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Hand cart.ico" />
+    <None Remove="Resources\AlfaSlabOne-Regular.ttf" />
+    <None Remove="Resources\AlfaSlabOneRegular.ttf" />
+    <None Remove="Resources\Anton-Regular.ttf" />
+    <None Remove="Resources\AntonRegular.ttf" />
+    <None Remove="Resources\Box.png" />
+    <None Remove="Resources\Color.ico" />
+    <None Remove="Resources\COOPBL.TTF" />
+    <None Remove="Resources\Dial.ico" />
+    <None Remove="Resources\Edit.png" />
+    <None Remove="Resources\ImageNotFound.png" />
+    <None Remove="Resources\library.png" />
+    <None Remove="Resources\link.png" />
+    <None Remove="Resources\loading.gif" />
+    <None Remove="Resources\magnifier.png" />
+    <None Remove="Resources\Pencil.png" />
+    <None Remove="Resources\Roboto-Regular.ttf" />
+    <None Remove="Resources\RobotoRegular.ttf" />
+    <None Remove="Resources\telephone.png" />
+    <None Remove="Resources\TIME IN.png" />
+    <None Remove="Resources\Wizard.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AlfaSlabOneRegular.ttf" />
+    <EmbeddedResource Include="Resources\AntonRegular.ttf" />
+    <EmbeddedResource Include="Resources\COOPBL.TTF" />
+    <EmbeddedResource Include="Resources\Hand cart.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Color.ico" />
+    <EmbeddedResource Include="Resources\Dial.ico" />
+    <EmbeddedResource Include="Resources\Edit.png" />
+    <EmbeddedResource Include="Resources\ImageNotFound.png" />
+    <EmbeddedResource Include="Resources\library.png" />
+    <EmbeddedResource Include="Resources\link.png" />
+    <EmbeddedResource Include="Resources\loading.gif" />
+    <EmbeddedResource Include="Resources\magnifier.png" />
+    <EmbeddedResource Include="Resources\Pencil.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Box.png" />
+    <EmbeddedResource Include="Resources\RobotoRegular.ttf" />
+    <EmbeddedResource Include="Resources\telephone.png" />
+    <EmbeddedResource Include="Resources\TIME IN.png" />
+    <EmbeddedResource Include="Resources\Wizard.png" />
   </ItemGroup>
 
   <ItemGroup>
