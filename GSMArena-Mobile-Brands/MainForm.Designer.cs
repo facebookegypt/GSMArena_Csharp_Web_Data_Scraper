@@ -36,7 +36,6 @@
             statusStripSc = new StatusStrip();
             tstlChkCon = new ToolStripStatusLabel();
             tstlMessage = new ToolStripStatusLabel();
-            tstMsg = new ToolStripStatusLabel();
             TstGet = new ToolStripStatusLabel();
             SearchTextBox = new TextBox();
             LblSearch = new Label();
@@ -54,15 +53,18 @@
             DGVscrap.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DGVscrap.BackgroundColor = Color.Azure;
             DGVscrap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DGVscrap.Location = new Point(12, 158);
+            DGVscrap.Location = new Point(12, 197);
             DGVscrap.Name = "DGVscrap";
-            DGVscrap.Size = new Size(776, 416);
+            DGVscrap.Size = new Size(776, 377);
             DGVscrap.TabIndex = 0;
             // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.AutoSize = true;
             groupBox1.BackColor = Color.Azure;
+            groupBox1.BackgroundImage = Properties.Resources.ImageNotFound;
+            groupBox1.BackgroundImageLayout = ImageLayout.Zoom;
             groupBox1.Controls.Add(AllRadio);
             groupBox1.Controls.Add(BrandRadio);
             groupBox1.Controls.Add(statusStripSc);
@@ -70,10 +72,11 @@
             groupBox1.Controls.Add(LblSearch);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(504, 140);
+            groupBox1.Size = new Size(504, 179);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Search brnads by name";
+            groupBox1.UseCompatibleTextRendering = true;
             // 
             // AllRadio
             // 
@@ -90,22 +93,24 @@
             // BrandRadio
             // 
             BrandRadio.AutoSize = true;
+            BrandRadio.BackColor = Color.Transparent;
             BrandRadio.Location = new Point(96, 29);
             BrandRadio.Name = "BrandRadio";
             BrandRadio.Size = new Size(195, 19);
             BrandRadio.TabIndex = 6;
             BrandRadio.TabStop = true;
             BrandRadio.Text = "Brand [i.e Acer, Samsung,....,etc]";
-            BrandRadio.UseVisualStyleBackColor = true;
+            BrandRadio.UseVisualStyleBackColor = false;
             BrandRadio.CheckedChanged += BrandRadio_CheckedChanged;
             // 
             // statusStripSc
             // 
-            statusStripSc.Items.AddRange(new ToolStripItem[] { tstlChkCon, tstlMessage, tstMsg, TstGet });
-            statusStripSc.Location = new Point(3, 96);
+            statusStripSc.BackColor = Color.Transparent;
+            statusStripSc.Items.AddRange(new ToolStripItem[] { tstlChkCon, tstlMessage, TstGet });
+            statusStripSc.Location = new Point(3, 151);
             statusStripSc.Name = "statusStripSc";
             statusStripSc.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            statusStripSc.Size = new Size(498, 41);
+            statusStripSc.Size = new Size(498, 25);
             statusStripSc.TabIndex = 5;
             statusStripSc.Text = "statusStrip1";
             // 
@@ -113,20 +118,21 @@
             // 
             tstlChkCon.BorderSides = ToolStripStatusLabelBorderSides.Right;
             tstlChkCon.BorderStyle = Border3DStyle.Raised;
+            tstlChkCon.Image = Properties.Resources.link;
+            tstlChkCon.ImageAlign = ContentAlignment.MiddleLeft;
+            tstlChkCon.ImageScaling = ToolStripItemImageScaling.None;
             tstlChkCon.Name = "tstlChkCon";
-            tstlChkCon.Size = new Size(4, 36);
+            tstlChkCon.Size = new Size(20, 20);
             // 
             // tstlMessage
             // 
             tstlMessage.BorderSides = ToolStripStatusLabelBorderSides.Right;
             tstlMessage.BorderStyle = Border3DStyle.Raised;
+            tstlMessage.Image = Properties.Resources.library;
+            tstlMessage.ImageAlign = ContentAlignment.MiddleLeft;
+            tstlMessage.ImageScaling = ToolStripItemImageScaling.None;
             tstlMessage.Name = "tstlMessage";
-            tstlMessage.Size = new Size(4, 36);
-            // 
-            // tstMsg
-            // 
-            tstMsg.Name = "tstMsg";
-            tstMsg.Size = new Size(0, 36);
+            tstlMessage.Size = new Size(20, 20);
             // 
             // TstGet
             // 
@@ -135,12 +141,13 @@
             TstGet.BorderStyle = Border3DStyle.Raised;
             TstGet.Enabled = false;
             TstGet.ForeColor = Color.Red;
-            TstGet.Image = Properties.Resources.Color_balance;
+            TstGet.Image = Properties.Resources.Pencil;
+            TstGet.ImageAlign = ContentAlignment.MiddleLeft;
             TstGet.ImageScaling = ToolStripItemImageScaling.None;
             TstGet.ImageTransparentColor = Color.Azure;
             TstGet.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
             TstGet.Name = "TstGet";
-            TstGet.Size = new Size(158, 36);
+            TstGet.Size = new Size(142, 20);
             TstGet.Text = "Scrap Selected Brands";
             TstGet.TextAlign = ContentAlignment.MiddleLeft;
             TstGet.Click += TstGet_Click;
@@ -183,7 +190,7 @@
             groupBox2.Controls.Add(ScrapBtn);
             groupBox2.Location = new Point(522, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(266, 140);
+            groupBox2.Size = new Size(266, 179);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Scrap All Brands";
@@ -191,7 +198,7 @@
             // ProgressBarSc
             // 
             ProgressBarSc.Dock = DockStyle.Bottom;
-            ProgressBarSc.Location = new Point(3, 114);
+            ProgressBarSc.Location = new Point(3, 153);
             ProgressBarSc.Name = "ProgressBarSc";
             ProgressBarSc.Size = new Size(260, 23);
             ProgressBarSc.TabIndex = 6;
@@ -199,15 +206,18 @@
             // ScrapBtn
             // 
             ScrapBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ScrapBtn.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ScrapBtn.Image = Properties.Resources.Edit;
+            ScrapBtn.BackColor = Color.Transparent;
+            ScrapBtn.BackgroundImage = Properties.Resources.TIME_IN;
+            ScrapBtn.BackgroundImageLayout = ImageLayout.Zoom;
+            ScrapBtn.Font = new Font("Times New Roman", 33.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ScrapBtn.ForeColor = Color.Black;
             ScrapBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            ScrapBtn.Location = new Point(6, 31);
+            ScrapBtn.Location = new Point(3, 22);
             ScrapBtn.Name = "ScrapBtn";
-            ScrapBtn.Size = new Size(254, 57);
+            ScrapBtn.Size = new Size(257, 122);
             ScrapBtn.TabIndex = 5;
             ScrapBtn.Text = "Scrap it All!";
-            ScrapBtn.UseVisualStyleBackColor = true;
+            ScrapBtn.UseVisualStyleBackColor = false;
             ScrapBtn.Click += ScrapBtn_Click;
             // 
             // MainForm
@@ -231,6 +241,7 @@
             statusStripSc.PerformLayout();
             groupBox2.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -244,7 +255,6 @@
         private ToolStripStatusLabel tstlMessage;
         private RadioButton AllRadio;
         private RadioButton BrandRadio;
-        private ToolStripStatusLabel tstMsg;
         private GroupBox groupBox2;
         private ProgressBar ProgressBarSc;
         private Button ScrapBtn;

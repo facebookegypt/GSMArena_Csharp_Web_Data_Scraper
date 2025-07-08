@@ -63,10 +63,30 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Color_balance {
+        internal static System.Drawing.Bitmap BrandIcon {
             get {
-                object obj = ResourceManager.GetObject("Color balance", resourceCulture);
+                object obj = ResourceManager.GetObject("BrandIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Color {
+            get {
+                object obj = ResourceManager.GetObject("Color", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Dial {
+            get {
+                object obj = ResourceManager.GetObject("Dial", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -81,11 +101,41 @@ namespace GSMArena_Mobile_Brands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Hand_cart {
+            get {
+                object obj = ResourceManager.GetObject("Hand cart", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ImageNotFound {
             get {
                 object obj = ResourceManager.GetObject("ImageNotFound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap library {
+            get {
+                object obj = ResourceManager.GetObject("library", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap link {
+            get {
+                object obj = ResourceManager.GetObject("link", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +163,29 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap reports1 {
+        internal static System.Drawing.Bitmap Pencil {
             get {
-                object obj = ResourceManager.GetObject("reports1", resourceCulture);
+                object obj = ResourceManager.GetObject("Pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RootIcon {
+            get {
+                object obj = ResourceManager.GetObject("RootIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TIME_IN {
+            get {
+                object obj = ResourceManager.GetObject("TIME IN", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

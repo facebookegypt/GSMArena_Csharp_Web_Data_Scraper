@@ -7,43 +7,51 @@ namespace GSMArena_Mobile_Brands
 {
     public partial class DisplayForm : Form
     {
-        private Dictionary<string, List<Phone>> _brandPhones;
+        private Image _rootImage = Properties.Resources.RootIcon;
+        private Image _brandImage = Properties.Resources.BrandIcon;
 
-        public DisplayForm(Dictionary<string, List<Phone>> brandPhones)
+        private Dictionary<string, List<Phone>> _brandPhones;
+        public DisplayForm(Dictionary<string, List<Phone>> scrapedData)
         {
             InitializeComponent();
-            _brandPhones = brandPhones ?? new Dictionary<string, List<Phone>>();
-            PopulateTreeView();
+            //_brandPhones = brandPhones ?? new Dictionary<string, List<Phone>>();
+            PopulateTreeView(scrapedData);
         }
 
-        /// <summary>
-        /// Populates the TreeView with brand -> phones hierarchy.
-        /// </summary>
-        private void PopulateTreeView()
+        public void PopulateTreeView(Dictionary<string, List<Phone>> scrapedData)
         {
             TRVmodels.Nodes.Clear();
+            TRVmodels.ImageList = TRVimglst;
+            // Root
+            TreeNode rootNode = new TreeNode("Models / Phones",0,0);
 
-            // Add Root Node
-            TreeNode rootNode = TRVmodels.Nodes.Add("Models / Phones");
-
-            foreach (var kvp in _brandPhones)
+            foreach (var kvp in scrapedData)
             {
                 string brandName = kvp.Key;
-                var phones = kvp.Value;
+                List<Phone> phones = kvp.Value;
 
-                // Add Brand Node
-                TreeNode brandNode = rootNode.Nodes.Add(brandName);
+                // Brand
+                TreeNode brandNode = new TreeNode($"{brandName} ({phones.Count})",1,1);
 
-                // Add Phones under this Brand
+                // Numbered Phones (no image)
+                int counter = 1;
                 foreach (var phone in phones)
                 {
-                    TreeNode phoneNode = brandNode.Nodes.Add(phone.Model);
-                    phoneNode.Tag = phone; // Store phone object for later
+                    TreeNode phoneNode = new TreeNode($"{counter}. {phone.Model}",2,2)
+                    {
+                        Tag = phone
+                    };
+                    brandNode.Nodes.Add(phoneNode);
+                    counter++;
                 }
+
+                rootNode.Nodes.Add(brandNode);
             }
 
+            TRVmodels.Nodes.Add(rootNode);
             TRVmodels.ExpandAll();
         }
+
 
         /// <summary>
         /// Optional: Handle selection to show details.

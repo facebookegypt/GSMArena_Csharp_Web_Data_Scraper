@@ -50,6 +50,7 @@ namespace GSMArena_Mobile_Brands
             tstlMessage.Text = "Checking internet connection...";
             groupBox1.Enabled = false;
             _loadingGif = Resources.loading;
+            ScrapBtn.Enabled = false;
             bool isConnected = await ChkCon.IsInternetAvailableAsync();
             if (isConnected)
             {
@@ -334,6 +335,10 @@ namespace GSMArena_Mobile_Brands
 
                 // Start WaitForm (modeless)
                 var waitForm = new WaitForm(this);
+                waitForm.Location = new Point(
+this.Location.X + (this.Width - waitForm.Width) / 2,
+this.Location.Y + (this.Height - waitForm.Height) / 2
+);
                 waitForm.Show(this);
 
                 // Actually do the scraping in background

@@ -11,7 +11,7 @@ namespace GSMArena_Mobile_Brands
             InitializeComponent();
 
             this.FormBorderStyle = FormBorderStyle.None;
-            this.StartPosition = FormStartPosition.CenterParent;
+            this.StartPosition = FormStartPosition.Manual;
             this.ControlBox = false;
             this.ShowInTaskbar = false;
             this.TopMost = true;
@@ -19,7 +19,7 @@ namespace GSMArena_Mobile_Brands
             if (owner != null)
             {
                 this.Owner = owner;
-                this.StartPosition = FormStartPosition.CenterParent;
+                this.StartPosition = FormStartPosition.Manual;
             }
 
             lblMessage.Text = message;
@@ -33,6 +33,11 @@ namespace GSMArena_Mobile_Brands
         {
             // Optionally force focus
             this.BringToFront();
+        }
+
+        private void WaitForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.BringToFront();
         }
     }
 }
