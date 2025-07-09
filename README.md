@@ -27,12 +27,11 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ![Phone Perview screenshot](https://i.ibb.co/3m1QXqSq/GSMArena-scraper-waitform.png)
 
----
 
 ## Video - Phase 1
-![Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)
+[![Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)]
 
---
+---
 
 ## ⚙️ Steps and Progress
 
