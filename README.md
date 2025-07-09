@@ -29,6 +29,11 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ---
 
+## Video - Phase 1
+![Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)
+
+--
+
 ## ⚙️ Steps and Progress
 
 * 1️⃣ Initialized repo and set up scraping with console output.
