@@ -52,6 +52,13 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ---
 
+## 📃 TODO List
+
+1) Export scraped phones CSV, JSON, TXT and SQL file formats.
+2) Export settings Form to set each file format location.
+
+---
+
 ## 💼 Hire Me
 
 * ✅ Over 10 years of .NET experience
