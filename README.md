@@ -29,7 +29,7 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 
 ## Video - Phase 1
-[![Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)]
+[[Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)]
 
 ---
 
@@ -49,6 +49,9 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 📌 Learn more about .NET development, ADO.NET, MS Access integration, and practical tutorials on my blog:
 👉 [ADO.NET Access 2003 Blog](https://adonetaccess2003.blogspot.com/2025/07/gsmarena-scraper-csharp-winforms-net.html)
+
+📺 Youtube video showcase:
+🔗 [url-Part1: ](https://www.youtube.com/watch?v=EqeJDCMOLdo)
 
 ---
 
