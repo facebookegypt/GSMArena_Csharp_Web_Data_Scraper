@@ -27,6 +27,10 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ![Phone Perview screenshot](https://i.ibb.co/3m1QXqSq/GSMArena-scraper-waitform.png)
 
+
+## Video - Phase 1
+[[Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)]
+
 ---
 
 ## ⚙️ Steps and Progress
@@ -45,6 +49,16 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 📌 Learn more about .NET development, ADO.NET, MS Access integration, and practical tutorials on my blog:
 👉 [ADO.NET Access 2003 Blog](https://adonetaccess2003.blogspot.com/2025/07/gsmarena-scraper-csharp-winforms-net.html)
+
+📺 Youtube video showcase:
+🔗 [**url-Part1**](https://www.youtube.com/watch?v=EqeJDCMOLdo)
+
+---
+
+## 📃 TODO List
+
+1) Export scraped phones CSV, JSON, TXT and SQL file formats.
+2) Export settings Form to set each file format location.
 
 ---
 
