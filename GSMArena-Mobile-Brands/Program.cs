@@ -12,6 +12,7 @@ namespace GSMArena_Mobile_Brands
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
+            Application.ApplicationExit += (s, e) => Properties.Settings.Default.Save();
         }
     }
 }

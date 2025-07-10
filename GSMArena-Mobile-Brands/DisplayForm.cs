@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using Microsoft.VisualBasic;
 
 namespace GSMArena_Mobile_Brands
 {
@@ -22,19 +23,11 @@ namespace GSMArena_Mobile_Brands
         // Embedded Custom Fonts
         // =========================
         private PrivateFontCollection _customFonts = new PrivateFontCollection();
-        private FontFamily _fontHead;
-        private FontFamily _fontTitle;
         private FontFamily _fontNew;
 
 
         private void LoadCustomFonts()
         {
-            AddFontFromBytes(Properties.Resources.AlfaSlabOneRegular);
-            _fontHead = _customFonts.Families[^1];
-
-            AddFontFromBytes(Properties.Resources.AntonRegular);
-            _fontTitle = _customFonts.Families[^1];
-
             AddFontFromBytes(Properties.Resources.COOPBL);
             _fontNew = _customFonts.Families[^1];
         }
@@ -208,7 +201,7 @@ namespace GSMArena_Mobile_Brands
 
             TRVmodels.Nodes.Add(rootNode);
             TRVmodels.ExpandAll();
-            BtnReset.Enabled = TRVmodels.Nodes.Count > 0;
+            tsmReset.Enabled = TRVmodels.Nodes.Count > 0;
         }
         // =========================
         // Handle Node Selection
@@ -338,7 +331,7 @@ namespace GSMArena_Mobile_Brands
                 if (trimmed.Contains(':') || trimmed.Contains(','))
                 {
                     // details - dark red
-                    AppendStyledLine(trimmed, new Font(_fontTitle, 13, FontStyle.Regular), Color.DarkRed);
+                    AppendStyledLine(trimmed, new Font("arial", 12, FontStyle.Regular), Color.DarkRed);
                 }
                 else
                 {
@@ -437,7 +430,8 @@ namespace GSMArena_Mobile_Brands
             }
         }
 
-        private void BtnReset_Click(object sender, EventArgs e)
+        //Reset the Form
+        private void tsmReset_Click(object sender, EventArgs e)
         {
             // 1. Clear the TextBox used for filtering
             TxtFilter.Clear();
@@ -462,6 +456,20 @@ namespace GSMArena_Mobile_Brands
 
             // 6. Optional: Reset tree appearance (if custom drawing used)
             TRVmodels.Refresh();
+
+            //7. Clear Search Specs
+            TxtSearchSpecs.Clear();
+        }
+
+        private void exportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ExportForm = new ExportSettingsForm();
+            ExportForm.ShowDialog();
+        }
+        //Export CSV file.
+        private void cSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Exported successfully!");
         }
     }
 }

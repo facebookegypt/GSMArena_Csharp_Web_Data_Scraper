@@ -295,6 +295,7 @@ namespace GSMArena_Mobile_Brands
             var waitForm = new WaitForm(this);
             waitForm.Setup("Fetching selected brands...", _loadingGif);
             waitForm.StartPosition = FormStartPosition.CenterParent;
+            waitForm.StartCounter();
 
             // Show the wait form modelessly on the UI thread
             waitForm.Show();
@@ -308,6 +309,7 @@ namespace GSMArena_Mobile_Brands
             }
             finally
             {
+                waitForm.StopCounter();
                 // Ensure the wait form closes on the UI thread
                 if (waitForm.InvokeRequired)
                     waitForm.Invoke(new Action(() => waitForm.Close()));

@@ -61,31 +61,21 @@ namespace GSMArena_Mobile_Brands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] AlfaSlabOneRegular {
+        internal static System.Drawing.Bitmap BrandIcon {
             get {
-                object obj = ResourceManager.GetObject("AlfaSlabOneRegular", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] AntonRegular {
-            get {
-                object obj = ResourceManager.GetObject("AntonRegular", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("BrandIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BrandIcon {
+        internal static System.Drawing.Bitmap Clear {
             get {
-                object obj = ResourceManager.GetObject("BrandIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("Clear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -97,6 +87,16 @@ namespace GSMArena_Mobile_Brands.Properties {
             get {
                 object obj = ResourceManager.GetObject("Color", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap config {
+            get {
+                object obj = ResourceManager.GetObject("config", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -126,6 +126,26 @@ namespace GSMArena_Mobile_Brands.Properties {
         internal static System.Drawing.Bitmap Edit {
             get {
                 object obj = ResourceManager.GetObject("Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Folder {
+            get {
+                object obj = ResourceManager.GetObject("Folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap green_ok {
+            get {
+                object obj = ResourceManager.GetObject("green_ok", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +223,9 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] RobotoRegular {
+        internal static byte[] Repair {
             get {
-                object obj = ResourceManager.GetObject("RobotoRegular", resourceCulture);
+                object obj = ResourceManager.GetObject("Repair", resourceCulture);
                 return ((byte[])(obj));
             }
         }

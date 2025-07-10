@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\displayform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\displayform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\gsmarena-mobile-brands\\displayform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\displayform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\displayform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\displayform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,42 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DisplayForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\DisplayForm.Designer.cs",
-              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\DisplayForm.Designer.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\DisplayForm.Designer.cs",
-              "RelativeToolTip": "GSMArena-Mobile-Brands\\DisplayForm.Designer.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAArwF8AAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T19:53:16.798Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DisplayForm.cs",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\DisplayForm.cs",
-              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\DisplayForm.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\DisplayForm.cs",
-              "RelativeToolTip": "GSMArena-Mobile-Brands\\DisplayForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T18:40:57.275Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DisplayForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\DisplayForm.cs",
-              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\DisplayForm.cs",
-              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\DisplayForm.cs [Design]",
-              "RelativeToolTip": "GSMArena-Mobile-Brands\\DisplayForm.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T11:19:00.62Z"
             }
           ]
         }

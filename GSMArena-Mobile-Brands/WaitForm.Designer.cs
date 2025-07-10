@@ -17,8 +17,11 @@
 
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             picLoading = new PictureBox();
             lblMessage = new Label();
+            lblCounter = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)picLoading).BeginInit();
             SuspendLayout();
             // 
@@ -50,10 +53,29 @@
             lblMessage.TextAlign = ContentAlignment.MiddleCenter;
             lblMessage.UseCompatibleTextRendering = true;
             // 
+            // lblCounter
+            // 
+            lblCounter.AutoEllipsis = true;
+            lblCounter.BackColor = Color.Transparent;
+            lblCounter.Font = new Font("Arial Black", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCounter.ForeColor = Color.Red;
+            lblCounter.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
+            lblCounter.Location = new Point(203, 45);
+            lblCounter.Name = "lblCounter";
+            lblCounter.Size = new Size(56, 48);
+            lblCounter.TabIndex = 2;
+            lblCounter.TextAlign = ContentAlignment.MiddleCenter;
+            lblCounter.UseCompatibleTextRendering = true;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // WaitForm
             // 
             BackColor = Color.White;
             ClientSize = new Size(463, 174);
+            Controls.Add(lblCounter);
             Controls.Add(picLoading);
             Controls.Add(lblMessage);
             FormBorderStyle = FormBorderStyle.None;
@@ -63,10 +85,13 @@
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterParent;
             TransparencyKey = Color.White;
+            FormClosing += WaitForm_FormClosing;
             FormClosed += WaitForm_FormClosed;
             Load += WaitForm_Load;
             ((System.ComponentModel.ISupportInitialize)picLoading).EndInit();
             ResumeLayout(false);
         }
+        private Label lblCounter;
+        private System.Windows.Forms.Timer timer1;
     }
 }
