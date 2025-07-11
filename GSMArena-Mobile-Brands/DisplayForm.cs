@@ -1,4 +1,7 @@
 ﻿using clsGsmar.Models;
+using clsGsmar.Services;
+using HtmlAgilityPack;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
@@ -7,8 +10,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using HtmlAgilityPack;
-using Microsoft.VisualBasic;
+using static System.Windows.Forms.DataFormats;
 
 namespace GSMArena_Mobile_Brands
 {
@@ -68,6 +70,7 @@ namespace GSMArena_Mobile_Brands
         private void DisplayForm_Load(object sender, EventArgs e)
         {
             KeyPreview = true;
+            TRVmodels.CheckBoxes = true;
             TRVmodels.HideSelection = false;
             TRVmodels.FullRowSelect = true;
             _scraper = new ScraperService();
@@ -467,9 +470,378 @@ namespace GSMArena_Mobile_Brands
             ExportForm.ShowDialog();
         }
         //Export CSV file.
-        private void cSVToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void cSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Exported successfully!");
+            await HandleExportClickAsync("csv", Properties.Settings.Default.CSVpath);
+        }
+
+        private async void TRVmodels_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            // Prevent recursive event firing
+            TRVmodels.AfterCheck -= TRVmodels_AfterCheck;
+
+            try
+            {
+                if (e.Node.Level == 0)
+                {
+                    // Root node (Models/Phones): apply to all brands
+                    foreach (TreeNode brandNode in e.Node.Nodes)
+                        SetNodeCheckedState(brandNode, e.Node.Checked);
+                }
+                else if (e.Node.Level == 1)
+                {
+                    // Brand node → propagate to all phones
+                    foreach (TreeNode phoneNode in e.Node.Nodes)
+                        phoneNode.Checked = e.Node.Checked;
+                }
+                else if (e.Node.Level == 2)
+                {
+                    // Individual phone node
+                    await HandlePhoneNodeCheckAsync(e.Node);
+                    UpdateBrandCheckState(e.Node.Parent);
+                }
+            }
+            finally
+            {
+                TRVmodels.AfterCheck += TRVmodels_AfterCheck;
+                UpdateSelectedStatus();
+            }
+        }
+        private async Task HandlePhoneNodeCheckAsync(TreeNode phoneNode)
+        {
+            if (phoneNode?.Tag is Phone phone)
+            {
+                if (phoneNode.Checked)
+                {
+                    // Only load if not already cached
+                    if (string.IsNullOrEmpty(phone.FormattedSpecs))
+                    {
+                        try
+                        {
+                            // Optional: show loading message somewhere in UI
+                            tstSelected.Text = $"Fetching specs for {phone.Model}...";
+
+                            string html = await _scraper.GetHtmlSmartAsync(phone.Url);
+                            string parsed = ParseSpecsHtml(html);
+
+                            phone.RawSpecsHtml = html;
+                            phone.FormattedSpecs = parsed;
+
+                            tstSelected.Text = $"Specs ready for {phone.Model}";
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error fetching specs: {ex.Message}");
+                        }
+                    }
+                }
+            }
+        }
+        private void UpdateBrandCheckState(TreeNode brandNode)
+        {
+            if (brandNode == null) return;
+
+            bool allChecked = true;
+            foreach (TreeNode phoneNode in brandNode.Nodes)
+            {
+                if (!phoneNode.Checked)
+                {
+                    allChecked = false;
+                    break;
+                }
+            }
+
+            brandNode.Checked = allChecked;
+        }
+
+        private void SetNodeCheckedState(TreeNode node, bool isChecked)
+        {
+            node.Checked = isChecked;
+            foreach (TreeNode child in node.Nodes)
+            {
+                SetNodeCheckedState(child, isChecked);
+            }
+        }
+        public List<Phone> GetSelectedPhones()
+        {
+            List<Phone> selectedPhones = new List<Phone>();
+
+            foreach (TreeNode brandNode in TRVmodels.Nodes[0].Nodes) // Skip root
+            {
+                foreach (TreeNode phoneNode in brandNode.Nodes)
+                {
+                    if (phoneNode.Checked && phoneNode.Tag is Phone phone)
+                    {
+                        selectedPhones.Add(phone);
+                    }
+                }
+            }
+
+            return selectedPhones;
+        }
+        private void UpdateSelectedStatus()
+        {
+            var sb = new StringBuilder();
+
+            foreach (TreeNode brandNode in TRVmodels.Nodes[0].Nodes)
+            {
+                int checkedCount = 0;
+
+                foreach (TreeNode phoneNode in brandNode.Nodes)
+                {
+                    if (phoneNode.Checked)
+                        checkedCount++;
+                }
+
+                if (checkedCount > 0)
+                {
+                    sb.Append($"{brandNode.Text.Split('(')[0].Trim()}: {checkedCount} phone(s) - ");
+                }
+            }
+
+            string status = sb.ToString().TrimEnd(' ', '-');
+
+            if (string.IsNullOrEmpty(status))
+                tstSelected.Text = "No phones selected.";
+            else
+                tstSelected.Text = status;
+        }
+        /// <summary>
+        /// Collects all checked Phone objects from the TreeView.
+        /// Assumes Level 2 nodes (phones) are checked.
+        /// </summary>
+        private List<Phone> GetCheckedPhones()
+        {
+            var selectedPhones = new List<Phone>();
+
+            if (TRVmodels.Nodes.Count == 0) return selectedPhones;
+
+            foreach (TreeNode brandNode in TRVmodels.Nodes[0].Nodes)
+            {
+                foreach (TreeNode phoneNode in brandNode.Nodes)
+                {
+                    if (phoneNode.Checked && phoneNode.Tag is Phone phone)
+                    {
+                        selectedPhones.Add(phone);
+                    }
+                }
+            }
+
+            return selectedPhones;
+        }
+
+        private async void tXTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await HandleExportClickAsync("txt", Properties.Settings.Default.TXTpath);
+        }
+
+        private async void jSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await HandleExportClickAsync("json", Properties.Settings.Default.JSONpath);
+        }
+        private async Task HandleExportClickAsync(string format, string exportFolder)
+        {
+            if (!EnsureExportPath(format))
+                return;
+
+            var selectedPhones = GetCheckedPhones();
+            if (selectedPhones.Count == 0)
+            {
+                MessageBox.Show(
+                    this,
+                    "Please select at least one phone to export.",
+                    "No Selection",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                return;
+            }
+
+            await PopulateSpecsForSelectedPhonesAsync(selectedPhones);
+
+            var exporter = new ExportServices(exportFolder);
+
+            await exporter.ExportPhonesAsync(
+                selectedPhones,
+                format,
+                progress: new Progress<string>(msg => tstSelected.Text = msg)
+            );
+
+            MessageBox.Show(
+                this,
+                $"Export to {format.ToUpper()} completed successfully.",
+                "Export Done",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
+
+        private async Task ExportPhonesAsync(string exportFolder, string Exportformat)
+        {
+            try
+            {
+                var selectedPhones = GetCheckedPhones();
+                if (selectedPhones.Count == 0)
+                {
+                    MessageBox.Show(
+                        this,
+                        "Please select at least one phone to export.",
+                        "No Selection",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                await PopulateSpecsForSelectedPhonesAsync(selectedPhones);
+                var exporter = new ExportServices(exportFolder);
+                switch (Exportformat.ToLower())
+                {
+                    case "csv":
+                        await exporter.ExportPhonesAsync(
+        selectedPhones,
+        Exportformat,
+        progress: new Progress<string>(msg => tstSelected.Text = msg)
+    );
+                        break;
+                    case "txt":
+                        await exporter.ExportPhonesAsync(
+        selectedPhones,
+        Exportformat,
+        progress: new Progress<string>(msg => tstSelected.Text = msg)
+    );
+                        break;
+                    case "json":
+                        await exporter.ExportPhonesAsync(
+        selectedPhones,
+        Exportformat,
+        progress: new Progress<string>(msg => tstSelected.Text = msg)
+    );
+                        break;
+                    default:
+                        MessageBox.Show($"Unsupported format: {Exportformat}");
+                        break;
+                }
+
+                MessageBox.Show(
+                    this,
+                    $"Export to {Exportformat.ToUpper()} completed successfully.",
+                    "Export Done",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    $"Export failed: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+        private async Task PopulateSpecsForSelectedPhonesAsync(List<Phone> phones)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            tstSelected.Text = "Fetching specs for selected phones...";
+
+            int total = phones.Count;
+            int current = 1;
+
+            foreach (var phone in phones)
+            {
+                if (string.IsNullOrWhiteSpace(phone.FormattedSpecs))
+                {
+                    try
+                    {
+                        tstSelected.Text = $"Fetching ({current}/{total}): {phone.Brand} - {phone.Model}";
+
+                        string html = await _scraper.GetHtmlSmartAsync(phone.Url);
+                        phone.RawSpecsHtml = html;
+                        phone.FormattedSpecs = ParseSpecsHtml(html);
+
+                        await Task.Delay(300);
+                    }
+                    catch
+                    {
+                        phone.FormattedSpecs = "Could not fetch specs.";
+                    }
+                }
+
+                current++;
+            }
+
+            tstSelected.Text = "Specs fetching complete.";
+            Cursor.Current = Cursors.Default;
+        }
+
+        private (string brandName, int phoneCount) GetExportSummary()
+        {
+            var selectedPhones = GetCheckedPhones();
+
+            if (selectedPhones.Count == 0)
+                return (null, 0);
+
+            // For simplicity, take first brand
+            string firstBrand = selectedPhones.First().Brand ?? "Brand";
+
+            int phoneCount = selectedPhones.Count;
+
+            return (firstBrand, phoneCount);
+        }
+        private string GenerateExportFileName(string brandName, int phoneCount, string extension)
+        {
+            string timestamp = DateTime.Now.ToString("HHmmssddMMyyyy");
+            string safeBrand = string.Concat(brandName.Split(Path.GetInvalidFileNameChars()));
+            return $"{safeBrand}-{phoneCount}-{timestamp}.{extension}";
+        }
+        private bool EnsureExportPath(string format)
+        {
+            string savedPath = GetSavedPathForFormat(format);
+
+            if (string.IsNullOrWhiteSpace(savedPath) || !System.IO.Directory.Exists(savedPath))
+            {
+                MessageBox.Show(
+                    this,
+                    $"Export path for {format.ToUpper()} is not set or invalid.\nPlease set it in Export Settings.",
+                    "Export Path Not Set",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                using (var settingsForm = new ExportSettingsForm())
+                {
+                    settingsForm.StartPosition = FormStartPosition.CenterParent;
+                    settingsForm.ShowDialog(this);
+                }
+
+                savedPath = GetSavedPathForFormat(format);
+                if (string.IsNullOrWhiteSpace(savedPath) || !System.IO.Directory.Exists(savedPath))
+                {
+                    MessageBox.Show(
+                        this,
+                        $"Export cancelled. No valid path was set for {format.ToUpper()}.",
+                        "Export Cancelled",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private string GetSavedPathForFormat(string format)
+        {
+            return format.ToLower() switch
+            {
+                "csv" => Properties.Settings.Default.CSVpath,
+                "txt" => Properties.Settings.Default.TXTpath,
+                "json" => Properties.Settings.Default.JSONpath,
+                _ => ""
+            };
         }
     }
 }

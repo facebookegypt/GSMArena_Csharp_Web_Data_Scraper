@@ -50,10 +50,13 @@
             toolStripMenuItem1 = new ToolStripSeparator();
             exportSettingsToolStripMenuItem = new ToolStripMenuItem();
             tsmReset = new ToolStripMenuItem();
+            StatusInfo = new StatusStrip();
+            tstSelected = new ToolStripStatusLabel();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Phon_Img).BeginInit();
             panel1.SuspendLayout();
             Mnu.SuspendLayout();
+            StatusInfo.SuspendLayout();
             SuspendLayout();
             // 
             // TRVmodels
@@ -72,8 +75,9 @@
             treeNode1.Text = "Models / Phones";
             TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode1 });
             TRVmodels.ShowNodeToolTips = true;
-            TRVmodels.Size = new Size(366, 397);
+            TRVmodels.Size = new Size(366, 384);
             TRVmodels.TabIndex = 0;
+            TRVmodels.AfterCheck += TRVmodels_AfterCheck;
             TRVmodels.AfterSelect += TRVmodels_AfterSelect;
             // 
             // groupBox1
@@ -88,7 +92,7 @@
             groupBox1.ForeColor = Color.Brown;
             groupBox1.Location = new Point(372, -1);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(518, 439);
+            groupBox1.Size = new Size(518, 426);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Details";
@@ -129,7 +133,7 @@
             RTBspecs.Name = "RTBspecs";
             RTBspecs.ReadOnly = true;
             RTBspecs.ScrollBars = RichTextBoxScrollBars.Vertical;
-            RTBspecs.Size = new Size(367, 344);
+            RTBspecs.Size = new Size(367, 331);
             RTBspecs.TabIndex = 4;
             RTBspecs.Text = "";
             // 
@@ -189,10 +193,10 @@
             Mnu.BackColor = Color.Azure;
             Mnu.Dock = DockStyle.Right;
             Mnu.Items.AddRange(new ToolStripItem[] { tsmExport, tsmReset });
-            Mnu.Location = new Point(-46, 0);
+            Mnu.Location = new Point(6, 0);
             Mnu.Name = "Mnu";
             Mnu.RightToLeft = RightToLeft.Yes;
-            Mnu.Size = new Size(126, 450);
+            Mnu.Size = new Size(74, 450);
             Mnu.TabIndex = 13;
             Mnu.Text = "menuStrip1";
             // 
@@ -207,7 +211,7 @@
             tsmExport.ImageScaling = ToolStripItemImageScaling.None;
             tsmExport.Name = "tsmExport";
             tsmExport.RightToLeftAutoMirrorImage = true;
-            tsmExport.Size = new Size(113, 81);
+            tsmExport.Size = new Size(61, 81);
             tsmExport.Text = "&Export";
             tsmExport.TextDirection = ToolStripTextDirection.Vertical270;
             tsmExport.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -224,7 +228,7 @@
             cSVToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
             cSVToolStripMenuItem.RightToLeft = RightToLeft.No;
-            cSVToolStripMenuItem.Size = new Size(180, 24);
+            cSVToolStripMenuItem.Size = new Size(171, 24);
             cSVToolStripMenuItem.Text = "CSV";
             cSVToolStripMenuItem.TextImageRelation = TextImageRelation.TextBeforeImage;
             cSVToolStripMenuItem.Click += cSVToolStripMenuItem_Click;
@@ -241,8 +245,9 @@
             jSONToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
             jSONToolStripMenuItem.RightToLeft = RightToLeft.No;
-            jSONToolStripMenuItem.Size = new Size(180, 24);
+            jSONToolStripMenuItem.Size = new Size(171, 24);
             jSONToolStripMenuItem.Text = "JSON";
+            jSONToolStripMenuItem.Click += jSONToolStripMenuItem_Click;
             // 
             // tXTToolStripMenuItem
             // 
@@ -256,8 +261,9 @@
             tXTToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             tXTToolStripMenuItem.Name = "tXTToolStripMenuItem";
             tXTToolStripMenuItem.RightToLeft = RightToLeft.No;
-            tXTToolStripMenuItem.Size = new Size(180, 24);
+            tXTToolStripMenuItem.Size = new Size(171, 24);
             tXTToolStripMenuItem.Text = "TXT";
+            tXTToolStripMenuItem.Click += tXTToolStripMenuItem_Click;
             // 
             // toolStripMenuItem2
             // 
@@ -271,13 +277,13 @@
             toolStripMenuItem2.ImageScaling = ToolStripItemImageScaling.None;
             toolStripMenuItem2.Name = "toolStripMenuItem2";
             toolStripMenuItem2.RightToLeft = RightToLeft.No;
-            toolStripMenuItem2.Size = new Size(180, 24);
+            toolStripMenuItem2.Size = new Size(171, 24);
             toolStripMenuItem2.Text = "SQL";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(177, 6);
+            toolStripMenuItem1.Size = new Size(168, 6);
             // 
             // exportSettingsToolStripMenuItem
             // 
@@ -290,7 +296,7 @@
             exportSettingsToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
             exportSettingsToolStripMenuItem.RightToLeft = RightToLeft.No;
-            exportSettingsToolStripMenuItem.Size = new Size(180, 24);
+            exportSettingsToolStripMenuItem.Size = new Size(171, 24);
             exportSettingsToolStripMenuItem.Text = "Export Settings";
             exportSettingsToolStripMenuItem.Click += exportSettingsToolStripMenuItem_Click;
             // 
@@ -304,11 +310,30 @@
             tsmReset.ImageScaling = ToolStripItemImageScaling.None;
             tsmReset.Name = "tsmReset";
             tsmReset.RightToLeftAutoMirrorImage = true;
-            tsmReset.Size = new Size(113, 71);
+            tsmReset.Size = new Size(61, 71);
             tsmReset.Text = "R&eset";
             tsmReset.TextDirection = ToolStripTextDirection.Vertical270;
             tsmReset.TextImageRelation = TextImageRelation.TextBeforeImage;
             tsmReset.Click += tsmReset_Click;
+            // 
+            // StatusInfo
+            // 
+            StatusInfo.BackColor = Color.Transparent;
+            StatusInfo.Items.AddRange(new ToolStripItem[] { tstSelected });
+            StatusInfo.Location = new Point(0, 428);
+            StatusInfo.Name = "StatusInfo";
+            StatusInfo.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            StatusInfo.ShowItemToolTips = true;
+            StatusInfo.Size = new Size(896, 22);
+            StatusInfo.SizingGrip = false;
+            StatusInfo.TabIndex = 7;
+            // 
+            // tstSelected
+            // 
+            tstSelected.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tstSelected.ForeColor = Color.LightCoral;
+            tstSelected.Name = "tstSelected";
+            tstSelected.Size = new Size(0, 17);
             // 
             // DisplayForm
             // 
@@ -316,6 +341,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Azure;
             ClientSize = new Size(976, 450);
+            Controls.Add(StatusInfo);
             Controls.Add(panel1);
             Controls.Add(LblFilter);
             Controls.Add(TxtFilter);
@@ -333,6 +359,8 @@
             panel1.PerformLayout();
             Mnu.ResumeLayout(false);
             Mnu.PerformLayout();
+            StatusInfo.ResumeLayout(false);
+            StatusInfo.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -358,5 +386,7 @@
         private ToolStripMenuItem exportSettingsToolStripMenuItem;
         private ToolStripMenuItem tsmReset;
         private ToolStripMenuItem toolStripMenuItem2;
+        private StatusStrip StatusInfo;
+        private ToolStripStatusLabel tstSelected;
     }
 }
