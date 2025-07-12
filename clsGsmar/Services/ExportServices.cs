@@ -16,6 +16,9 @@ namespace clsGsmar.Services
             _exportFolder = exportFolder;
         }
 
+        /// <summary>
+        /// Main entry point
+        /// </summary>
         public async Task ExportPhonesAsync(
             List<Phone> phones,
             string format,
@@ -36,18 +39,21 @@ namespace clsGsmar.Services
 
             progress?.Report($"Exporting {phones.Count} phones as {format}...");
 
+            // Map and clean
+            var exportList = MapPhonesForExport(phones);
+
             switch (format)
             {
                 case "csv":
-                    await ExportAsCsvAsync(phones, path, progress);
+                    await ExportAsCsvAsync(exportList, path, progress);
                     break;
 
                 case "txt":
-                    await ExportAsTxtAsync(phones, path, progress);
+                    await ExportAsTxtAsync(exportList, path, progress);
                     break;
 
                 case "json":
-                    await ExportAsJsonAsync(phones, path, progress);
+                    await ExportAsJsonAsync(exportList, path, progress);
                     break;
 
                 default:
@@ -57,17 +63,60 @@ namespace clsGsmar.Services
             progress?.Report($"Export completed: {path}");
         }
 
-        private async Task ExportAsCsvAsync(List<Phone> phones, string path, IProgress<string> progress)
+        /// <summary>
+        /// DTO for export - Only the required fields.
+        /// </summary>
+        private class PhoneExportDto
+        {
+            public string Brand { get; set; }
+            public string Model { get; set; }
+            public string ImageUrl { get; set; }
+            public string ModelUrl { get; set; }
+            public string Specs { get; set; }
+        }
+
+        /// <summary>
+        /// Maps Phone objects to export DTO, with cleaning
+        /// </summary>
+        private List<PhoneExportDto> MapPhonesForExport(List<Phone> phones)
+        {
+            var list = new List<PhoneExportDto>();
+
+            foreach (var p in phones)
+            {
+                string cleanedSpecs = (p.FormattedSpecs ?? "")
+                    .Replace("•", "-")
+                    .Replace("\r", " ")
+                    .Replace("\n", " ")
+                    .Replace("\t", " ")
+                    .Replace("  ", " ")
+                    .Trim();
+
+                list.Add(new PhoneExportDto
+                {
+                    Brand = p.Brand,
+                    Model = p.Model,
+                    ImageUrl = p.ImageUrl,
+                    ModelUrl = p.Url,
+                    Specs = cleanedSpecs
+                });
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// CSV Export
+        /// </summary>
+        private async Task ExportAsCsvAsync(List<PhoneExportDto> phones, string path, IProgress<string> progress)
         {
             using (var writer = new StreamWriter(path, false, Encoding.UTF8))
             {
-                await writer.WriteLineAsync("Brand,Model,Specs");
+                await writer.WriteLineAsync("Brand,Model,ImageUrl,ModelUrl,Specs");
 
-                foreach (var phone in phones)
+                foreach (var p in phones)
                 {
-                    string cleanSpecs = (phone.FormattedSpecs ?? "").Replace("\"", "'").Replace("\n", " ").Replace("\r", " ").Trim();
-                    string line = $"\"{phone.Brand}\",\"{phone.Model}\",\"{cleanSpecs}\"";
-
+                    string line = $"\"{p.Brand}\",\"{p.Model}\",\"{p.ImageUrl}\",\"{p.ModelUrl}\",\"{p.Specs}\"";
                     await writer.WriteLineAsync(line);
                 }
             }
@@ -75,15 +124,20 @@ namespace clsGsmar.Services
             progress?.Report("CSV export finished.");
         }
 
-        private async Task ExportAsTxtAsync(List<Phone> phones, string path, IProgress<string> progress)
+        /// <summary>
+        /// TXT Export
+        /// </summary>
+        private async Task ExportAsTxtAsync(List<PhoneExportDto> phones, string path, IProgress<string> progress)
         {
             using (var writer = new StreamWriter(path, false, Encoding.UTF8))
             {
-                foreach (var phone in phones)
+                foreach (var p in phones)
                 {
-                    await writer.WriteLineAsync($"Brand: {phone.Brand}");
-                    await writer.WriteLineAsync($"Model: {phone.Model}");
-                    await writer.WriteLineAsync($"Specs:\n{phone.FormattedSpecs}");
+                    await writer.WriteLineAsync($"Brand: {p.Brand}");
+                    await writer.WriteLineAsync($"Model: {p.Model}");
+                    await writer.WriteLineAsync($"ImageUrl: {p.ImageUrl}");
+                    await writer.WriteLineAsync($"ModelUrl: {p.ModelUrl}");
+                    await writer.WriteLineAsync($"Specs: {p.Specs}");
                     await writer.WriteLineAsync(new string('-', 50));
                 }
             }
@@ -91,7 +145,10 @@ namespace clsGsmar.Services
             progress?.Report("TXT export finished.");
         }
 
-        private async Task ExportAsJsonAsync(List<Phone> phones, string path, IProgress<string> progress)
+        /// <summary>
+        /// JSON Export
+        /// </summary>
+        private async Task ExportAsJsonAsync(List<PhoneExportDto> phones, string path, IProgress<string> progress)
         {
             var options = new JsonSerializerOptions
             {
