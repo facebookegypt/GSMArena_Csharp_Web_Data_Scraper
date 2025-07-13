@@ -123,6 +123,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Download_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("Download_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Edit {
             get {
                 object obj = ResourceManager.GetObject("Edit", resourceCulture);
@@ -213,9 +223,29 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pause_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Pause_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Pencil {
             get {
                 object obj = ResourceManager.GetObject("Pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Play_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -236,6 +266,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         internal static System.Drawing.Bitmap RootIcon {
             get {
                 object obj = ResourceManager.GetObject("RootIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stop_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Stop_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -81,6 +81,7 @@ namespace clsGsmar.Services
         private List<PhoneExportDto> MapPhonesForExport(List<Phone> phones)
         {
             var list = new List<PhoneExportDto>();
+            // Fetch Specs HTML from phone page
 
             foreach (var p in phones)
             {

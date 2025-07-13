@@ -37,6 +37,7 @@
             picLoading.TabIndex = 0;
             picLoading.TabStop = false;
             picLoading.UseWaitCursor = true;
+            picLoading.Click += picLoading_Click;
             // 
             // lblMessage
             // 
@@ -57,13 +58,14 @@
             // 
             lblCounter.AutoEllipsis = true;
             lblCounter.BackColor = Color.Transparent;
-            lblCounter.Font = new Font("Arial Black", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCounter.Font = new Font("Times New Roman", 22F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCounter.ForeColor = Color.Red;
             lblCounter.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
             lblCounter.Location = new Point(203, 45);
             lblCounter.Name = "lblCounter";
             lblCounter.Size = new Size(56, 48);
             lblCounter.TabIndex = 2;
+            lblCounter.Text = "000";
             lblCounter.TextAlign = ContentAlignment.MiddleCenter;
             lblCounter.UseCompatibleTextRendering = true;
             // 

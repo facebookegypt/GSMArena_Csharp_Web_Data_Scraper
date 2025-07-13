@@ -56,12 +56,17 @@ namespace GSMArena_Mobile_Brands
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-                _elapsedSeconds++;
-                lblCounter.Text = _elapsedSeconds.ToString();
+            _elapsedSeconds++;
+            lblCounter.Text = _elapsedSeconds.ToString();
         }
         private void WaitForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Stop();
+        }
+
+        private void picLoading_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -6,7 +6,14 @@ public class ScraperService
 {
     private readonly Random _random = new Random();
     private readonly List<string> _proxies = new() {
-    "http://3.145.16.157:1080",
+        "http://160.25.8.2:8080","http://127.0.0.1:8080","http://103.10.55.137:8664",
+        "http://103.120.146.11:8080","http://182.160.117.98:6969","http://103.231.239.166:58080","http://43.231.78.203:8080","http://103.60.204.18:80",
+        "http://27.147.217.102:6969","http://114.130.153.122:58080",
+        "http://103.245.109.57:39355","http://103.117.192.10:80","http://103.138.145.34:80","http://103.25.81.116:8080","http://103.106.56.131:8082",
+        "http://103.15.140.177:44759","http://203.76.98.21:45958",
+        "http://115.127.83.142:1234","http://27.147.140.129:58080","http://103.189.11.63:3838","http://36.50.11.196:8080","http://103.112.52.156:8765",
+        "http://115.127.28.10:8674","http://103.49.114.195:8080",
+    "http://3.145.16.157:1080","http://108.162.193.160:80","http://108.162.192.173:80",
     "http://93.127.215.97:80",
     "http://85.215.64.49:80",
     "http://38.54.71.67:80",
@@ -16,11 +23,14 @@ public class ScraperService
 };
     private readonly List<string> _userAgents = new()
 {
-    "Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.166 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201",
-    "Mozilla/5.001 (Macintosh; N; PPC; ja) Gecko/25250101",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0"
+    "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.3351.83",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/120.0.0.0",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/119.0.0.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Vivaldi/7.5.3735.44"
 };
     //Plan A: No user-agents neither Proxy
     private bool IsBlockedOrEmpty(string html)
@@ -150,6 +160,10 @@ public class ScraperService
     // Use fallback with proxies/user-agents
     return await TryGetHtmlWithFallbackAsync(url, progress);
 }
+    private readonly string _logFilePath = Path.Combine(
+    AppDomain.CurrentDomain.BaseDirectory,
+    $"ScrapingLog_{DateTime.Now:MMMMddyyyy_HHmmss}.txt"
+);
 
     private async Task<string> TryGetHtmlWithFallbackAsync(string url, IProgress<string> progress = null)
     {
@@ -174,13 +188,18 @@ public class ScraperService
 
                         using var client = new HttpClient(handler);
 
-                        client.DefaultRequestHeaders.Clear();
+                        // Essential headers
                         client.DefaultRequestHeaders.Add("User-Agent", agent);
                         client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-                        client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
+                        client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
+                        client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br"); // ensure we accept compressed content
                         client.DefaultRequestHeaders.Add("Connection", "keep-alive");
                         client.DefaultRequestHeaders.Add("Upgrade-Insecure-Requests", "1");
                         client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
+                        client.DefaultRequestHeaders.Add("Pragma", "no-cache");
+                        client.DefaultRequestHeaders.Add("DNT", "1"); // Do Not Track
+                        client.DefaultRequestHeaders.Referrer = new Uri("https://www.google.com"); // mimic organic traffic
+                        client.DefaultRequestHeaders.Host = new Uri(url).Host;
 
                         await Task.Delay(_random.Next(1000, 3000));
 
@@ -198,18 +217,39 @@ public class ScraperService
                     }
                     catch (HttpRequestException ex)
                     {
-                        progress?.Report($"Request error via Proxy {proxy}: {ex.Message}");
+                        string msg = $"Request error via Proxy {proxy}: {ex.Message}";
+                        progress?.Report(msg);
+                        LogScrapingError(msg); // ← NEW
                         await Task.Delay(_random.Next(500, 1500));
                     }
                     catch (Exception ex)
                     {
-                        progress?.Report($"Unexpected error: {ex.Message}");
+                        string msg = $"Unexpected error: {ex.Message}";
+                        progress?.Report(msg);
+                        LogScrapingError(msg); // ← NEW
                     }
+
                 }
             }
         }
 
         throw new Exception("All proxies and user-agents failed. Could not fetch usable HTML.");
+    }
+    private void LogScrapingError(string message)
+    {
+        try
+        {
+            string logDir = AppDomain.CurrentDomain.BaseDirectory;
+            string logFile = Path.Combine(logDir, $"ScrapingLog_{DateTime.Now:MMMMddyyyy_HHmmss}.txt");
+
+            // Append message with timestamp
+            File.AppendAllText(_logFilePath, $"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
+
+        }
+        catch
+        {
+            // Suppress logging errors
+        }
     }
 
     // Public method to scrape all brands
@@ -381,8 +421,6 @@ public class ScraperService
         }
         return false;
     }
-
-
     public async Task<Dictionary<string, List<Phone>>> ScrapeSelectedBrandsAsync(List<Brand> selectedBrands, IProgress<string> progress = null)
     {
         var result = new Dictionary<string, List<Phone>>();

@@ -118,21 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="library" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\library.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>LOADING ....</comment>
   </data>
+  <data name="Pause_24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pause_24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="library" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\library.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TIME IN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TIME IN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stop_24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stop_24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="magnifier" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Color" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Color.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="green_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\green_ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BrandIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\telephone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="COOPBL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\COOPBL.TTF;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="config" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\config.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Repair" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Repair.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ImageNotFound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ImageNotFound.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,43 +162,34 @@
   <data name="Pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Dial" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Dial.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hand cart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hand cart.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="link" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RootIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Box.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TIME IN" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TIME IN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Play_24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play_24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Wizard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Wizard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="COOPBL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COOPBL.TTF;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="RootIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Box.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Repair" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Repair.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Color" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Color.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Hand cart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hand cart.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="config" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\config.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dial" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dial.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="green_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\green_ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BrandIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\telephone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Download_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Download_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -28,19 +28,24 @@
     <None Remove="Resources\config.png" />
     <None Remove="Resources\COOPBL.TTF" />
     <None Remove="Resources\Dial.ico" />
+    <None Remove="Resources\Download_32x32.png" />
     <None Remove="Resources\Edit.png" />
     <None Remove="Resources\Folder.png" />
     <None Remove="Resources\green_ok.png" />
     <None Remove="Resources\ImageNotFound.png" />
     <None Remove="Resources\library.png" />
     <None Remove="Resources\link.png" />
+    <None Remove="Resources\loading-77.gif" />
     <None Remove="Resources\loading.gif" />
     <None Remove="Resources\magnifier.png" />
     <None Remove="Resources\Open.png" />
+    <None Remove="Resources\Pause_24x24.png" />
     <None Remove="Resources\Pencil.png" />
+    <None Remove="Resources\Play_24x24.png" />
     <None Remove="Resources\Repair.ico" />
     <None Remove="Resources\Roboto-Regular.ttf" />
     <None Remove="Resources\RobotoRegular.ttf" />
+    <None Remove="Resources\Stop_24x24.png" />
     <None Remove="Resources\telephone.png" />
     <None Remove="Resources\TIME IN.png" />
     <None Remove="Resources\Wizard.png" />
@@ -50,6 +55,7 @@
     <EmbeddedResource Include="Resources\Clear.png" />
     <EmbeddedResource Include="Resources\config.png" />
     <EmbeddedResource Include="Resources\COOPBL.TTF" />
+    <EmbeddedResource Include="Resources\Download_32x32.png" />
     <EmbeddedResource Include="Resources\Folder.png" />
     <EmbeddedResource Include="Resources\Hand cart.ico" />
   </ItemGroup>
@@ -63,12 +69,15 @@
     <EmbeddedResource Include="Resources\link.png" />
     <EmbeddedResource Include="Resources\loading.gif" />
     <EmbeddedResource Include="Resources\magnifier.png" />
+    <EmbeddedResource Include="Resources\Pause_24x24.png" />
     <EmbeddedResource Include="Resources\Pencil.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Box.png" />
+    <EmbeddedResource Include="Resources\Play_24x24.png" />
     <EmbeddedResource Include="Resources\Repair.ico" />
+    <EmbeddedResource Include="Resources\Stop_24x24.png" />
     <EmbeddedResource Include="Resources\telephone.png" />
     <EmbeddedResource Include="Resources\TIME IN.png" />
     <EmbeddedResource Include="Resources\Wizard.png" />
