@@ -72,15 +72,18 @@ namespace GSMArena_Mobile_Brands
         private void csvRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (csvRadio.Checked)
-            { locationTextBox.Text = Properties.Settings.Default.CSVpath ?? "No location set.";
+            {
+                locationTextBox.Text = Properties.Settings.Default.CSVpath ?? "No location set.";
                 csvRadio.ForeColor = Color.OrangeRed;
-            }else { csvRadio.ForeColor= Color.Black; }
+            }
+            else { csvRadio.ForeColor = Color.Black; }
         }
 
         private void txtRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (txtRadio.Checked)
-            { locationTextBox.Text = Properties.Settings.Default.TXTpath ?? "No location set.";
+            {
+                locationTextBox.Text = Properties.Settings.Default.TXTpath ?? "No location set.";
                 txtRadio.ForeColor = Color.OrangeRed;
             }
             else { txtRadio.ForeColor = Color.Black; }
@@ -89,7 +92,8 @@ namespace GSMArena_Mobile_Brands
         private void jsonRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (jsonRadio.Checked)
-            { locationTextBox.Text = Properties.Settings.Default.JSONpath ?? "No location set.";
+            {
+                locationTextBox.Text = Properties.Settings.Default.JSONpath ?? "No location set.";
                 jsonRadio.ForeColor = Color.OrangeRed;
             }
             else { jsonRadio.ForeColor = Color.Black; }
@@ -102,8 +106,10 @@ namespace GSMArena_Mobile_Brands
                 locationTextBox.Text = Properties.Settings.Default.SQLpath ?? "No location set.";
                 sqlRadio.ForeColor = Color.OrangeRed;
             }
-            else { 
-                sqlRadio.ForeColor = Color.Black; }
+            else
+            {
+                sqlRadio.ForeColor = Color.Black;
+            }
 
         }
 
@@ -115,6 +121,8 @@ namespace GSMArena_Mobile_Brands
             txtRadio.Checked = false;
             jsonRadio.Checked = false;
             sqlRadio.Checked = false;
+            // Load existing location from user settings
+            locTextBox.Text = Properties.Settings.Default.LocationSetting ?? "";
         }
 
         private void ExportSettingsForm_KeyDown(object sender, KeyEventArgs e)
@@ -124,7 +132,25 @@ namespace GSMArena_Mobile_Brands
 
         private void ExportSettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Save the location to user settings
+            Properties.Settings.Default.LocationSetting = locTextBox.Text;
             Properties.Settings.Default.Save(); // Save all settings
+        }
+
+        private void BtnOpnLoc_Click(object sender, EventArgs e)
+        {
+            using (var ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Select Proxy/UserAgent TXT file";
+                ofd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                ofd.CheckFileExists = true;
+                ofd.CheckPathExists = true;
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    locTextBox.Text = ofd.FileName;
+                }
+            }
         }
     }
 }

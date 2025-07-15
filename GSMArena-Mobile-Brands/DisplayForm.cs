@@ -4,6 +4,7 @@ using HtmlAgilityPack;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing.Text;
 using System.IO;
 using System.Net.Http;
@@ -73,7 +74,7 @@ namespace GSMArena_Mobile_Brands
             TRVmodels.HideSelection = false;
             TRVmodels.FullRowSelect = true;
             _scraper = new ScraperService();
-
+            btnCopy.Enabled = !string.IsNullOrWhiteSpace(RTBspecs.Text);
             // Load Custom Fonts
             LoadCustomFonts();
 
@@ -451,6 +452,7 @@ namespace GSMArena_Mobile_Brands
                 {
                     brand.Collapse();  // Collapse each brand
                 }
+                node.Checked = false;
             }
 
             // 5. Reselect nothing
@@ -473,7 +475,42 @@ namespace GSMArena_Mobile_Brands
 
         private async void TRVmodels_AfterCheck(object sender, TreeViewEventArgs e)
         {
-
+            // Prevent recursive event firing
+            TRVmodels.AfterCheck -= TRVmodels_AfterCheck;
+            try
+            {
+                if (e.Node.Level == 0)
+                {
+                    // Root node (Models/Phones): typically ignore or apply to all brands
+                    foreach (TreeNode brandNode in e.Node.Nodes)
+                        SetNodeCheckedState(brandNode, e.Node.Checked);
+                }
+                else if (e.Node.Level == 1)
+                {
+                    // Brand node → propagate to all phones
+                    foreach (TreeNode phoneNode in e.Node.Nodes)
+                        phoneNode.Checked = e.Node.Checked;
+                }
+                else if (e.Node.Level == 2)
+                {
+                    // Phone node → update parent brand checkbox if needed
+                    var parent = e.Node.Parent;
+                    if (parent != null)
+                    {
+                        bool allChecked = true;
+                        foreach (TreeNode sibling in parent.Nodes)
+                        {
+                            if (!sibling.Checked)
+                            {
+                                allChecked = false;
+                                break;
+                            }
+                        }
+                        parent.Checked = allChecked;
+                    }
+                }
+            }
+            finally { TRVmodels.AfterCheck += TRVmodels_AfterCheck; }
         }
         private void SetNodeCheckedState(TreeNode node, bool isChecked)
         {
@@ -482,6 +519,7 @@ namespace GSMArena_Mobile_Brands
             {
                 SetNodeCheckedState(child, isChecked);
             }
+            UpdateSelectedStatus();
         }
         private void UpdateSelectedStatus()
         {
@@ -638,6 +676,49 @@ namespace GSMArena_Mobile_Brands
             MessageBox.Show(this,
                 $"Export to {format.ToUpper()} completed.",
                 "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            tstSelected.IsLink = true;
+        }
+
+        private void tstSelected_Click(object sender, EventArgs e)
+        {
+            string? path;
+            path = tstSelected.Text.Replace("Export completed: ", "");
+            if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
+            {
+                // It's a valid, existing file
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = path,
+                        UseShellExecute = true // important to use default app
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not open file:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // It's either empty, or the file doesn't exist
+                return;
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            //Copy to Clipboard
+            if (!string.IsNullOrWhiteSpace(RTBspecs.Text))
+            {
+                Clipboard.SetText(RTBspecs.Text);
+                MessageBox.Show("Specs copied to clipboard!", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void RTBspecs_TextChanged(object sender, EventArgs e)
+        {
+            btnCopy.Enabled = !string.IsNullOrWhiteSpace(RTBspecs.Text);
         }
     }
 }

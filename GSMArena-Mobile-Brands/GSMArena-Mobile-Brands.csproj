@@ -24,6 +24,7 @@
     <None Remove="Resources\AntonRegular.ttf" />
     <None Remove="Resources\Box.png" />
     <None Remove="Resources\Clear.png" />
+    <None Remove="Resources\Clipboard.png" />
     <None Remove="Resources\Color.ico" />
     <None Remove="Resources\config.png" />
     <None Remove="Resources\COOPBL.TTF" />
@@ -53,6 +54,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Clear.png" />
+    <EmbeddedResource Include="Resources\Clipboard.png" />
     <EmbeddedResource Include="Resources\config.png" />
     <EmbeddedResource Include="Resources\COOPBL.TTF" />
     <EmbeddedResource Include="Resources\Download_32x32.png" />

@@ -70,5 +70,17 @@ namespace GSMArena_Mobile_Brands.Properties {
                 this["SQLpath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LocationSetting {
+            get {
+                return ((string)(this["LocationSetting"]));
+            }
+            set {
+                this["LocationSetting"] = value;
+            }
+        }
     }
 }

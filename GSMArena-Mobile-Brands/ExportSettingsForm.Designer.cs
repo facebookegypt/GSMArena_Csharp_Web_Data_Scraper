@@ -36,7 +36,11 @@
             csvRadio = new RadioButton();
             locationTextBox = new TextBox();
             locationLbl = new Label();
+            groupBox2 = new GroupBox();
+            locTextBox = new TextBox();
+            BtnOpnLoc = new Label();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -142,12 +146,55 @@
             locationLbl.UseCompatibleTextRendering = true;
             locationLbl.Click += locationLbl_Click;
             // 
+            // groupBox2
+            // 
+            groupBox2.BackColor = Color.Transparent;
+            groupBox2.Controls.Add(locTextBox);
+            groupBox2.Controls.Add(BtnOpnLoc);
+            groupBox2.Dock = DockStyle.Top;
+            groupBox2.Location = new Point(0, 138);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(637, 138);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Import Settings";
+            // 
+            // locTextBox
+            // 
+            locTextBox.BackColor = Color.Azure;
+            locTextBox.ForeColor = Color.IndianRed;
+            locTextBox.Location = new Point(122, 43);
+            locTextBox.Multiline = true;
+            locTextBox.Name = "locTextBox";
+            locTextBox.PlaceholderText = "Settings File location [Locally | Remotely]";
+            locTextBox.ScrollBars = ScrollBars.Both;
+            locTextBox.Size = new Size(492, 89);
+            locTextBox.TabIndex = 5;
+            locTextBox.Tag = "";
+            // 
+            // BtnOpnLoc
+            // 
+            BtnOpnLoc.BackColor = Color.Transparent;
+            BtnOpnLoc.Font = new Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnOpnLoc.Image = Properties.Resources.Folder;
+            BtnOpnLoc.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnOpnLoc.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
+            BtnOpnLoc.Location = new Point(3, 19);
+            BtnOpnLoc.Name = "BtnOpnLoc";
+            BtnOpnLoc.Size = new Size(113, 113);
+            BtnOpnLoc.TabIndex = 4;
+            BtnOpnLoc.Text = "&Open Location";
+            BtnOpnLoc.TextAlign = ContentAlignment.MiddleCenter;
+            BtnOpnLoc.UseCompatibleTextRendering = true;
+            BtnOpnLoc.Click += BtnOpnLoc_Click;
+            // 
             // ExportSettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Azure;
-            ClientSize = new Size(637, 150);
+            ClientSize = new Size(637, 284);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -160,6 +207,8 @@
             KeyDown += ExportSettingsForm_KeyDown;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -172,5 +221,8 @@
         private RadioButton txtRadio;
         private RadioButton jsonRadio;
         private RadioButton csvRadio;
+        private GroupBox groupBox2;
+        private TextBox locTextBox;
+        private Label BtnOpnLoc;
     }
 }
