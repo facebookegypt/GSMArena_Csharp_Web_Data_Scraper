@@ -16,7 +16,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="user_agents.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="user_agents.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FallbackData.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FallbackData.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="FallbackData.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FallbackData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

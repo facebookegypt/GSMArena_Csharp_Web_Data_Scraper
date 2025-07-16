@@ -79,6 +79,7 @@ namespace GSMArena_Mobile_Brands
             LoadCustomFonts();
 
             // Hook filter events
+            TRVmodels.AfterCheck += TRVmodels_AfterCheck;
             TxtFilter.TextChanged += TxtFilter_TextChanged;
             TxtFilter.KeyDown += TxtFilter_KeyDown;
             TxtFilter.Leave += TxtFilter_Leave;
@@ -473,81 +474,47 @@ namespace GSMArena_Mobile_Brands
         //Export CSV file.
         private async void cSVToolStripMenuItem_Click(object sender, EventArgs e) => await HandleExportAsync("csv");
 
-        private async void TRVmodels_AfterCheck(object sender, TreeViewEventArgs e)
+        private void TRVmodels_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            // Prevent recursive event firing
             TRVmodels.AfterCheck -= TRVmodels_AfterCheck;
             try
             {
-                if (e.Node.Level == 0)
-                {
-                    // Root node (Models/Phones): typically ignore or apply to all brands
-                    foreach (TreeNode brandNode in e.Node.Nodes)
-                        SetNodeCheckedState(brandNode, e.Node.Checked);
-                }
-                else if (e.Node.Level == 1)
-                {
-                    // Brand node → propagate to all phones
-                    foreach (TreeNode phoneNode in e.Node.Nodes)
-                        phoneNode.Checked = e.Node.Checked;
-                }
-                else if (e.Node.Level == 2)
-                {
-                    // Phone node → update parent brand checkbox if needed
-                    var parent = e.Node.Parent;
-                    if (parent != null)
-                    {
-                        bool allChecked = true;
-                        foreach (TreeNode sibling in parent.Nodes)
-                        {
-                            if (!sibling.Checked)
-                            {
-                                allChecked = false;
-                                break;
-                            }
-                        }
-                        parent.Checked = allChecked;
-                    }
-                }
+                SetNodeCheckedState(e.Node, e.Node.Checked);
             }
-            finally { TRVmodels.AfterCheck += TRVmodels_AfterCheck; }
+            finally
+            {
+                TRVmodels.AfterCheck += TRVmodels_AfterCheck;
+                UpdateSelectedStatus();
+            }
         }
+
         private void SetNodeCheckedState(TreeNode node, bool isChecked)
         {
             node.Checked = isChecked;
             foreach (TreeNode child in node.Nodes)
-            {
                 SetNodeCheckedState(child, isChecked);
-            }
-            UpdateSelectedStatus();
         }
+
         private void UpdateSelectedStatus()
         {
             var sb = new StringBuilder();
 
             foreach (TreeNode brandNode in TRVmodels.Nodes[0].Nodes)
             {
-                int checkedCount = 0;
-
-                foreach (TreeNode phoneNode in brandNode.Nodes)
-                {
-                    if (phoneNode.Checked)
-                        checkedCount++;
-                }
-
+                int checkedCount = brandNode.Nodes.Cast<TreeNode>().Count(n => n.Checked);
                 if (checkedCount > 0)
                 {
-                    sb.Append($"{brandNode.Text.Split('(')[0].Trim()}: {checkedCount} phone(s) - ");
+                    var name = brandNode.Text.Split('(')[0].Trim();
+                    sb.Append($"{name}: {checkedCount} phone(s) - ");
                 }
             }
 
-            string status = sb.ToString().TrimEnd(' ', '-');
-
-            if (string.IsNullOrEmpty(status))
-                tstSelected.Text = "No phones selected.";
-            else
-                tstSelected.Text = status;
+            var status = sb.ToString().TrimEnd(' ', '-');
+            tstSelected.Text = string.IsNullOrEmpty(status)
+                ? "No phones selected."
+                : status;
         }
+
         private bool EnsureExportPath(string format)
         {
             string savedPath = GetSavedPathForFormat(format);

@@ -1,37 +1,84 @@
-﻿using clsGsmar.Models;
+﻿using clsGsmar;
+using clsGsmar.Models;
+using clsGsmar.Services;
 using HtmlAgilityPack;
 using System.Net;
+using System.Resources;
 
 public class ScraperService
-{
-    private readonly Random _random = new Random();
-    private readonly List<string> _proxies = new() {
-        "http://160.25.8.2:8080","http://127.0.0.1:8080","http://103.10.55.137:8664",
-        "http://103.120.146.11:8080","http://182.160.117.98:6969","http://103.231.239.166:58080","http://43.231.78.203:8080","http://103.60.204.18:80",
-        "http://27.147.217.102:6969","http://114.130.153.122:58080",
-        "http://103.245.109.57:39355","http://103.117.192.10:80","http://103.138.145.34:80","http://103.25.81.116:8080","http://103.106.56.131:8082",
-        "http://103.15.140.177:44759","http://203.76.98.21:45958",
-        "http://115.127.83.142:1234","http://27.147.140.129:58080","http://103.189.11.63:3838","http://36.50.11.196:8080","http://103.112.52.156:8765",
-        "http://115.127.28.10:8674","http://103.49.114.195:8080",
-    "http://3.145.16.157:1080","http://108.162.193.160:80","http://108.162.192.173:80",
-    "http://93.127.215.97:80",
-    "http://85.215.64.49:80",
-    "http://38.54.71.67:80",
-    "http://123.141.181.8:5031",
-    "http://133.125.38.119:80"
-    // Add your actual proxies here
-};
-    private readonly List<string> _userAgents = new()
-{
-    "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.3351.83",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/120.0.0.0",
-    "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/119.0.0.0",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Vivaldi/7.5.3735.44"
-};
+    {
+        private readonly Random _random = new Random();
+        private readonly List<string> _proxies = new();
+        private readonly List<string> _userAgents = new();
+        private void ParseProxyAndUserAgentLines(List<string> lines)
+        {
+            _proxies.Clear();
+            _userAgents.Clear();
+
+            foreach (var line in lines)
+            {
+                var trimmed = line.Trim();
+                if (trimmed.StartsWith("PROXY:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var proxy = trimmed.Substring("PROXY:".Length).Trim();
+                    if (!string.IsNullOrWhiteSpace(proxy))
+                        _proxies.Add(proxy);
+                }
+                else if (trimmed.StartsWith("USERAGENT:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var ua = trimmed.Substring("USERAGENT:".Length).Trim();
+                    if (!string.IsNullOrWhiteSpace(ua))
+                        _userAgents.Add(ua);
+                }
+            }
+        }
+        private readonly FileReadServices _fileReadServices;
+        public ScraperService()
+        {
+            _fileReadServices = new FileReadServices();
+        }
+    private async Task<List<string>> LoadProxyUserAgentLinesAsync(string location, IProgress<string> progress)
+    {
+        if (!string.IsNullOrWhiteSpace(location))
+        {
+            try
+            {
+                progress?.Report($"Loading user-provided proxy/user-agent list from: {location}");
+                return await _fileReadServices.LoadLinesAsync(location, progress);
+            }
+            catch (Exception ex)
+            {
+                progress?.Report($"Failed to load user-provided file. Will use built-in fallback. Error: {ex.Message}");
+            }
+        }
+
+        progress?.Report("Loading built-in fallback proxy/user-agent list from resources.");
+        return LoadEmbeddedFallbackLines();
+    }
+
+    private List<string> LoadEmbeddedFallbackLines()
+    {
+        var lines = new List<string>();
+        var asm = typeof(ScraperService).Assembly;
+
+        using (var stream = asm.GetManifestResourceStream("clsGsmar.user_agents.txt"))
+        {
+            var names = asm.GetManifestResourceNames();
+            foreach (var name in names) Console.WriteLine(name);
+            if (stream == null) return lines;
+
+            using var reader = new StreamReader(stream);
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line))
+                    lines.Add(line.Trim());
+            }
+        }
+        return lines;
+    }
+
+
     //Plan A: No user-agents neither Proxy
     private bool IsBlockedOrEmpty(string html)
     {
@@ -45,27 +92,27 @@ public class ScraperService
                html.Contains("are you human") ||
                html.Contains("access denied");
     }
-    private int GetTotalPages(string html)
-    {
-        var doc = new HtmlAgilityPack.HtmlDocument();
-        doc.LoadHtml(html);
+    //private int GetTotalPages(string html)
+    //{
+    //    var doc = new HtmlAgilityPack.HtmlDocument();
+    //    doc.LoadHtml(html);
 
-        var nav = doc.DocumentNode.SelectSingleNode("//div[@class='nav-pages']");
-        if (nav == null) return 1;
+    //    var nav = doc.DocumentNode.SelectSingleNode("//div[@class='nav-pages']");
+    //    if (nav == null) return 1;
 
-        var pageLinks = nav.SelectNodes(".//a");
-        if (pageLinks == null) return 1;
+    //    var pageLinks = nav.SelectNodes(".//a");
+    //    if (pageLinks == null) return 1;
 
-        int maxPage = 1;
-        foreach (var link in pageLinks)
-        {
-            if (int.TryParse(link.InnerText.Trim(), out int num))
-            {
-                if (num > maxPage) maxPage = num;
-            }
-        }
-        return maxPage;
-    }
+    //    int maxPage = 1;
+    //    foreach (var link in pageLinks)
+    //    {
+    //        if (int.TryParse(link.InnerText.Trim(), out int num))
+    //        {
+    //            if (num > maxPage) maxPage = num;
+    //        }
+    //    }
+    //    return maxPage;
+    //}
 
 
     private string GetPagedUrl(string brandUrl, int page)
@@ -89,10 +136,6 @@ public class ScraperService
         var baseUrl = brandUrl.Substring(0, brandUrl.LastIndexOf('/'));
         return $"{baseUrl}/{prefix}-f-{brandId}-0-p{page}.php";
     }
-
-
-
-
     private List<Phone> ParsePhonesFromHtml(string html, string brandName)
     {
         var phones = new List<Phone>();
@@ -167,6 +210,8 @@ public class ScraperService
 
     private async Task<string> TryGetHtmlWithFallbackAsync(string url, IProgress<string> progress = null)
     {
+        await LoadProxyUserAgentLinesAsync(url, progress);
+
         foreach (var proxy in _proxies)
         {
             foreach (var agent in _userAgents)

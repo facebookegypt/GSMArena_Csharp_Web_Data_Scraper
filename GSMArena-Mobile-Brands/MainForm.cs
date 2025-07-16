@@ -84,7 +84,7 @@ namespace GSMArena_Mobile_Brands
             tstlChkCon.Text = "Connected";
             tstlMessage.Text = "Starting scrape...";
             ProgressBarSc.Style = ProgressBarStyle.Marquee;
-
+            TstGet.Text = "Scrap Selected Brands";
             var progress = new Progress<string>(msg =>
             {
                 tstlMessage.Text = msg;
