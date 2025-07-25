@@ -60,7 +60,7 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 1) Export scraped phones CSV, JSON, TXT and SQL file formats. Done
 2) Export settings Form to set each file format location.  Done
 3) WaitForm 'Pause ⏸️ | Stop ⏹️ | Resume ▶️' scraping Phones / Models.
-4) Shared exported files to 🈸 DropBox 'App Folder'.
+4) Shared exported files [live example file **CSV**](https://www.dropbox.com/scl/fi/lxo69fb0wabzn8q39nax2/export_20250725_225948.json?rlkey=bijyn0hb4cwmbhf78z3as0ert&st=sx86wkpg&dl=0) to 🈸 DropBox 'App Folder'.
 
 ---
 
