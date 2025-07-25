@@ -27,9 +27,16 @@ Welcome to **GSMArena-Mobile-Brands**! This project demonstrates scraping mobile
 
 ![Phone Perview screenshot](https://i.ibb.co/3m1QXqSq/GSMArena-scraper-waitform.png)
 
+## 📸 Screenshot [DropBox Integration]
+
+![DropBox Api screenshot](https://i.ibb.co/B5vbV6D4/Evry1falls-GSMArena-Web-Data-Scraper-Share-to-Drop-Box.png)
+
 
 ## Video - Phase 1
 [[Video](https://www.youtube.com/watch?v=EqeJDCMOLdo)]
+
+## Video - DropBox Integration
+[[Video](https://youtu.be/K9TzGAI9WGQ)]
 
 ---
 
