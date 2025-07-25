@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            TreeNode treeNode1 = new TreeNode("Models / Phones");
+            TreeNode treeNode3 = new TreeNode("Models / Phones");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayForm));
             TRVmodels = new TreeView();
             groupBox1 = new GroupBox();
@@ -53,6 +53,10 @@
             tsmReset = new ToolStripMenuItem();
             StatusInfo = new StatusStrip();
             tstSelected = new ToolStripStatusLabel();
+            tsmShare = new ToolStripMenuItem();
+            dropBoxToolStripMenuItem = new ToolStripMenuItem();
+            oneDriveToolStripMenuItem = new ToolStripMenuItem();
+            googleDriveToolStripMenuItem = new ToolStripMenuItem();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Phon_Img).BeginInit();
             panel1.SuspendLayout();
@@ -71,10 +75,10 @@
             TRVmodels.LineColor = Color.FromArgb(0, 102, 204);
             TRVmodels.Location = new Point(1, 41);
             TRVmodels.Name = "TRVmodels";
-            treeNode1.Name = "Node0";
-            treeNode1.NodeFont = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            treeNode1.Text = "Models / Phones";
-            TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeNode3.Name = "Node0";
+            treeNode3.NodeFont = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            treeNode3.Text = "Models / Phones";
+            TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode3 });
             TRVmodels.ShowNodeToolTips = true;
             TRVmodels.Size = new Size(366, 384);
             TRVmodels.TabIndex = 0;
@@ -216,11 +220,11 @@
             // 
             Mnu.BackColor = Color.Azure;
             Mnu.Dock = DockStyle.Right;
-            Mnu.Items.AddRange(new ToolStripItem[] { tsmExport, tsmReset });
-            Mnu.Location = new Point(6, 0);
+            Mnu.Items.AddRange(new ToolStripItem[] { tsmExport, tsmShare, tsmReset });
+            Mnu.Location = new Point(-46, 0);
             Mnu.Name = "Mnu";
             Mnu.RightToLeft = RightToLeft.Yes;
-            Mnu.Size = new Size(74, 450);
+            Mnu.Size = new Size(126, 450);
             Mnu.TabIndex = 13;
             Mnu.Text = "menuStrip1";
             // 
@@ -235,7 +239,7 @@
             tsmExport.ImageScaling = ToolStripItemImageScaling.None;
             tsmExport.Name = "tsmExport";
             tsmExport.RightToLeftAutoMirrorImage = true;
-            tsmExport.Size = new Size(61, 81);
+            tsmExport.Size = new Size(113, 81);
             tsmExport.Text = "&Export";
             tsmExport.TextDirection = ToolStripTextDirection.Vertical270;
             tsmExport.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -252,7 +256,7 @@
             cSVToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
             cSVToolStripMenuItem.RightToLeft = RightToLeft.No;
-            cSVToolStripMenuItem.Size = new Size(171, 24);
+            cSVToolStripMenuItem.Size = new Size(180, 24);
             cSVToolStripMenuItem.Text = "CSV";
             cSVToolStripMenuItem.TextImageRelation = TextImageRelation.TextBeforeImage;
             cSVToolStripMenuItem.Click += cSVToolStripMenuItem_Click;
@@ -269,7 +273,7 @@
             jSONToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
             jSONToolStripMenuItem.RightToLeft = RightToLeft.No;
-            jSONToolStripMenuItem.Size = new Size(171, 24);
+            jSONToolStripMenuItem.Size = new Size(180, 24);
             jSONToolStripMenuItem.Text = "JSON";
             jSONToolStripMenuItem.Click += jSONToolStripMenuItem_Click;
             // 
@@ -285,7 +289,7 @@
             tXTToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             tXTToolStripMenuItem.Name = "tXTToolStripMenuItem";
             tXTToolStripMenuItem.RightToLeft = RightToLeft.No;
-            tXTToolStripMenuItem.Size = new Size(171, 24);
+            tXTToolStripMenuItem.Size = new Size(180, 24);
             tXTToolStripMenuItem.Text = "TXT";
             tXTToolStripMenuItem.Click += tXTToolStripMenuItem_Click;
             // 
@@ -301,13 +305,13 @@
             toolStripMenuItem2.ImageScaling = ToolStripItemImageScaling.None;
             toolStripMenuItem2.Name = "toolStripMenuItem2";
             toolStripMenuItem2.RightToLeft = RightToLeft.No;
-            toolStripMenuItem2.Size = new Size(171, 24);
+            toolStripMenuItem2.Size = new Size(180, 24);
             toolStripMenuItem2.Text = "SQL";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(168, 6);
+            toolStripMenuItem1.Size = new Size(177, 6);
             // 
             // exportSettingsToolStripMenuItem
             // 
@@ -320,7 +324,7 @@
             exportSettingsToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
             exportSettingsToolStripMenuItem.RightToLeft = RightToLeft.No;
-            exportSettingsToolStripMenuItem.Size = new Size(171, 24);
+            exportSettingsToolStripMenuItem.Size = new Size(180, 24);
             exportSettingsToolStripMenuItem.Text = "Export Settings";
             exportSettingsToolStripMenuItem.Click += exportSettingsToolStripMenuItem_Click;
             // 
@@ -334,7 +338,7 @@
             tsmReset.ImageScaling = ToolStripItemImageScaling.None;
             tsmReset.Name = "tsmReset";
             tsmReset.RightToLeftAutoMirrorImage = true;
-            tsmReset.Size = new Size(61, 71);
+            tsmReset.Size = new Size(113, 71);
             tsmReset.Text = "R&eset";
             tsmReset.TextDirection = ToolStripTextDirection.Vertical270;
             tsmReset.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -359,6 +363,54 @@
             tstSelected.Name = "tstSelected";
             tstSelected.Size = new Size(0, 17);
             tstSelected.Click += tstSelected_Click;
+            // 
+            // tsmShare
+            // 
+            tsmShare.DropDownItems.AddRange(new ToolStripItem[] { dropBoxToolStripMenuItem, oneDriveToolStripMenuItem, googleDriveToolStripMenuItem });
+            tsmShare.Font = new Font("Arial Rounded MT Bold", 15.75F);
+            tsmShare.ForeColor = Color.OrangeRed;
+            tsmShare.Image = Properties.Resources.share;
+            tsmShare.ImageScaling = ToolStripItemImageScaling.None;
+            tsmShare.Name = "tsmShare";
+            tsmShare.Size = new Size(113, 74);
+            tsmShare.Text = "Sha&re";
+            tsmShare.TextDirection = ToolStripTextDirection.Vertical270;
+            tsmShare.TextImageRelation = TextImageRelation.TextBeforeImage;
+            // 
+            // dropBoxToolStripMenuItem
+            // 
+            dropBoxToolStripMenuItem.BackColor = Color.Azure;
+            dropBoxToolStripMenuItem.Font = new Font("Times New Roman", 12F);
+            dropBoxToolStripMenuItem.ForeColor = Color.IndianRed;
+            dropBoxToolStripMenuItem.Image = Properties.Resources.dropbox;
+            dropBoxToolStripMenuItem.Name = "dropBoxToolStripMenuItem";
+            dropBoxToolStripMenuItem.RightToLeft = RightToLeft.No;
+            dropBoxToolStripMenuItem.Size = new Size(180, 24);
+            dropBoxToolStripMenuItem.Text = "DropBox";
+            dropBoxToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
+            dropBoxToolStripMenuItem.Click += dropBoxToolStripMenuItem_Click;
+            // 
+            // oneDriveToolStripMenuItem
+            // 
+            oneDriveToolStripMenuItem.BackColor = Color.Azure;
+            oneDriveToolStripMenuItem.Font = new Font("Times New Roman", 12F);
+            oneDriveToolStripMenuItem.ForeColor = Color.IndianRed;
+            oneDriveToolStripMenuItem.Name = "oneDriveToolStripMenuItem";
+            oneDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
+            oneDriveToolStripMenuItem.Size = new Size(180, 24);
+            oneDriveToolStripMenuItem.Text = "OneDrive";
+            oneDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // googleDriveToolStripMenuItem
+            // 
+            googleDriveToolStripMenuItem.BackColor = Color.Azure;
+            googleDriveToolStripMenuItem.Font = new Font("Times New Roman", 12F);
+            googleDriveToolStripMenuItem.ForeColor = Color.IndianRed;
+            googleDriveToolStripMenuItem.Name = "googleDriveToolStripMenuItem";
+            googleDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
+            googleDriveToolStripMenuItem.Size = new Size(180, 24);
+            googleDriveToolStripMenuItem.Text = "Google Drive";
+            googleDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // DisplayForm
             // 
@@ -414,5 +466,9 @@
         private StatusStrip StatusInfo;
         private ToolStripStatusLabel tstSelected;
         private Button btnCopy;
+        private ToolStripMenuItem tsmShare;
+        private ToolStripMenuItem dropBoxToolStripMenuItem;
+        private ToolStripMenuItem oneDriveToolStripMenuItem;
+        private ToolStripMenuItem googleDriveToolStripMenuItem;
     }
 }

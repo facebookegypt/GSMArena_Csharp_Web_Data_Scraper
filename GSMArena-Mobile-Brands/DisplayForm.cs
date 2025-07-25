@@ -1,5 +1,7 @@
-﻿using clsGsmar.Models;
+﻿using clsGsmar.CloudUpload;
+using clsGsmar.Models;
 using clsGsmar.Services;
+using Dropbox.Api.Files;
 using HtmlAgilityPack;
 using Microsoft.VisualBasic;
 using System;
@@ -37,7 +39,10 @@ namespace GSMArena_Mobile_Brands
         // =========================
         private PrivateFontCollection _customFonts = new PrivateFontCollection();
         private FontFamily _fontNew;
-
+        //===========================
+        //Share
+        //===========================
+        private DropBoxUploader uploader = new DropBoxUploader();
         private void LoadCustomFonts()
         {
             AddFontFromBytes(Properties.Resources.COOPBL);
@@ -686,6 +691,51 @@ namespace GSMArena_Mobile_Brands
         private void RTBspecs_TextChanged(object sender, EventArgs e)
         {
             btnCopy.Enabled = !string.IsNullOrWhiteSpace(RTBspecs.Text);
+        }
+
+        private async void dropBoxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //share to dropbox
+            string? path = tstSelected.Text.Replace("Export completed: ", "").Trim();
+
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+            {
+                MessageBox.Show("Exported file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Authenticate only once per session
+                if (string.IsNullOrEmpty(uploader.AccessToken))
+                {
+                    var authResult = await uploader.AuthenticateAsync();
+                    if (!authResult)
+                    {
+                        MessageBox.Show("Dropbox authentication failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                // Upload the file
+                bool uploadSuccess = await uploader.UploadFileAsync(path);
+                if (uploadSuccess)
+                {
+                    //var sharedLink = await uploader.CreateSharedLinkAsync(path);
+                    //if (!string.IsNullOrEmpty(sharedLink))
+                    //{
+                    //    Clipboard.SetText(sharedLink); // Copies to clipboard
+                    //    MessageBox.Show("File uploaded and link copied to clipboard:\n" + sharedLink, "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //}
+                    MessageBox.Show("File uploaded to DropBox App Folder, Successfully!", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Upload failed.", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -143,6 +143,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dropbox {
+            get {
+                object obj = ResourceManager.GetObject("dropbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Edit {
             get {
                 object obj = ResourceManager.GetObject("Edit", resourceCulture);
@@ -276,6 +286,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         internal static System.Drawing.Bitmap RootIcon {
             get {
                 object obj = ResourceManager.GetObject("RootIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap share {
+            get {
+                object obj = ResourceManager.GetObject("share", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -12,10 +12,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
+    <Compile Remove="Configuration\**" />
+    <EmbeddedResource Remove="Configuration\**" />
+    <None Remove="Configuration\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Class1.cs" />
+    <Compile Remove="CouldUpload\DropBoxUploader1.cs" />
+    <Compile Remove="Tools\OAuth2WebView.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App.config" />
     <None Remove="user_agents.txt" />
   </ItemGroup>
 
@@ -24,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+    <PackageReference Include="Dropbox.Api" Version="7.0.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.2" />
   </ItemGroup>
 
   <ItemGroup>

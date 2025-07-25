@@ -38,3 +38,8 @@ node_modules/
 # Others
 Thumbs.db
 Desktop.ini
+credentials.json
+JSON/
+SQL/
+TXT/
+CSV/
