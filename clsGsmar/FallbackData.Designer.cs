@@ -76,37 +76,11 @@ namespace clsGsmar {
         ///PROXY:http://51.79.207.21:8080
         ///PROXY:http://8.211.194.78:8443
         ///PROXY:http://167.86.93.118:8049
-        ///PROXY:http://8.220.205.172:8008
-        ///PROXY:htt [rest of string was truncated]&quot;;.
+        ///PROXY:http://8.220.205.172 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ProxyAndUserAgentFallback {
             get {
                 return ResourceManager.GetString("ProxyAndUserAgentFallback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PROXY:http://123.141.181.1:5031
-        ///PROXY:http://103.173.230.217:8090
-        ///PROXY:http://185.200.38.53:8080
-        ///PROXY:http://45.146.163.31:80
-        ///PROXY:http://159.203.61.169:3128
-        ///PROXY:http://103.121.12.9:8080
-        ///PROXY:http://151.236.24.38:80
-        ///PROXY:http://47.89.159.212:80
-        ///PROXY:http://164.68.101.70:8888
-        ///PROXY:http://134.209.29.120:80
-        ///PROXY:http://139.59.1.14:8080
-        ///PROXY:http://8.213.197.208:6379
-        ///PROXY:http://51.79.207.21:8080
-        ///PROXY:http://8.211.194.78:8443
-        ///PROXY:http://167.86.93.118:8049
-        ///PROXY:http://8.220.205.172:8008
-        ///PROXY:htt [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string user_agents {
-            get {
-                return ResourceManager.GetString("user_agents", resourceCulture);
             }
         }
     }

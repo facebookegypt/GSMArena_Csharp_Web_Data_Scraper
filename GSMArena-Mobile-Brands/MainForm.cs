@@ -7,11 +7,11 @@ namespace GSMArena_Mobile_Brands
 {
     public partial class MainForm : Form
     {
-        private ScraperService _scraper;
+        private ScraperService? _scraper;
         private readonly string placeHolder = "Leave blank to scrap all";
         private readonly string TstGetplaceHolder = "Scrap Selected Brands";
         private List<Brand> _allBrands = new List<Brand>();
-        private Image _loadingGif;
+        private Image? _loadingGif;
 
         public MainForm()
         {
@@ -30,13 +30,12 @@ namespace GSMArena_Mobile_Brands
                 {
                     checkedBrands.Add(new Brand
                     {
-                        Name = row.Cells["BrName"].Value?.ToString(),
-                        Url = row.Cells["BrUrl"].Value?.ToString(),
+                        Name = row.Cells["BrName"].Value.ToString(),
+                        Url = row.Cells["BrUrl"].Value.ToString(),
                         PhoneCount = int.TryParse(row.Cells["Pcnt"].Value?.ToString(), out var pcnt) ? pcnt : 0
                     });
                 }
             }
-
             return checkedBrands;
         }
 
@@ -83,13 +82,15 @@ namespace GSMArena_Mobile_Brands
             ScrapBtn.Enabled = false;
             tstlChkCon.Text = "Connected";
             tstlMessage.Text = "Starting scrape...";
-            ProgressBarSc.Style = ProgressBarStyle.Marquee;
+            //ProgressBarSc.Style = ProgressBarStyle.Marquee;
             TstGet.Text = "Scrap Selected Brands";
             var progress = new Progress<string>(msg =>
             {
                 tstlMessage.Text = msg;
             });
-
+            var waitForm = new TwaitForm();
+                AsyncTaskController.ProgressReporter = new Progress<string>(msg => waitForm.UpdateStatus(msg));
+                waitForm.Show(this);
             try
             {
                 // Get all brands with counts
@@ -119,7 +120,8 @@ namespace GSMArena_Mobile_Brands
             }
             finally
             {
-                ProgressBarSc.Style = ProgressBarStyle.Blocks;
+                waitForm.Close();
+                //ProgressBarSc.Style = ProgressBarStyle.Blocks;
                 ScrapBtn.Enabled = true;
                 groupBox1.Enabled = true;
             }

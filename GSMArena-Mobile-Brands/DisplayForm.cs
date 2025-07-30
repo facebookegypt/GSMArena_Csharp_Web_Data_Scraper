@@ -728,6 +728,8 @@ namespace GSMArena_Mobile_Brands
                     //    MessageBox.Show("File uploaded and link copied to clipboard:\n" + sharedLink, "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //}
                     MessageBox.Show("File uploaded to DropBox App Folder, Successfully!", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    TstShare.Visible = true;
+                    TstShare.Text = "DropBox, OK!";
                 }
                 else
                     MessageBox.Show("Upload failed.", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);

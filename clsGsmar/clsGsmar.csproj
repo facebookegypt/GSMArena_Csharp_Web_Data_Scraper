@@ -20,16 +20,29 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="CouldUpload\DropBoxUploader1.cs" />
+    <Compile Remove="Resource1.Designer.cs" />
     <Compile Remove="Tools\OAuth2WebView.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resource1.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="App.config" />
+    <None Remove="Resources\Proxies.txt" />
+    <None Remove="Resources\user_agents.txt" />
     <None Remove="user_agents.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="user_agents.txt" />
+    <EmbeddedResource Include="bin\Debug\net9.0-windows\user_agents.txt" />
+    <EmbeddedResource Include="Resources\proxies.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\user_agents.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +62,7 @@
     <EmbeddedResource Update="FallbackData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FallbackData.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

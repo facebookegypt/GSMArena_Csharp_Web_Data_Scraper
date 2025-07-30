@@ -1,6 +1,6 @@
 ﻿namespace GSMArena_Mobile_Brands
 {
-    partial class WaitScrapForm
+    partial class TwaitForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblImg = new Label();
             panel1 = new Panel();
             btnStop = new Button();
             btnResume = new Button();
             btnPause = new Button();
-            ProgScrap = new ProgressBar();
-            lblETA = new Label();
-            lblStatus = new Label();
-            picLoading = new PictureBox();
+            progressBar1 = new ProgressBar();
             PrgrssTextBox = new TextBox();
+            lblStatus = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picLoading).BeginInit();
             SuspendLayout();
-            // 
-            // lblImg
-            // 
-            lblImg.AutoEllipsis = true;
-            lblImg.AutoSize = true;
-            lblImg.BackColor = Color.Transparent;
-            lblImg.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblImg.ForeColor = Color.Brown;
-            lblImg.Image = Properties.Resources.Download_32x32;
-            lblImg.Location = new Point(1, 1);
-            lblImg.Name = "lblImg";
-            lblImg.Size = new Size(50, 41);
-            lblImg.TabIndex = 0;
-            lblImg.Text = "          \r\n           ";
-            lblImg.TextAlign = ContentAlignment.MiddleLeft;
-            lblImg.UseCompatibleTextRendering = true;
             // 
             // panel1
             // 
@@ -64,12 +44,12 @@
             panel1.Controls.Add(btnStop);
             panel1.Controls.Add(btnResume);
             panel1.Controls.Add(btnPause);
-            panel1.Controls.Add(ProgScrap);
+            panel1.Controls.Add(progressBar1);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 144);
+            panel1.Location = new Point(0, 190);
             panel1.Name = "panel1";
-            panel1.Size = new Size(578, 52);
-            panel1.TabIndex = 1;
+            panel1.Size = new Size(576, 52);
+            panel1.TabIndex = 2;
             // 
             // btnStop
             // 
@@ -84,7 +64,7 @@
             btnStop.TabIndex = 3;
             btnStop.UseCompatibleTextRendering = true;
             btnStop.UseVisualStyleBackColor = true;
-            btnStop.Click += btnStop_Click;
+            btnStop.Click += btnCancel_Click;
             // 
             // btnResume
             // 
@@ -116,112 +96,71 @@
             btnPause.UseVisualStyleBackColor = true;
             btnPause.Click += btnPause_Click;
             // 
-            // ProgScrap
+            // progressBar1
             // 
-            ProgScrap.BackColor = Color.Azure;
-            ProgScrap.Dock = DockStyle.Left;
-            ProgScrap.Location = new Point(0, 0);
-            ProgScrap.Name = "ProgScrap";
-            ProgScrap.Size = new Size(329, 52);
-            ProgScrap.TabIndex = 0;
-            ProgScrap.Click += ProgScrap_Click;
-            // 
-            // lblETA
-            // 
-            lblETA.AutoEllipsis = true;
-            lblETA.BackColor = Color.Transparent;
-            lblETA.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblETA.ForeColor = Color.Red;
-            lblETA.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
-            lblETA.Location = new Point(2, 115);
-            lblETA.Name = "lblETA";
-            lblETA.Size = new Size(48, 28);
-            lblETA.TabIndex = 3;
-            lblETA.Text = "000";
-            lblETA.TextAlign = ContentAlignment.MiddleCenter;
-            lblETA.UseCompatibleTextRendering = true;
-            // 
-            // lblStatus
-            // 
-            lblStatus.AutoEllipsis = true;
-            lblStatus.BackColor = Color.Azure;
-            lblStatus.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblStatus.ForeColor = Color.Brown;
-            lblStatus.ImageAlign = ContentAlignment.MiddleLeft;
-            lblStatus.Location = new Point(57, 1);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(521, 41);
-            lblStatus.TabIndex = 4;
-            lblStatus.Text = "evry1falls@acc/ Ahmed Samir->https://adonetaccess2003.blogspot.com";
-            lblStatus.TextAlign = ContentAlignment.MiddleLeft;
-            lblStatus.UseCompatibleTextRendering = true;
-            // 
-            // picLoading
-            // 
-            picLoading.BackColor = Color.Transparent;
-            picLoading.Image = Properties.Resources.loading;
-            picLoading.Location = new Point(0, 45);
-            picLoading.Name = "picLoading";
-            picLoading.Size = new Size(51, 93);
-            picLoading.SizeMode = PictureBoxSizeMode.Zoom;
-            picLoading.TabIndex = 5;
-            picLoading.TabStop = false;
-            picLoading.UseWaitCursor = true;
+            progressBar1.BackColor = Color.Azure;
+            progressBar1.Dock = DockStyle.Left;
+            progressBar1.Location = new Point(0, 0);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(329, 52);
+            progressBar1.TabIndex = 0;
             // 
             // PrgrssTextBox
             // 
             PrgrssTextBox.BackColor = Color.Azure;
             PrgrssTextBox.ForeColor = Color.Chocolate;
-            PrgrssTextBox.Location = new Point(57, 45);
+            PrgrssTextBox.Location = new Point(12, 44);
             PrgrssTextBox.Multiline = true;
             PrgrssTextBox.Name = "PrgrssTextBox";
             PrgrssTextBox.PlaceholderText = "Reporting the process ...";
             PrgrssTextBox.ReadOnly = true;
             PrgrssTextBox.ScrollBars = ScrollBars.Both;
-            PrgrssTextBox.Size = new Size(519, 93);
-            PrgrssTextBox.TabIndex = 6;
+            PrgrssTextBox.Size = new Size(564, 134);
+            PrgrssTextBox.TabIndex = 7;
+            PrgrssTextBox.TextChanged += PrgrssTextBox_TextChanged;
             // 
-            // WaitScrapForm
+            // lblStatus
+            // 
+            lblStatus.AutoEllipsis = true;
+            lblStatus.BackColor = Color.Azure;
+            lblStatus.Dock = DockStyle.Top;
+            lblStatus.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStatus.ForeColor = Color.Brown;
+            lblStatus.ImageAlign = ContentAlignment.MiddleLeft;
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(576, 41);
+            lblStatus.TabIndex = 8;
+            lblStatus.Text = "evry1falls@acc/ Ahmed Samir->https://adonetaccess2003.blogspot.com";
+            lblStatus.TextAlign = ContentAlignment.MiddleLeft;
+            lblStatus.UseCompatibleTextRendering = true;
+            // 
+            // TwaitForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Azure;
-            ClientSize = new Size(578, 196);
-            ControlBox = false;
-            Controls.Add(lblETA);
-            Controls.Add(PrgrssTextBox);
+            ClientSize = new Size(576, 242);
             Controls.Add(lblStatus);
+            Controls.Add(PrgrssTextBox);
             Controls.Add(panel1);
-            Controls.Add(lblImg);
-            Controls.Add(picLoading);
-            ForeColor = Color.Azure;
             FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "WaitScrapForm";
-            Opacity = 0.8D;
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterParent;
-            FormClosing += WaitScrapForm_FormClosing;
-            Load += WaitScrapForm_Load;
+            Name = "TwaitForm";
+            Text = "TwaitForm";
+            Load += TwaitForm_Load;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picLoading).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label lblImg;
         private Panel panel1;
-        private ProgressBar ProgScrap;
         private Button btnStop;
         private Button btnResume;
         private Button btnPause;
-        private Label lblETA;
-        private Label lblStatus;
-        private PictureBox picLoading;
+        private ProgressBar progressBar1;
         private TextBox PrgrssTextBox;
+        private Label lblStatus;
     }
 }

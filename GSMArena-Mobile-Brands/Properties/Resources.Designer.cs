@@ -173,6 +173,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gdrive {
+            get {
+                object obj = ResourceManager.GetObject("Gdrive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap green_ok {
             get {
                 object obj = ResourceManager.GetObject("green_ok", resourceCulture);
@@ -213,6 +223,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Liner {
+            get {
+                object obj = ResourceManager.GetObject("Liner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap link {
             get {
                 object obj = ResourceManager.GetObject("link", resourceCulture);
@@ -236,6 +256,16 @@ namespace GSMArena_Mobile_Brands.Properties {
         internal static System.Drawing.Bitmap magnifier {
             get {
                 object obj = ResourceManager.GetObject("magnifier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Onedrive {
+            get {
+                object obj = ResourceManager.GetObject("Onedrive", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

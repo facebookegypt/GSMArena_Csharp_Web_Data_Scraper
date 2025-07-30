@@ -40,7 +40,6 @@
             SearchTextBox = new TextBox();
             LblSearch = new Label();
             groupBox2 = new GroupBox();
-            ProgressBarSc = new ProgressBar();
             ScrapBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)DGVscrap).BeginInit();
             groupBox1.SuspendLayout();
@@ -186,7 +185,6 @@
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox2.BackColor = Color.Azure;
-            groupBox2.Controls.Add(ProgressBarSc);
             groupBox2.Controls.Add(ScrapBtn);
             groupBox2.Location = new Point(522, 12);
             groupBox2.Name = "groupBox2";
@@ -194,14 +192,6 @@
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Scrap All Brands";
-            // 
-            // ProgressBarSc
-            // 
-            ProgressBarSc.Dock = DockStyle.Bottom;
-            ProgressBarSc.Location = new Point(3, 153);
-            ProgressBarSc.Name = "ProgressBarSc";
-            ProgressBarSc.Size = new Size(260, 23);
-            ProgressBarSc.TabIndex = 6;
             // 
             // ScrapBtn
             // 
@@ -214,7 +204,7 @@
             ScrapBtn.ImageAlign = ContentAlignment.MiddleLeft;
             ScrapBtn.Location = new Point(3, 22);
             ScrapBtn.Name = "ScrapBtn";
-            ScrapBtn.Size = new Size(257, 122);
+            ScrapBtn.Size = new Size(257, 151);
             ScrapBtn.TabIndex = 5;
             ScrapBtn.Text = "Scrap it All!";
             ScrapBtn.UseVisualStyleBackColor = false;
@@ -256,7 +246,6 @@
         private RadioButton AllRadio;
         private RadioButton BrandRadio;
         private GroupBox groupBox2;
-        private ProgressBar ProgressBarSc;
         private Button ScrapBtn;
         private ToolStripStatusLabel TstGet;
     }

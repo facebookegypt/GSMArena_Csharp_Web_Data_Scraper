@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            TreeNode treeNode3 = new TreeNode("Models / Phones");
+            TreeNode treeNode1 = new TreeNode("Models / Phones");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayForm));
             TRVmodels = new TreeView();
             groupBox1 = new GroupBox();
@@ -50,13 +50,14 @@
             toolStripMenuItem2 = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripSeparator();
             exportSettingsToolStripMenuItem = new ToolStripMenuItem();
-            tsmReset = new ToolStripMenuItem();
-            StatusInfo = new StatusStrip();
-            tstSelected = new ToolStripStatusLabel();
             tsmShare = new ToolStripMenuItem();
             dropBoxToolStripMenuItem = new ToolStripMenuItem();
             oneDriveToolStripMenuItem = new ToolStripMenuItem();
             googleDriveToolStripMenuItem = new ToolStripMenuItem();
+            tsmReset = new ToolStripMenuItem();
+            StatusInfo = new StatusStrip();
+            tstSelected = new ToolStripStatusLabel();
+            TstShare = new ToolStripStatusLabel();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Phon_Img).BeginInit();
             panel1.SuspendLayout();
@@ -75,10 +76,10 @@
             TRVmodels.LineColor = Color.FromArgb(0, 102, 204);
             TRVmodels.Location = new Point(1, 41);
             TRVmodels.Name = "TRVmodels";
-            treeNode3.Name = "Node0";
-            treeNode3.NodeFont = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            treeNode3.Text = "Models / Phones";
-            TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode3 });
+            treeNode1.Name = "Node0";
+            treeNode1.NodeFont = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            treeNode1.Text = "Models / Phones";
+            TRVmodels.Nodes.AddRange(new TreeNode[] { treeNode1 });
             TRVmodels.ShowNodeToolTips = true;
             TRVmodels.Size = new Size(366, 384);
             TRVmodels.TabIndex = 0;
@@ -328,42 +329,6 @@
             exportSettingsToolStripMenuItem.Text = "Export Settings";
             exportSettingsToolStripMenuItem.Click += exportSettingsToolStripMenuItem_Click;
             // 
-            // tsmReset
-            // 
-            tsmReset.AutoToolTip = true;
-            tsmReset.BackgroundImageLayout = ImageLayout.Zoom;
-            tsmReset.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tsmReset.ForeColor = Color.OrangeRed;
-            tsmReset.Image = Properties.Resources.Clear;
-            tsmReset.ImageScaling = ToolStripItemImageScaling.None;
-            tsmReset.Name = "tsmReset";
-            tsmReset.RightToLeftAutoMirrorImage = true;
-            tsmReset.Size = new Size(113, 71);
-            tsmReset.Text = "R&eset";
-            tsmReset.TextDirection = ToolStripTextDirection.Vertical270;
-            tsmReset.TextImageRelation = TextImageRelation.TextBeforeImage;
-            tsmReset.Click += tsmReset_Click;
-            // 
-            // StatusInfo
-            // 
-            StatusInfo.BackColor = Color.Transparent;
-            StatusInfo.Items.AddRange(new ToolStripItem[] { tstSelected });
-            StatusInfo.Location = new Point(0, 428);
-            StatusInfo.Name = "StatusInfo";
-            StatusInfo.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            StatusInfo.ShowItemToolTips = true;
-            StatusInfo.Size = new Size(896, 22);
-            StatusInfo.SizingGrip = false;
-            StatusInfo.TabIndex = 7;
-            // 
-            // tstSelected
-            // 
-            tstSelected.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tstSelected.ForeColor = Color.LightCoral;
-            tstSelected.Name = "tstSelected";
-            tstSelected.Size = new Size(0, 17);
-            tstSelected.Click += tstSelected_Click;
-            // 
             // tsmShare
             // 
             tsmShare.DropDownItems.AddRange(new ToolStripItem[] { dropBoxToolStripMenuItem, oneDriveToolStripMenuItem, googleDriveToolStripMenuItem });
@@ -395,6 +360,7 @@
             oneDriveToolStripMenuItem.BackColor = Color.Azure;
             oneDriveToolStripMenuItem.Font = new Font("Times New Roman", 12F);
             oneDriveToolStripMenuItem.ForeColor = Color.IndianRed;
+            oneDriveToolStripMenuItem.Image = Properties.Resources.Onedrive;
             oneDriveToolStripMenuItem.Name = "oneDriveToolStripMenuItem";
             oneDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
             oneDriveToolStripMenuItem.Size = new Size(180, 24);
@@ -406,11 +372,60 @@
             googleDriveToolStripMenuItem.BackColor = Color.Azure;
             googleDriveToolStripMenuItem.Font = new Font("Times New Roman", 12F);
             googleDriveToolStripMenuItem.ForeColor = Color.IndianRed;
+            googleDriveToolStripMenuItem.Image = Properties.Resources.Gdrive;
             googleDriveToolStripMenuItem.Name = "googleDriveToolStripMenuItem";
             googleDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
             googleDriveToolStripMenuItem.Size = new Size(180, 24);
             googleDriveToolStripMenuItem.Text = "Google Drive";
             googleDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // tsmReset
+            // 
+            tsmReset.AutoToolTip = true;
+            tsmReset.BackgroundImageLayout = ImageLayout.Zoom;
+            tsmReset.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tsmReset.ForeColor = Color.OrangeRed;
+            tsmReset.Image = Properties.Resources.Clear;
+            tsmReset.ImageScaling = ToolStripItemImageScaling.None;
+            tsmReset.Name = "tsmReset";
+            tsmReset.RightToLeftAutoMirrorImage = true;
+            tsmReset.Size = new Size(113, 71);
+            tsmReset.Text = "R&eset";
+            tsmReset.TextDirection = ToolStripTextDirection.Vertical270;
+            tsmReset.TextImageRelation = TextImageRelation.TextBeforeImage;
+            tsmReset.Click += tsmReset_Click;
+            // 
+            // StatusInfo
+            // 
+            StatusInfo.BackColor = Color.Transparent;
+            StatusInfo.Items.AddRange(new ToolStripItem[] { tstSelected, TstShare });
+            StatusInfo.Location = new Point(0, 428);
+            StatusInfo.Name = "StatusInfo";
+            StatusInfo.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            StatusInfo.ShowItemToolTips = true;
+            StatusInfo.Size = new Size(896, 22);
+            StatusInfo.SizingGrip = false;
+            StatusInfo.TabIndex = 7;
+            // 
+            // tstSelected
+            // 
+            tstSelected.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tstSelected.ForeColor = Color.LightCoral;
+            tstSelected.Name = "tstSelected";
+            tstSelected.Size = new Size(0, 17);
+            tstSelected.Click += tstSelected_Click;
+            // 
+            // TstShare
+            // 
+            TstShare.BorderSides = ToolStripStatusLabelBorderSides.Left;
+            TstShare.ForeColor = Color.ForestGreen;
+            TstShare.Image = Properties.Resources.Liner;
+            TstShare.ImageAlign = ContentAlignment.MiddleLeft;
+            TstShare.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
+            TstShare.Name = "TstShare";
+            TstShare.Size = new Size(881, 20);
+            TstShare.Spring = true;
+            TstShare.Visible = false;
             // 
             // DisplayForm
             // 
@@ -470,5 +485,6 @@
         private ToolStripMenuItem dropBoxToolStripMenuItem;
         private ToolStripMenuItem oneDriveToolStripMenuItem;
         private ToolStripMenuItem googleDriveToolStripMenuItem;
+        private ToolStripStatusLabel TstShare;
     }
 }

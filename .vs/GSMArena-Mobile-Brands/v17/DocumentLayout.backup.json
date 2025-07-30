@@ -1,7 +1,44 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\waitscrapform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\waitscrapform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\twaitform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\twaitform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\twaitform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\twaitform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\waitscrapform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\waitscrapform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8AF82FBE-BAA1-46A6-A13A-A01F3F4C3B63}|GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands.csproj|solutionrelative:gsmarena-mobile-brands\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\services\\scraperservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\services\\scraperservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\services\\scrapingcontrolcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\services\\scrapingcontrolcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|c:\\users\\speec\\source\\repos\\facebookegypt\\gsmarena-mobile-brands\\clsgsmar\\services\\filereadservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4E36906-12D9-44DD-A538-2ED8B1C707F4}|clsGsmar\\clsGsmar.csproj|solutionrelative:clsgsmar\\services\\filereadservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +55,119 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs",
+              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\MainForm.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs [Design]",
+              "RelativeToolTip": "GSMArena-Mobile-Brands\\MainForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T16:21:36.338Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WaitScrapForm.cs",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\WaitScrapForm.cs",
+              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\WaitScrapForm.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\WaitScrapForm.cs",
+              "RelativeToolTip": "GSMArena-Mobile-Brands\\WaitScrapForm.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAD4v6MAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T21:24:55.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TwaitForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\TwaitForm.cs",
+              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\TwaitForm.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\TwaitForm.cs [Design]",
+              "RelativeToolTip": "GSMArena-Mobile-Brands\\TwaitForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T21:13:31.095Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TwaitForm.cs",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\TwaitForm.cs",
+              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\TwaitForm.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\TwaitForm.cs",
+              "RelativeToolTip": "GSMArena-Mobile-Brands\\TwaitForm.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCcAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T21:07:46.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WaitScrapForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\WaitScrapForm.cs",
+              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\WaitScrapForm.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\WaitScrapForm.cs [Design]",
+              "RelativeToolTip": "GSMArena-Mobile-Brands\\WaitScrapForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T21:08:19.713Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ScrapingControlCenter.cs",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\ScrapingControlCenter.cs",
+              "RelativeDocumentMoniker": "clsGsmar\\Services\\ScrapingControlCenter.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\ScrapingControlCenter.cs",
+              "RelativeToolTip": "clsGsmar\\Services\\ScrapingControlCenter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T16:05:25.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs",
+              "RelativeDocumentMoniker": "GSMArena-Mobile-Brands\\MainForm.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\GSMArena-Mobile-Brands\\MainForm.cs",
+              "RelativeToolTip": "GSMArena-Mobile-Brands\\MainForm.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAawFsAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T13:13:41.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "fileReadServices.cs",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\fileReadServices.cs",
+              "RelativeDocumentMoniker": "clsGsmar\\Services\\fileReadServices.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\fileReadServices.cs",
+              "RelativeToolTip": "clsGsmar\\Services\\fileReadServices.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwGUAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:37:49.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ScraperService.cs",
+              "DocumentMoniker": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\ScraperService.cs",
+              "RelativeDocumentMoniker": "clsGsmar\\Services\\ScraperService.cs",
+              "ToolTip": "C:\\Users\\speec\\Source\\Repos\\facebookegypt\\GSMArena-Mobile-Brands\\clsGsmar\\Services\\ScraperService.cs",
+              "RelativeToolTip": "clsGsmar\\Services\\ScraperService.cs",
+              "ViewState": "AgIAABcBAAAAAAAAAAAlwA8BAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:35:53.731Z",
+              "EditorCaption": ""
             }
           ]
         }

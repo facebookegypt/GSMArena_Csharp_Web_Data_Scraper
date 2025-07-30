@@ -1,4 +1,9 @@
-﻿using System.Net;
+﻿using Microsoft.VisualBasic;
+using System.Collections;
+using System.Diagnostics.Eventing.Reader;
+using System.Net;
+using System.Reflection;
+using System.Resources;
 
 namespace clsGsmar.Services
 {
@@ -67,6 +72,7 @@ namespace clsGsmar.Services
             catch (Exception ex)
             {
                 progress?.Report($"Error downloading: {ex.Message}");
+                await LoadLocalLinesAsync(Application.StartupPath+"user_agents.txt",progress);
                 throw;
             }
         }
@@ -77,11 +83,52 @@ namespace clsGsmar.Services
         private async Task<List<string>> LoadLocalLinesAsync(string path, IProgress<string> progress = null)
         {
             if (!File.Exists(path))
+            {
                 throw new FileNotFoundException("Local file not found.", path);
 
-            var lines = await File.ReadAllLinesAsync(path);
-            progress?.Report($"Loaded {lines.Length} lines from local file.");
-            return lines.ToList();
+                var lines = await File.ReadAllLinesAsync(path);
+                progress?.Report($"Loaded {lines.Length} lines from local file.");
+                return lines.ToList();
+            }
+            else
+            {
+               var lines =  await LoadFallbackFromEmbeddedAsync(progress);
+                progress?.Report($"Loaded {lines.Count} lines from local file.");
+                return lines.ToList();
+            }
+            
+        }
+        public async Task<List<string>> LoadFallbackFromEmbeddedAsync(IProgress<string> progress = null)
+        {
+            try
+            {
+                progress?.Report("Loading fallback data from embedded resources...");
+                
+
+                // Access the embedded resource
+                var assembly = Assembly.GetExecutingAssembly();
+                using var stream = assembly.GetManifestResourceStream("clsGsmar.Resources.FallbackData.resources");
+
+                if (stream == null)
+                    throw new Exception("Embedded fallback data not found.");
+
+                using var reader = new ResourceReader(stream);
+                var data = reader.Cast<DictionaryEntry>()
+                                  .FirstOrDefault(entry => entry.Key.ToString() == "ProxyAndUserAgentFallback").Value?.ToString();
+
+                if (string.IsNullOrWhiteSpace(data))
+                    throw new Exception("Fallback resource content is empty.");
+
+                var lines = data.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                progress?.Report($"Loaded {lines.Count} fallback lines.");
+                return lines;
+            }
+            catch (Exception ex)
+            {
+                progress?.Report($"Error reading fallback: {ex.Message}");
+                throw;
+            }
         }
     }
 }

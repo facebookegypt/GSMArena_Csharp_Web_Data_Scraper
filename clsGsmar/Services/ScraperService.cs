@@ -7,54 +7,45 @@ using System.Resources;
 
 public class ScraperService
     {
-        private readonly Random _random = new Random();
-        private readonly List<string> _proxies = new();
-        private readonly List<string> _userAgents = new();
-        private void ParseProxyAndUserAgentLines(List<string> lines)
-        {
-            _proxies.Clear();
-            _userAgents.Clear();
-
-            foreach (var line in lines)
-            {
-                var trimmed = line.Trim();
-                if (trimmed.StartsWith("PROXY:", StringComparison.OrdinalIgnoreCase))
-                {
-                    var proxy = trimmed.Substring("PROXY:".Length).Trim();
-                    if (!string.IsNullOrWhiteSpace(proxy))
-                        _proxies.Add(proxy);
-                }
-                else if (trimmed.StartsWith("USERAGENT:", StringComparison.OrdinalIgnoreCase))
-                {
-                    var ua = trimmed.Substring("USERAGENT:".Length).Trim();
-                    if (!string.IsNullOrWhiteSpace(ua))
-                        _userAgents.Add(ua);
-                }
-            }
-        }
         private readonly FileReadServices _fileReadServices;
-        public ScraperService()
+    private readonly Random _random = new();
+    private List<string> _proxies = new();
+    private List<string> _userAgents = new();
+    public ScraperService()
         {
             _fileReadServices = new FileReadServices();
         }
-    private async Task<List<string>> LoadProxyUserAgentLinesAsync(string location, IProgress<string> progress)
+    private async Task LoadProxyUserAgentLinesAsync(string url, IProgress<string> progress = null)
     {
-        if (!string.IsNullOrWhiteSpace(location))
-        {
-            try
-            {
-                progress?.Report($"Loading user-provided proxy/user-agent list from: {location}");
-                return await _fileReadServices.LoadLinesAsync(location, progress);
-            }
-            catch (Exception ex)
-            {
-                progress?.Report($"Failed to load user-provided file. Will use built-in fallback. Error: {ex.Message}");
-            }
-        }
+        if (_proxies.Any() && _userAgents.Any()) return; // Skip if already loaded
 
-        progress?.Report("Loading built-in fallback proxy/user-agent list from resources.");
-        return LoadEmbeddedFallbackLines();
+        try
+        {
+            string proxyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "proxies.txt");
+            string agentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "user_agents.txt");
+
+            _proxies = File.Exists(proxyPath) ? (await File.ReadAllLinesAsync(proxyPath))
+                .Where(line => !string.IsNullOrWhiteSpace(line))
+                .Select(line => line.Trim())
+                .Select(line => line.StartsWith("PROXY:", StringComparison.OrdinalIgnoreCase)
+                ? line.Substring("PROXY:".Length).Trim()
+                : line).ToList() : new List<string>();
+            _userAgents = File.Exists(agentPath) ? (await File.ReadAllLinesAsync(agentPath))
+                .Where(line => !string.IsNullOrWhiteSpace(line))
+                .Select(line => line.Trim())
+                .Select(line => line.StartsWith("USERAGENT:", StringComparison.OrdinalIgnoreCase)
+                ? line.Substring("USERAGENT:".Length).Trim()
+                : line).ToList() : new List<string>();
+
+            progress?.Report($"Loaded {_proxies.Count} proxies and {_userAgents.Count} user-agents.");
+        }
+        catch (Exception ex)
+        {
+            progress?.Report("Failed to load fallback settings: " + ex.Message);
+            LogScrapingError("Error loading fallback settings: " + ex);
+        }
     }
+    
 
     private List<string> LoadEmbeddedFallbackLines()
     {
@@ -92,29 +83,6 @@ public class ScraperService
                html.Contains("are you human") ||
                html.Contains("access denied");
     }
-    //private int GetTotalPages(string html)
-    //{
-    //    var doc = new HtmlAgilityPack.HtmlDocument();
-    //    doc.LoadHtml(html);
-
-    //    var nav = doc.DocumentNode.SelectSingleNode("//div[@class='nav-pages']");
-    //    if (nav == null) return 1;
-
-    //    var pageLinks = nav.SelectNodes(".//a");
-    //    if (pageLinks == null) return 1;
-
-    //    int maxPage = 1;
-    //    foreach (var link in pageLinks)
-    //    {
-    //        if (int.TryParse(link.InnerText.Trim(), out int num))
-    //        {
-    //            if (num > maxPage) maxPage = num;
-    //        }
-    //    }
-    //    return maxPage;
-    //}
-
-
     private string GetPagedUrl(string brandUrl, int page)
     {
         if (page == 1)
@@ -174,17 +142,25 @@ public class ScraperService
         }
         return phones;
     }
-
-    public async Task<string> GetHtmlSmartAsync(string url, IProgress<string> progress = null)
+    private void CheckPauseAndCancel(ManualResetEventSlim pauseEvent, CancellationToken token)
+    {
+        pauseEvent?.Wait(token); // Pause support
+        token.ThrowIfCancellationRequested(); // Cancel support
+    }
+    public async Task<string> GetHtmlSmartAsync(string url)//, IProgress<string> progress = null)
     {
         var _httpClient = new HttpClient();
-    try
+        var pauseEvent = AsyncTaskController.PauseEvent;
+        var token = AsyncTaskController.Cts.Token;
+        var progress = AsyncTaskController.ProgressReporter;
+        try
     {
-        // Try default HttpClient first
-        progress?.Report("Trying direct connection...");
+            CheckPauseAndCancel(pauseEvent, token);
+            // Try default HttpClient first
         var html = await _httpClient.GetStringAsync(url);
+            progress?.Report("Trying direct connection...");
 
-        if (!IsBlockedOrEmpty(html))
+            if (!IsBlockedOrEmpty(html))
         {
             return html;
         }
@@ -212,17 +188,17 @@ public class ScraperService
     {
         await LoadProxyUserAgentLinesAsync(url, progress);
 
-        foreach (var proxy in _proxies)
+        foreach (var agent in _userAgents)
         {
-            foreach (var agent in _userAgents)
+            foreach (var proxy in _proxies)
             {
-                for (int attempt = 1; attempt <= 2; attempt++)
-                {
+                //for (int attempt = 1; attempt <= 2; attempt++)
+                //{
                     try
                     {
-                        progress?.Report($"Trying Proxy: {proxy} | User-Agent: {agent.Substring(0, Math.Min(agent.Length, 50))} (Attempt {attempt})");
-
-                        var handler = new HttpClientHandler
+                    //progress?.Report($"Trying Proxy: {proxy} | User-Agent: {agent.Substring(0, Math.Min(agent.Length, 50))} (Attempt {attempt})");
+                    progress?.Report($"Trying Proxy: {proxy} | User-Agent: {agent.Substring(0, Math.Min(agent.Length, 50))})");
+                    var handler = new HttpClientHandler
                         {
                             UseCookies = true,
                             CookieContainer = new CookieContainer(),
@@ -246,7 +222,7 @@ public class ScraperService
                         client.DefaultRequestHeaders.Referrer = new Uri("https://www.google.com"); // mimic organic traffic
                         client.DefaultRequestHeaders.Host = new Uri(url).Host;
 
-                        await Task.Delay(_random.Next(1000, 3000));
+                        await Task.Delay(_random.Next(500, 1500));
 
                         var html = await client.GetStringAsync(url);
 
@@ -262,7 +238,7 @@ public class ScraperService
                     }
                     catch (HttpRequestException ex)
                     {
-                        string msg = $"Request error via Proxy {proxy}: {ex.Message}";
+                        string msg = $"Request error via Proxy {proxy}, useragent {agent}: {ex.Message}";
                         progress?.Report(msg);
                         LogScrapingError(msg); // ← NEW
                         await Task.Delay(_random.Next(500, 1500));
@@ -273,8 +249,8 @@ public class ScraperService
                         progress?.Report(msg);
                         LogScrapingError(msg); // ← NEW
                     }
-
-                }
+                //}
+                
             }
         }
 
@@ -342,8 +318,11 @@ public class ScraperService
     }
 
     // Private method to scrape the full brand list
-    public async Task<List<Brand>> GetBrandsAsync(IProgress<string> progress = null)
+    public async Task<List<Brand>> GetBrandsAsync(IProgress<string> ?progress = null)
     {
+        var pauseEvent = AsyncTaskController.PauseEvent;
+        var token = AsyncTaskController.Cts.Token;
+        progress = AsyncTaskController.ProgressReporter;
         var brands = new List<Brand>();
         var url = "https://www.gsmarena.com/makers.php3";
 
@@ -351,7 +330,8 @@ public class ScraperService
 
         try
         {
-            string html = await GetHtmlSmartAsync(url, progress);
+            CheckPauseAndCancel(pauseEvent, token);
+            string html = await GetHtmlSmartAsync(url);   //Direct calls
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);
 
@@ -406,7 +386,7 @@ public class ScraperService
     }
 
     // Private method to scrape all phones for a given brand page
-    private async Task<List<Phone>> GetPhonesForBrandAsync(string brandUrl, string brandName, IProgress<string> progress = null)
+    private async Task<List<Phone>> GetPhonesForBrandAsync(string brandUrl, string brandName, IProgress<string> ?progress = null)
     {
         var allPhones = new List<Phone>();
         int currentPage = 1;
@@ -418,7 +398,7 @@ public class ScraperService
             string pageUrl = GetPagedUrl(brandUrl, currentPage);
             progress?.Report($"Downloading page {currentPage} of {brandName}...");
 
-            var html = await GetHtmlSmartAsync(pageUrl, progress);
+            var html = await GetHtmlSmartAsync(pageUrl);//, progress);
             if (string.IsNullOrWhiteSpace(html))
             {
                 progress?.Report($"No HTML returned for {pageUrl}");

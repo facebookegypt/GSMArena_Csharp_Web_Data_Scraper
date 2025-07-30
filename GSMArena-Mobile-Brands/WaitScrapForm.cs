@@ -15,12 +15,11 @@ namespace GSMArena_Mobile_Brands
         private Func<string, string> _parser;
 
         private CancellationTokenSource _cts;
-        private ManualResetEventSlim _pauseEvent;
+        public ManualResetEventSlim _pauseEvent;
         private Task _scrapeTask;
 
         private int _totalCount;
         private int _completedCount;
-
         public WaitScrapForm()
         {
             InitializeComponent();
@@ -74,7 +73,9 @@ namespace GSMArena_Mobile_Brands
                 try
                 {
                     // Fetch HTML
-                    string html = await _scraper.GetHtmlSmartAsync(phone.Url, new Progress<string>(msg => AppendLog($"[{DateTime.Now:HH:mm:ss}] {msg}")));
+                    string html = await _scraper.GetHtmlSmartAsync(phone.Url);//, new Progress<string>(msg => AppendLog($"[{DateTime.Now:HH:mm:ss}] {msg}")));
+
+                    // string html = await _scraper.GetHtmlSmartAsync(phone.Url, new Progress<string>(msg => AppendLog($"[{DateTime.Now:HH:mm:ss}] {msg}")));
                     // Parse immediately
                     string specs = _parser(html);
                     phone.FormattedSpecs = specs;
@@ -167,6 +168,11 @@ namespace GSMArena_Mobile_Brands
             // Ensure cancellation
             _cts.Cancel();
             _pauseEvent.Set();
+        }
+
+        private void ProgScrap_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
