@@ -180,6 +180,7 @@
             PrgrssTextBox.ScrollBars = ScrollBars.Both;
             PrgrssTextBox.Size = new Size(519, 93);
             PrgrssTextBox.TabIndex = 6;
+            PrgrssTextBox.TextChanged += PrgrssTextBox_TextChanged;
             // 
             // WaitScrapForm
             // 

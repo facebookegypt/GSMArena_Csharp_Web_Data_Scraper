@@ -244,6 +244,7 @@
             tsmExport.Text = "&Export";
             tsmExport.TextDirection = ToolStripTextDirection.Vertical270;
             tsmExport.TextImageRelation = TextImageRelation.TextBeforeImage;
+            tsmExport.Click += tsmExport_Click;
             // 
             // cSVToolStripMenuItem
             // 
@@ -350,7 +351,7 @@
             dropBoxToolStripMenuItem.Image = Properties.Resources.dropbox;
             dropBoxToolStripMenuItem.Name = "dropBoxToolStripMenuItem";
             dropBoxToolStripMenuItem.RightToLeft = RightToLeft.No;
-            dropBoxToolStripMenuItem.Size = new Size(180, 24);
+            dropBoxToolStripMenuItem.Size = new Size(160, 24);
             dropBoxToolStripMenuItem.Text = "DropBox";
             dropBoxToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
             dropBoxToolStripMenuItem.Click += dropBoxToolStripMenuItem_Click;
@@ -363,7 +364,7 @@
             oneDriveToolStripMenuItem.Image = Properties.Resources.Onedrive;
             oneDriveToolStripMenuItem.Name = "oneDriveToolStripMenuItem";
             oneDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
-            oneDriveToolStripMenuItem.Size = new Size(180, 24);
+            oneDriveToolStripMenuItem.Size = new Size(160, 24);
             oneDriveToolStripMenuItem.Text = "OneDrive";
             oneDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -375,7 +376,7 @@
             googleDriveToolStripMenuItem.Image = Properties.Resources.Gdrive;
             googleDriveToolStripMenuItem.Name = "googleDriveToolStripMenuItem";
             googleDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
-            googleDriveToolStripMenuItem.Size = new Size(180, 24);
+            googleDriveToolStripMenuItem.Size = new Size(160, 24);
             googleDriveToolStripMenuItem.Text = "Google Drive";
             googleDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
             // 

@@ -336,13 +336,13 @@ namespace GSMArena_Mobile_Brands
                     MessageBox.Show("Please select at least one brand.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-
-                // Start WaitForm (modeless)
-                var waitForm = new WaitForm(this);
+                //var waitForm = new TwaitForm();
+                var waitForm = new TwaitForm();
                 waitForm.Location = new Point(
                     this.Location.X + (this.Width - waitForm.Width) / 2,
                     this.Location.Y + (this.Height - waitForm.Height) / 2
                     );
+                _scraper.OnProgress += waitForm.AppendStatus;
                 waitForm.Show(this);
 
                 // Actually do the scraping in background
@@ -358,6 +358,7 @@ namespace GSMArena_Mobile_Brands
                 // Show result
                 if (results != null)
                 {
+                    _scraper.OnProgress -= waitForm.AppendStatus;
                     var displayForm = new DisplayForm(results);
                     displayForm.ShowDialog();
                 }
@@ -368,6 +369,7 @@ namespace GSMArena_Mobile_Brands
             }
             finally
             {
+
                 //  Re-enable controls
                 ScrapBtn.Enabled = true;
                 DGVscrap.Enabled = true;

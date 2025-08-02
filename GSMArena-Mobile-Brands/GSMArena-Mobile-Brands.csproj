@@ -64,7 +64,6 @@
     <None Remove="Resources\Stop_24x24.png" />
     <None Remove="Resources\telephone.png" />
     <None Remove="Resources\TIME IN.png" />
-    <None Remove="Resources\user_agents.txt" />
     <None Remove="Resources\Wizard.png" />
   </ItemGroup>
 

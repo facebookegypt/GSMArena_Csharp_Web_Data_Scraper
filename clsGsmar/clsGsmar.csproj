@@ -20,16 +20,17 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="CouldUpload\DropBoxUploader1.cs" />
+    <Compile Remove="FallbackData.Designer.cs" />
     <Compile Remove="Resource1.Designer.cs" />
     <Compile Remove="Tools\OAuth2WebView.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="FallbackData.resx" />
     <EmbeddedResource Remove="Resource1.resx" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="App.config" />
     <None Remove="Resources\Proxies.txt" />
     <None Remove="Resources\user_agents.txt" />
     <None Remove="user_agents.txt" />
@@ -51,19 +52,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="FallbackData.Designer.cs">
-      <DesignTime>True</DesignTime>
+    <Compile Update="Properties\evry1falls.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
-      <DependentUpon>FallbackData.resx</DependentUpon>
+      <DependentUpon>evry1falls.settings</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="FallbackData.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FallbackData.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Update="Properties\evry1falls.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>evry1falls.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

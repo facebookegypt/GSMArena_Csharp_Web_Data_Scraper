@@ -1,9 +1,11 @@
 ﻿using clsGsmar;
 using clsGsmar.Models;
+using clsGsmar.Properties;
 using clsGsmar.Services;
 using HtmlAgilityPack;
 using System.Net;
 using System.Resources;
+using static Dropbox.Api.Team.MobileClientPlatform;
 
 public class ScraperService
     {
@@ -17,27 +19,36 @@ public class ScraperService
         }
     private async Task LoadProxyUserAgentLinesAsync(string url, IProgress<string> progress = null)
     {
-        if (_proxies.Any() && _userAgents.Any()) return; // Skip if already loaded
-
         try
         {
-            string proxyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "proxies.txt");
-            string agentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "user_agents.txt");
+            string lastProxy = evry1falls.Default.LastGoodProxy;
+            string lastAgent = evry1falls.Default.LastGoodUserAgent;
+            if (!string.IsNullOrEmpty(lastProxy) && !string.IsNullOrEmpty(lastAgent))
+            { 
+            _proxies.Add(lastProxy);
+                _userAgents.Add(lastAgent);
+                progress?.Report($"Loaded {_proxies.Count} proxies and {_userAgents.Count} user-agents from saved resources.");
+            }
+            else {
+                if (_proxies.Any() && _userAgents.Any()) return; // Skip if already loaded
+                string proxyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "proxies.txt");
+                string agentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "user_agents.txt");
 
-            _proxies = File.Exists(proxyPath) ? (await File.ReadAllLinesAsync(proxyPath))
-                .Where(line => !string.IsNullOrWhiteSpace(line))
-                .Select(line => line.Trim())
-                .Select(line => line.StartsWith("PROXY:", StringComparison.OrdinalIgnoreCase)
-                ? line.Substring("PROXY:".Length).Trim()
-                : line).ToList() : new List<string>();
-            _userAgents = File.Exists(agentPath) ? (await File.ReadAllLinesAsync(agentPath))
-                .Where(line => !string.IsNullOrWhiteSpace(line))
-                .Select(line => line.Trim())
-                .Select(line => line.StartsWith("USERAGENT:", StringComparison.OrdinalIgnoreCase)
-                ? line.Substring("USERAGENT:".Length).Trim()
-                : line).ToList() : new List<string>();
+                _proxies = File.Exists(proxyPath) ? (await File.ReadAllLinesAsync(proxyPath))
+                    .Where(line => !string.IsNullOrWhiteSpace(line))
+                    .Select(line => line.Trim())
+                    .Select(line => line.StartsWith("PROXY:", StringComparison.OrdinalIgnoreCase)
+                    ? line.Substring("PROXY:".Length).Trim()
+                    : line).ToList() : new List<string>();
+                _userAgents = File.Exists(agentPath) ? (await File.ReadAllLinesAsync(agentPath))
+                    .Where(line => !string.IsNullOrWhiteSpace(line))
+                    .Select(line => line.Trim())
+                    .Select(line => line.StartsWith("USERAGENT:", StringComparison.OrdinalIgnoreCase)
+                    ? line.Substring("USERAGENT:".Length).Trim()
+                    : line).ToList() : new List<string>();
 
-            progress?.Report($"Loaded {_proxies.Count} proxies and {_userAgents.Count} user-agents.");
+                progress?.Report($"Loaded {_proxies.Count} proxies and {_userAgents.Count} user-agents.");
+            }
         }
         catch (Exception ex)
         {
@@ -147,12 +158,12 @@ public class ScraperService
         pauseEvent?.Wait(token); // Pause support
         token.ThrowIfCancellationRequested(); // Cancel support
     }
-    public async Task<string> GetHtmlSmartAsync(string url)//, IProgress<string> progress = null)
+    public async Task<string> GetHtmlSmartAsync(string url, IProgress<string> ?progress = null)//, IProgress<string> progress = null)
     {
         var _httpClient = new HttpClient();
         var pauseEvent = AsyncTaskController.PauseEvent;
         var token = AsyncTaskController.Cts.Token;
-        var progress = AsyncTaskController.ProgressReporter;
+        progress = AsyncTaskController.ProgressReporter;
         try
     {
             CheckPauseAndCancel(pauseEvent, token);
@@ -233,8 +244,10 @@ public class ScraperService
                             progress?.Report($"Blocked content detected. Trying next combination...");
                             continue;
                         }
-
-                        return html;
+                    clsGsmar.Properties.evry1falls.Default.LastGoodProxy= proxy;
+                    clsGsmar.Properties.evry1falls.Default.LastGoodUserAgent = agent;
+                    clsGsmar.Properties.evry1falls.Default.Save();
+                    return html;
                     }
                     catch (HttpRequestException ex)
                     {
@@ -446,17 +459,23 @@ public class ScraperService
         }
         return false;
     }
+    public event Action<string> OnProgress;
+    private void Report(string message)
+    {
+        OnProgress?.Invoke(message);
+    }
     public async Task<Dictionary<string, List<Phone>>> ScrapeSelectedBrandsAsync(List<Brand> selectedBrands, IProgress<string> progress = null)
     {
         var result = new Dictionary<string, List<Phone>>();
 
         foreach (var brand in selectedBrands)
         {
-            progress?.Report($"Scraping brand: {brand.Name}");
+            progress?.Report($"Scraping brand: {brand.Name}" + Environment.NewLine);
             var phones = await GetPhonesForBrandAsync(brand.Url, brand.Name, progress);
             result[brand.Name] = phones;
+            Report($"{phones.Count} phones found for {brand.Name}.");
         }
-
+        Report("Scraping Completed");
         return result;
     }
 

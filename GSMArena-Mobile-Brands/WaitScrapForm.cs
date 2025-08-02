@@ -174,5 +174,10 @@ namespace GSMArena_Mobile_Brands
         {
 
         }
+
+        private void PrgrssTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

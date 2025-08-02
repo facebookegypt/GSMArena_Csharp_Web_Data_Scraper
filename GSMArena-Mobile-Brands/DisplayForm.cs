@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing.Text;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -624,12 +625,14 @@ namespace GSMArena_Mobile_Brands
             if (reFetch)
             {
                 selected.ForEach(p => p.FormattedSpecs = null);
-                using (var wait = new WaitScrapForm())
+                using (var wait = new TwaitForm())
                 {
                     wait.InitializeScraping(selected, _scraper, ParseSpecsHtml);
                     wait.StartPosition = FormStartPosition.CenterParent;
+                    //if (wait.Show(this) != DialogResult.OK)
+                    //  return; // cancelled
                     if (wait.ShowDialog(this) != DialogResult.OK)
-                        return; // cancelled
+                        return; // User cancelled or scraping failed
                 }
             }
 
@@ -738,6 +741,11 @@ namespace GSMArena_Mobile_Brands
             {
                 MessageBox.Show($"Error: {ex.Message}", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void tsmExport_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
