@@ -244,7 +244,6 @@
             tsmExport.Text = "&Export";
             tsmExport.TextDirection = ToolStripTextDirection.Vertical270;
             tsmExport.TextImageRelation = TextImageRelation.TextBeforeImage;
-            tsmExport.Click += tsmExport_Click;
             // 
             // cSVToolStripMenuItem
             // 

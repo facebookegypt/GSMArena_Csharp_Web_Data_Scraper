@@ -20,10 +20,16 @@
   <ItemGroup>
     <Compile Remove="CredentialsForm.cs" />
     <Compile Remove="CredentialsForm.Designer.cs" />
+    <Compile Remove="WaitForm.cs" />
+    <Compile Remove="WaitForm.Designer.cs" />
+    <Compile Remove="WaitScrapForm.cs" />
+    <Compile Remove="WaitScrapForm.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="CredentialsForm.resx" />
+    <EmbeddedResource Remove="WaitForm.resx" />
+    <EmbeddedResource Remove="WaitScrapForm.resx" />
   </ItemGroup>
 
   <ItemGroup>

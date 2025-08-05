@@ -54,7 +54,7 @@
             DGVscrap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGVscrap.Location = new Point(12, 197);
             DGVscrap.Name = "DGVscrap";
-            DGVscrap.Size = new Size(776, 377);
+            DGVscrap.Size = new Size(929, 377);
             DGVscrap.TabIndex = 0;
             // 
             // groupBox1
@@ -71,7 +71,7 @@
             groupBox1.Controls.Add(LblSearch);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(504, 179);
+            groupBox1.Size = new Size(657, 179);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Search brnads by name";
@@ -80,13 +80,14 @@
             // AllRadio
             // 
             AllRadio.AutoSize = true;
+            AllRadio.BackColor = Color.Transparent;
             AllRadio.Location = new Point(304, 29);
             AllRadio.Name = "AllRadio";
             AllRadio.Size = new Size(78, 19);
             AllRadio.TabIndex = 8;
             AllRadio.TabStop = true;
             AllRadio.Text = "All Brands";
-            AllRadio.UseVisualStyleBackColor = true;
+            AllRadio.UseVisualStyleBackColor = false;
             AllRadio.CheckedChanged += AllRadio_CheckedChanged;
             // 
             // BrandRadio
@@ -109,7 +110,7 @@
             statusStripSc.Location = new Point(3, 151);
             statusStripSc.Name = "statusStripSc";
             statusStripSc.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            statusStripSc.Size = new Size(498, 25);
+            statusStripSc.Size = new Size(651, 25);
             statusStripSc.TabIndex = 5;
             statusStripSc.Text = "statusStrip1";
             // 
@@ -146,7 +147,8 @@
             TstGet.ImageTransparentColor = Color.Azure;
             TstGet.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
             TstGet.Name = "TstGet";
-            TstGet.Size = new Size(142, 20);
+            TstGet.Size = new Size(596, 20);
+            TstGet.Spring = true;
             TstGet.Text = "Scrap Selected Brands";
             TstGet.TextAlign = ContentAlignment.MiddleLeft;
             TstGet.Click += TstGet_Click;
@@ -186,7 +188,7 @@
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox2.BackColor = Color.Azure;
             groupBox2.Controls.Add(ScrapBtn);
-            groupBox2.Location = new Point(522, 12);
+            groupBox2.Location = new Point(675, 12);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(266, 179);
             groupBox2.TabIndex = 9;
@@ -215,7 +217,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 586);
+            ClientSize = new Size(953, 586);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(DGVscrap);

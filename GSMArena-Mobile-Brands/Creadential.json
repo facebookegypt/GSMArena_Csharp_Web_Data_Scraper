@@ -1,0 +1,7 @@
+﻿{
+  "Dropbox": {
+    "AppKey": "YOUR_APP_KEY",
+    "AppSecret": "YOUR_SECRET",
+    "RedirectUri": "http://localhost:<PORT>/authorize"
+  }
+}

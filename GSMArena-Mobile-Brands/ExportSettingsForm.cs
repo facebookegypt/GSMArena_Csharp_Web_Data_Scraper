@@ -13,7 +13,6 @@ namespace GSMArena_Mobile_Brands
             InitializeComponent();
             InitializeExportSettings();
         }
-
         private void InitializeExportSettings()
         {
             // Placeholder
@@ -59,7 +58,6 @@ namespace GSMArena_Mobile_Brands
                 }
             }
         }
-
         private string GetSelectedFormat()
         {
             if (csvRadio.Checked) return "CSV";
@@ -68,7 +66,6 @@ namespace GSMArena_Mobile_Brands
             if (sqlRadio.Checked) return "SQL";
             return null;
         }
-
         private void csvRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (csvRadio.Checked)
@@ -78,7 +75,6 @@ namespace GSMArena_Mobile_Brands
             }
             else { csvRadio.ForeColor = Color.Black; }
         }
-
         private void txtRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (txtRadio.Checked)
@@ -88,7 +84,6 @@ namespace GSMArena_Mobile_Brands
             }
             else { txtRadio.ForeColor = Color.Black; }
         }
-
         private void jsonRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (jsonRadio.Checked)
@@ -98,7 +93,6 @@ namespace GSMArena_Mobile_Brands
             }
             else { jsonRadio.ForeColor = Color.Black; }
         }
-
         private void sqlRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (sqlRadio.Checked)
@@ -112,7 +106,6 @@ namespace GSMArena_Mobile_Brands
             }
 
         }
-
         private void ExportSettingsForm_Load(object sender, EventArgs e)
         {
             KeyPreview = true;
@@ -124,19 +117,16 @@ namespace GSMArena_Mobile_Brands
             // Load existing location from user settings
             locTextBox.Text = Properties.Settings.Default.LocationSetting ?? "";
         }
-
         private void ExportSettingsForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) { this.Close(); }
         }
-
         private void ExportSettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Save the location to user settings
             Properties.Settings.Default.LocationSetting = locTextBox.Text;
             Properties.Settings.Default.Save(); // Save all settings
         }
-
         private void BtnOpnLoc_Click(object sender, EventArgs e)
         {
             using (var ofd = new OpenFileDialog())

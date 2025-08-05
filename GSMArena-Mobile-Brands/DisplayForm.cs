@@ -20,13 +20,12 @@ namespace GSMArena_Mobile_Brands
 {
     public partial class DisplayForm : Form
     {
-
+        private TwaitForm waitForm;
         // =========================
         // State    
         // =========================
         private ScraperService _scraper;
         private Dictionary<string, List<Phone>> _brandPhones;
-
         // Icons from Resources
         private Image _rootImage = Properties.Resources.RootIcon;
         private Image _brandImage = Properties.Resources.BrandIcon;
@@ -49,7 +48,6 @@ namespace GSMArena_Mobile_Brands
             AddFontFromBytes(Properties.Resources.COOPBL);
             _fontNew = _customFonts.Families[^1];
         }
-
         private void AddFontFromBytes(byte[] fontBytes)
         {
             IntPtr fontBuffer = Marshal.AllocCoTaskMem(fontBytes.Length);
@@ -57,7 +55,6 @@ namespace GSMArena_Mobile_Brands
             _customFonts.AddMemoryFont(fontBuffer, fontBytes.Length);
             Marshal.FreeCoTaskMem(fontBuffer);
         }
-
         // =========================
         // Constructor
         // =========================
@@ -134,7 +131,6 @@ namespace GSMArena_Mobile_Brands
                 PopulateTreeView(_brandPhones);
             }
         }
-
         private void TxtFilter_TextChanged(object sender, EventArgs e)
         {
             string filter = TxtFilter.Text.Trim().ToLower();
@@ -249,7 +245,6 @@ namespace GSMArena_Mobile_Brands
                 }
             }
         }
-
         // =========================
         // Load Image from URL
         // =========================
@@ -268,7 +263,6 @@ namespace GSMArena_Mobile_Brands
                 return null;
             }
         }
-
         // =========================
         // Parse Specs HTML
         // =========================
@@ -319,7 +313,6 @@ namespace GSMArena_Mobile_Brands
 
             return sb.ToString();
         }
-
         // =========================
         // RichTextBox Formatting
         // =========================
@@ -358,7 +351,6 @@ namespace GSMArena_Mobile_Brands
             RTBspecs.SelectionBackColor = RTBspecs.BackColor;
             RTBspecs.SelectionLength = 0;
         }
-
         private void TxtSearchSpecs_TextChanged(object sender, EventArgs e)
         {
             string searchTerm = TxtSearchSpecs.Text.Trim();
@@ -421,14 +413,12 @@ namespace GSMArena_Mobile_Brands
                 e.SuppressKeyPress = true;
             }
         }
-
         private void AppendStyledLine(string text, Font font, Color color)
         {
             RTBspecs.SelectionFont = font;
             RTBspecs.SelectionColor = color;
             RTBspecs.AppendText(text + Environment.NewLine);
         }
-
         // =========================
         // Escape to Close
         // =========================
@@ -439,7 +429,6 @@ namespace GSMArena_Mobile_Brands
                 this.Dispose();
             }
         }
-
         //Reset the Form
         private void tsmReset_Click(object sender, EventArgs e)
         {
@@ -471,15 +460,11 @@ namespace GSMArena_Mobile_Brands
             //7. Clear Search Specs
             TxtSearchSpecs.Clear();
         }
-
         private void exportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var ExportForm = new ExportSettingsForm();
             ExportForm.ShowDialog();
         }
-        //Export CSV file.
-        private async void cSVToolStripMenuItem_Click(object sender, EventArgs e) => await HandleExportAsync("csv");
-
         private void TRVmodels_AfterCheck(object sender, TreeViewEventArgs e)
         {
             TRVmodels.AfterCheck -= TRVmodels_AfterCheck;
@@ -493,14 +478,12 @@ namespace GSMArena_Mobile_Brands
                 UpdateSelectedStatus();
             }
         }
-
         private void SetNodeCheckedState(TreeNode node, bool isChecked)
         {
             node.Checked = isChecked;
             foreach (TreeNode child in node.Nodes)
                 SetNodeCheckedState(child, isChecked);
         }
-
         private void UpdateSelectedStatus()
         {
             var sb = new StringBuilder();
@@ -520,7 +503,6 @@ namespace GSMArena_Mobile_Brands
                 ? "No phones selected."
                 : status;
         }
-
         private bool EnsureExportPath(string format)
         {
             string savedPath = GetSavedPathForFormat(format);
@@ -567,9 +549,11 @@ namespace GSMArena_Mobile_Brands
                 _ => ""
             };
         }
-
+        //Export CSV file.
+        private async void cSVToolStripMenuItem_Click(object sender, EventArgs e) => await HandleExportAsync("csv");
+        //Export JSON file.
         private async void jSONToolStripMenuItem_Click(object sender, EventArgs e) => await HandleExportAsync("json");
-
+        //Export TXT file.
         private async void tXTToolStripMenuItem_Click(object sender, EventArgs e) => await HandleExportAsync("txt");
         private List<Phone> GetCheckedPhones()
         {
@@ -590,7 +574,6 @@ namespace GSMArena_Mobile_Brands
 
             return selectedPhones;
         }
-
         /// <summary>
         /// Handles the full export workflow: prompt, optional scraping, then file export.
         /// </summary>
@@ -604,7 +587,6 @@ namespace GSMArena_Mobile_Brands
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
             // 2. Prompt if existing specs
             bool anyHave = selected.Any(p => !string.IsNullOrWhiteSpace(p.FormattedSpecs));
             bool reFetch = true;
@@ -620,22 +602,26 @@ namespace GSMArena_Mobile_Brands
                 if (choice == DialogResult.Cancel) return;
                 reFetch = (choice == DialogResult.Yes);
             }
-
             // 3. If reFetch, clear and run WaitScrapForm
             if (reFetch)
             {
                 selected.ForEach(p => p.FormattedSpecs = null);
+                // Initialize the wait form
                 using (var wait = new TwaitForm())
                 {
                     wait.InitializeScraping(selected, _scraper, ParseSpecsHtml);
                     wait.StartPosition = FormStartPosition.CenterParent;
-                    //if (wait.Show(this) != DialogResult.OK)
-                    //  return; // cancelled
+
+                    // ✳️ This line is important to forward fallback progress to the WaitForm
+                    AsyncTaskController.ProgressReporter = new Progress<string>(msg => wait.UpdateStatus(msg));
+                    // Start dialog
                     if (wait.ShowDialog(this) != DialogResult.OK)
+                    {
+                        wait.Invoke(new Action(() => wait.Close()));
                         return; // User cancelled or scraping failed
+                    }
                 }
             }
-
             // 4. Ensure path
             if (!EnsureExportPath(format)) return;
             var folder = GetSavedPathForFormat(format);
@@ -647,13 +633,11 @@ namespace GSMArena_Mobile_Brands
                 format,
                 progress: new Progress<string>(msg => tstSelected.Text = msg)
             );
-
             MessageBox.Show(this,
                 $"Export to {format.ToUpper()} completed.",
                 "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
             tstSelected.IsLink = true;
         }
-
         private void tstSelected_Click(object sender, EventArgs e)
         {
             string? path;
@@ -690,12 +674,10 @@ namespace GSMArena_Mobile_Brands
                 MessageBox.Show("Specs copied to clipboard!", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void RTBspecs_TextChanged(object sender, EventArgs e)
         {
             btnCopy.Enabled = !string.IsNullOrWhiteSpace(RTBspecs.Text);
         }
-
         private async void dropBoxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //share to dropbox
@@ -741,11 +723,6 @@ namespace GSMArena_Mobile_Brands
             {
                 MessageBox.Show($"Error: {ex.Message}", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void tsmExport_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -8,7 +8,6 @@ namespace clsGsmar.Tools
     public static class DGVHelper
     {
         public static CheckBox headerCheckBox = new CheckBox();
-
         public static void SetupDataGridViewColumns(DataGridView dgv)
         {
         dgv.AllowUserToAddRows = false;
@@ -17,10 +16,7 @@ namespace clsGsmar.Tools
         dgv.AllowUserToResizeColumns = true;
         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         dgv.RowHeadersWidth = 25;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-
-
-
+        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             // Clear existing
             dgv.Columns.Clear();
 
@@ -39,7 +35,6 @@ namespace clsGsmar.Tools
             dgv.Columns.Add("BrUrl", "Brand URL");
             dgv.Columns.Add("Pcnt", "Phones Count");
         }
-
         public static void AddHeaderCheckBox(DataGridView dgv, EventHandler headerClickHandler)
         {
             // Place the headerCheckBox at header cell 0

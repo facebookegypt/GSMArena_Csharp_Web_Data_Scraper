@@ -117,7 +117,6 @@
             PrgrssTextBox.ScrollBars = ScrollBars.Both;
             PrgrssTextBox.Size = new Size(564, 134);
             PrgrssTextBox.TabIndex = 7;
-            PrgrssTextBox.TextChanged += PrgrssTextBox_TextChanged;
             // 
             // lblStatus
             // 

@@ -22,8 +22,8 @@ namespace clsGsmar.Services
         public async Task ExportPhonesAsync(
             List<Phone> phones,
             string format,
-            string fileName = null,
-            IProgress<string> progress = null)
+            string ?fileName = null,
+            IProgress<string> ?progress = null)
         {
             if (phones == null || phones.Count == 0)
                 throw new ArgumentException("No phones to export.");
@@ -68,11 +68,11 @@ namespace clsGsmar.Services
         /// </summary>
         private class PhoneExportDto
         {
-            public string Brand { get; set; }
-            public string Model { get; set; }
-            public string ImageUrl { get; set; }
-            public string ModelUrl { get; set; }
-            public string Specs { get; set; }
+            public string ?Brand { get; set; }
+            public string ?Model { get; set; }
+            public string ?ImageUrl { get; set; }
+            public string ?ModelUrl { get; set; }
+            public string ?Specs { get; set; }
         }
 
         /// <summary>

@@ -1,18 +1,32 @@
 using clsGsmar.Models;
+using clsGsmar.Services;
 using clsGsmar.Tools;
 using GSMArena_Mobile_Brands.Properties;
-using static System.Windows.Forms.AxHost;
 
 namespace GSMArena_Mobile_Brands
 {
     public partial class MainForm : Form
     {
+        private TwaitForm waitForm;
         private ScraperService? _scraper;
         private readonly string placeHolder = "Leave blank to scrap all";
         private readonly string TstGetplaceHolder = "Scrap Selected Brands";
         private List<Brand> _allBrands = new List<Brand>();
         private Image? _loadingGif;
-
+        private void ShowWaitForm(string initialMessage = "")
+        {
+            if (!waitForm.Visible)
+            {
+                waitForm.StartPosition = FormStartPosition.Manual;
+                waitForm.Location = new Point(
+                    this.Location.X + (this.Width - waitForm.Width) / 2,
+                    this.Location.Y + (this.Height - waitForm.Height) / 2);
+                waitForm.Show(this);
+            }
+            AsyncTaskController.ProgressReporter = new Progress<string>(msg => waitForm.UpdateStatus(msg));
+            if (!string.IsNullOrEmpty(initialMessage))
+                waitForm.UpdateStatus(initialMessage);
+        }
         public MainForm()
         {
             InitializeComponent();
@@ -38,14 +52,13 @@ namespace GSMArena_Mobile_Brands
             }
             return checkedBrands;
         }
-
         // Handles form load event
         private async void MainForm_Load(object sender, EventArgs e)
         {
             KeyPreview = true; // Allows form to capture Esc key globally
             AllRadio.Checked = true; // Default mode
             DGVscrap.CellContentClick += DGVscrap_CellContentClick;
-            
+            waitForm = new TwaitForm();
             tstlMessage.Text = "Checking internet connection...";
             groupBox1.Enabled = false;
             _loadingGif = Resources.loading;
@@ -65,7 +78,6 @@ namespace GSMArena_Mobile_Brands
                 ScrapBtn.Enabled = false;
             }
         }
-
         // Click event for the Scrape button
         private async void ScrapBtn_Click(object sender, EventArgs e)
         {
@@ -78,7 +90,6 @@ namespace GSMArena_Mobile_Brands
                 tstlMessage.Text = "Please check your connection.";
                 return;
             }
-
             ScrapBtn.Enabled = false;
             tstlChkCon.Text = "Connected";
             tstlMessage.Text = "Starting scrape...";
@@ -88,9 +99,7 @@ namespace GSMArena_Mobile_Brands
             {
                 tstlMessage.Text = msg;
             });
-            var waitForm = new TwaitForm();
-                AsyncTaskController.ProgressReporter = new Progress<string>(msg => waitForm.UpdateStatus(msg));
-                waitForm.Show(this);
+            ShowWaitForm("Starting scraping...");
             try
             {
                 // Get all brands with counts
@@ -101,7 +110,6 @@ namespace GSMArena_Mobile_Brands
                 DGVHelper.SetupDataGridViewColumns(DGVscrap);
                 DGVHelper.BindData(DGVscrap, _allBrands);
                 UpdateTstGetEnabledState();
-
                 // Make all columns readonly except for the checkbox column
                 DGVscrap.ReadOnly = false;
                 foreach (DataGridViewColumn col in DGVscrap.Columns)
@@ -120,13 +128,11 @@ namespace GSMArena_Mobile_Brands
             }
             finally
             {
-                waitForm.Close();
-                //ProgressBarSc.Style = ProgressBarStyle.Blocks;
+                waitForm.Hide();
                 ScrapBtn.Enabled = true;
                 groupBox1.Enabled = true;
             }
         }
-
         // Live filtering by brand name as user types
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -158,7 +164,6 @@ namespace GSMArena_Mobile_Brands
                 }
             }
         }
-
         // Restore placeholder styling when leaving Search box
         private void SearchTextBox_Leave(object sender, EventArgs e)
         {
@@ -172,14 +177,12 @@ namespace GSMArena_Mobile_Brands
                 SearchTextBox.ForeColor = Color.Black;
             }
         }
-
         // Select-all header checkbox click
         private void HeaderCheckBox_Clicked(object sender, EventArgs e)
         {
             DGVHelper.HeaderCheckBox_Clicked(sender, DGVscrap);
             UpdateTstGetEnabledState();
         }
-
         // Cell checkbox click
         private void DGVscrap_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -187,13 +190,11 @@ namespace GSMArena_Mobile_Brands
             UpdateTstGetEnabledState();
             UpdateTstGetText();
         }
-
         // Search box click selects all text for easy replace
         private void SearchTextBox_MouseClick(object sender, MouseEventArgs e)
         {
             SearchTextBox.SelectAll();
         }
-
         // Radio button: All mode disables filtering
         private void AllRadio_CheckedChanged(object sender, EventArgs e)
         {
@@ -207,7 +208,6 @@ namespace GSMArena_Mobile_Brands
                     row.Visible = true;
             }
         }
-
         // Radio button: Brand mode enables filter textbox
         private void BrandRadio_CheckedChanged(object sender, EventArgs e)
         {
@@ -218,7 +218,6 @@ namespace GSMArena_Mobile_Brands
                 SearchTextBox.Select();
             }
         }
-
         // Form-level keydown for Esc to close
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -240,24 +239,20 @@ namespace GSMArena_Mobile_Brands
             }
             TstGet.Enabled = checkedCount > 0;
         }
-
         private void TstGet_MouseHover(object sender, EventArgs e)
         {
             TstGet.ForeColor = Color.DarkGreen;
             TstGet.Font = new Font(TstGet.Font, FontStyle.Bold);
         }
-
         private void TstGet_MouseDown(object sender, MouseEventArgs e)
         {
             TstGet.Font = new Font(TstGet.Font, FontStyle.Bold);
         }
-
         private void TstGet_MouseLeave(object sender, EventArgs e)
         {
             TstGet.ForeColor = Color.Red;
             TstGet.Font = new Font(TstGet.Font, FontStyle.Regular);
         }
-
         private void TstGet_MouseEnter(object sender, EventArgs e)
         {
             TstGet.ForeColor = Color.DarkGreen;
@@ -291,35 +286,6 @@ namespace GSMArena_Mobile_Brands
                 TstGet.Text = $"{TstGetplaceHolder} ({joined})";
             }
         }
-        private async Task<Dictionary<string, List<Phone>>> FetchWithWaitAsync(List<Brand> selectedBrands)
-        {
-            // Create the wait form
-            var waitForm = new WaitForm(this);
-            waitForm.Setup("Fetching selected brands...", _loadingGif);
-            waitForm.StartPosition = FormStartPosition.CenterParent;
-            waitForm.StartCounter();
-
-            // Show the wait form modelessly on the UI thread
-            waitForm.Show();
-
-            try
-            {
-                // Start scraping in background
-                var results = await Task.Run(() => _scraper.ScrapeSelectedBrandsAsync(selectedBrands));
-
-                return results;
-            }
-            finally
-            {
-                waitForm.StopCounter();
-                // Ensure the wait form closes on the UI thread
-                if (waitForm.InvokeRequired)
-                    waitForm.Invoke(new Action(() => waitForm.Close()));
-                else
-                    waitForm.Close();
-            }
-        }
-
         private async void TstGet_Click(object sender, EventArgs e)
         {
             try
@@ -328,7 +294,6 @@ namespace GSMArena_Mobile_Brands
                 ScrapBtn.Enabled = false;
                 DGVscrap.Enabled = false;
                 TstGet.Enabled = false;
-
                 // Get selected brands
                 var selectedBrands = GetCheckedBrands();
                 if (selectedBrands.Count == 0)
@@ -336,29 +301,21 @@ namespace GSMArena_Mobile_Brands
                     MessageBox.Show("Please select at least one brand.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                //var waitForm = new TwaitForm();
-                var waitForm = new TwaitForm();
-                waitForm.Location = new Point(
-                    this.Location.X + (this.Width - waitForm.Width) / 2,
-                    this.Location.Y + (this.Height - waitForm.Height) / 2
-                    );
-                _scraper.OnProgress += waitForm.AppendStatus;
-                waitForm.Show(this);
-
+                var progress = new Progress<string>(msg =>
+                {
+                    tstlMessage.Text = msg;
+                });
+                ShowWaitForm("Fetching Brands....");
                 // Actually do the scraping in background
                 Dictionary<string, List<Phone>> results = null;
                 await Task.Run(async () =>
                 {
-                    results = await _scraper.ScrapeSelectedBrandsAsync(selectedBrands);
+                    results = await _scraper.ScrapeSelectedBrandsAsync(selectedBrands,progress);
                 });
-
-                // Close wait form safely
-                waitForm.Invoke(new Action(() => waitForm.Close()));
-
                 // Show result
                 if (results != null)
                 {
-                    _scraper.OnProgress -= waitForm.AppendStatus;
+                    waitForm.Hide();
                     var displayForm = new DisplayForm(results);
                     displayForm.ShowDialog();
                 }
@@ -369,15 +326,12 @@ namespace GSMArena_Mobile_Brands
             }
             finally
             {
-
+                waitForm.Hide();
                 //  Re-enable controls
                 ScrapBtn.Enabled = true;
                 DGVscrap.Enabled = true;
                 TstGet.Enabled = true;
             }
         }
-
-
-
     }
 }

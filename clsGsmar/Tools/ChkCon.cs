@@ -18,7 +18,7 @@ namespace clsGsmar.Tools
         /// <param name="testUrl">Optional test URL (defaults to Google)</param>
         /// <returns>True if successful, False otherwise</returns>
         public static async Task<bool> IsInternetAvailableAsync(
-            IProgress<string> progress = null,
+            IProgress<string> ?progress = null,
             string testUrl = "https://www.google.com")
         {
             try
