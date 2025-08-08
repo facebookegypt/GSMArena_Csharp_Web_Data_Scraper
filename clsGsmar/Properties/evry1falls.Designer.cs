@@ -46,5 +46,14 @@ namespace clsGsmar.Properties {
                 this["LastGoodUserAgent"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Apps/GSMArenaUploaderApp")]
+        public string AppFolderName {
+            get {
+                return ((string)(this["AppFolderName"]));
+            }
+        }
     }
 }

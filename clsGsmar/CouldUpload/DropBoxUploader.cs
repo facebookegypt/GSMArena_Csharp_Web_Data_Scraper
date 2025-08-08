@@ -71,8 +71,6 @@ namespace clsGsmar.CloudUpload
 
             return !string.IsNullOrEmpty(AccessToken);
         }
-
-
         public async Task<bool> UploadFileAsync(string localPath, string dropboxFileName = null)
         {
             if (dropboxClient == null)
@@ -90,18 +88,6 @@ namespace clsGsmar.CloudUpload
                 return metadata != null;
             }
         }
-        //public async Task<string> CreateSharedLinkAsync(string filePath)
-        //{
-        //    using (var dbx = new DropboxClient(AccessToken))
-        //    {
-        //        var fileName = Path.GetFileName(filePath);
-        //        var dropboxPath = "/" + fileName;
-
-        //        var sharedLinkMetadata = await dbx.Sharing.GetSharedLinkFileAsync(dropboxPath);// CreateSharedLinkWithSettingsAsync(dropboxPath);
-        //        return sharedLinkMetadata.Response.Url;
-        //    }
-        //}
-
     }
 
 }

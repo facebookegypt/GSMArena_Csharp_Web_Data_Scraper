@@ -8,5 +8,8 @@
     <Setting Name="LastGoodUserAgent" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AppFolderName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Apps/GSMArenaUploaderApp</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

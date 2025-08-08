@@ -257,7 +257,7 @@
             cSVToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
             cSVToolStripMenuItem.RightToLeft = RightToLeft.No;
-            cSVToolStripMenuItem.Size = new Size(180, 24);
+            cSVToolStripMenuItem.Size = new Size(171, 24);
             cSVToolStripMenuItem.Text = "CSV";
             cSVToolStripMenuItem.TextImageRelation = TextImageRelation.TextBeforeImage;
             cSVToolStripMenuItem.Click += cSVToolStripMenuItem_Click;
@@ -274,7 +274,7 @@
             jSONToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
             jSONToolStripMenuItem.RightToLeft = RightToLeft.No;
-            jSONToolStripMenuItem.Size = new Size(180, 24);
+            jSONToolStripMenuItem.Size = new Size(171, 24);
             jSONToolStripMenuItem.Text = "JSON";
             jSONToolStripMenuItem.Click += jSONToolStripMenuItem_Click;
             // 
@@ -290,7 +290,7 @@
             tXTToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             tXTToolStripMenuItem.Name = "tXTToolStripMenuItem";
             tXTToolStripMenuItem.RightToLeft = RightToLeft.No;
-            tXTToolStripMenuItem.Size = new Size(180, 24);
+            tXTToolStripMenuItem.Size = new Size(171, 24);
             tXTToolStripMenuItem.Text = "TXT";
             tXTToolStripMenuItem.Click += tXTToolStripMenuItem_Click;
             // 
@@ -306,13 +306,13 @@
             toolStripMenuItem2.ImageScaling = ToolStripItemImageScaling.None;
             toolStripMenuItem2.Name = "toolStripMenuItem2";
             toolStripMenuItem2.RightToLeft = RightToLeft.No;
-            toolStripMenuItem2.Size = new Size(180, 24);
+            toolStripMenuItem2.Size = new Size(171, 24);
             toolStripMenuItem2.Text = "SQL";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(177, 6);
+            toolStripMenuItem1.Size = new Size(168, 6);
             // 
             // exportSettingsToolStripMenuItem
             // 
@@ -325,7 +325,7 @@
             exportSettingsToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
             exportSettingsToolStripMenuItem.RightToLeft = RightToLeft.No;
-            exportSettingsToolStripMenuItem.Size = new Size(180, 24);
+            exportSettingsToolStripMenuItem.Size = new Size(171, 24);
             exportSettingsToolStripMenuItem.Text = "Export Settings";
             exportSettingsToolStripMenuItem.Click += exportSettingsToolStripMenuItem_Click;
             // 
@@ -350,7 +350,7 @@
             dropBoxToolStripMenuItem.Image = Properties.Resources.dropbox;
             dropBoxToolStripMenuItem.Name = "dropBoxToolStripMenuItem";
             dropBoxToolStripMenuItem.RightToLeft = RightToLeft.No;
-            dropBoxToolStripMenuItem.Size = new Size(160, 24);
+            dropBoxToolStripMenuItem.Size = new Size(180, 24);
             dropBoxToolStripMenuItem.Text = "DropBox";
             dropBoxToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
             dropBoxToolStripMenuItem.Click += dropBoxToolStripMenuItem_Click;
@@ -363,9 +363,10 @@
             oneDriveToolStripMenuItem.Image = Properties.Resources.Onedrive;
             oneDriveToolStripMenuItem.Name = "oneDriveToolStripMenuItem";
             oneDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
-            oneDriveToolStripMenuItem.Size = new Size(160, 24);
+            oneDriveToolStripMenuItem.Size = new Size(180, 24);
             oneDriveToolStripMenuItem.Text = "OneDrive";
             oneDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
+            oneDriveToolStripMenuItem.Click += oneDriveToolStripMenuItem_Click;
             // 
             // googleDriveToolStripMenuItem
             // 
@@ -375,7 +376,7 @@
             googleDriveToolStripMenuItem.Image = Properties.Resources.Gdrive;
             googleDriveToolStripMenuItem.Name = "googleDriveToolStripMenuItem";
             googleDriveToolStripMenuItem.RightToLeft = RightToLeft.No;
-            googleDriveToolStripMenuItem.Size = new Size(160, 24);
+            googleDriveToolStripMenuItem.Size = new Size(180, 24);
             googleDriveToolStripMenuItem.Text = "Google Drive";
             googleDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
             // 

@@ -43,6 +43,7 @@ namespace GSMArena_Mobile_Brands
         //Share
         //===========================
         private DropBoxUploader uploader = new DropBoxUploader();
+        private OneDriveUploader Oneuploader = new OneDriveUploader();
         private void LoadCustomFonts()
         {
             AddFontFromBytes(Properties.Resources.COOPBL);
@@ -718,6 +719,31 @@ namespace GSMArena_Mobile_Brands
                 }
                 else
                     MessageBox.Show("Upload failed.", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void oneDriveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //share to dropbox
+            string? path = tstSelected.Text?.Replace("Export completed: ", "").Trim();
+
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+            {
+                MessageBox.Show("Exported file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Upload the file
+                await Oneuploader.UploadFileAsync(path);
+                MessageBox.Show("File uploaded to OneDrive App Folder, Successfully!", "OneDrive Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TstShare.Visible = true;
+                TstShare.Text = "OneDrive, OK!";
             }
             catch (Exception ex)
             {

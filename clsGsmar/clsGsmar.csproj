@@ -27,6 +27,7 @@
     <Compile Remove="Models\Spec.cs" />
     <Compile Remove="Resource1.Designer.cs" />
     <Compile Remove="Services\fileReadServices.cs" />
+    <Compile Remove="Tools\IAuthenticationProvider.cs" />
     <Compile Remove="Tools\OAuth2WebView.cs" />
   </ItemGroup>
 
@@ -51,8 +52,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.14.2" />
     <PackageReference Include="Dropbox.Api" Version="7.0.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.12.2" />
+    <PackageReference Include="Microsoft.Graph" Version="5.89.0" />
   </ItemGroup>
 
   <ItemGroup>
