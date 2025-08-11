@@ -1,17 +1,4 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Responses;
-using Google.Apis.Drive.v3;
-using Google.Apis.Drive.v3.Data;
-using Google.Apis.Services;
-using System.Diagnostics;
-using System.Net;
-using System.Text;
-using System.Text.Json;
-using File = System.IO.File;
-
-namespace clsGsmar.CouldUpload
-{
-    using Google.Apis.Auth.OAuth2;
+﻿    using Google.Apis.Auth.OAuth2;
     using Google.Apis.Auth.OAuth2.Flows;
     using Google.Apis.Auth.OAuth2.Responses;
     using Google.Apis.Drive.v3;
@@ -48,8 +35,8 @@ namespace clsGsmar.CouldUpload
                 using var credStream = new FileStream(CredentialsPath, FileMode.Open, FileAccess.Read);
                 var googleSecrets = GoogleClientSecrets.FromStream(credStream);
 
-                // Build an auth flow
-                var initializer = new GoogleAuthorizationCodeFlow.Initializer
+            // Build an auth flow
+            var initializer = new GoogleAuthorizationCodeFlow.Initializer
                 {
                     ClientSecrets = googleSecrets.Secrets,
                     Scopes = Scopes
@@ -74,10 +61,11 @@ namespace clsGsmar.CouldUpload
                 // If we have a token, create and (if needed) refresh it
                 if (token != null)
                 {
-                    var cred = new UserCredential(flow, "user", token);
-
-                    // Attempt refresh if it's expired and refresh token is available
-                    if (cred.Token.IsExpired(SystemClock.Default) && !string.IsNullOrWhiteSpace(cred.Token.RefreshToken))
+                
+                var cred = new UserCredential(flow, "user", token);
+                // Attempt refresh if it's expired and refresh token is available
+                //isExpired is Obselete
+                if (cred.Token.IsStale && !string.IsNullOrWhiteSpace(cred.Token.RefreshToken))
                     {
                         bool ok = await cred.RefreshTokenAsync(CancellationToken.None);
                         if (ok)
@@ -91,8 +79,7 @@ namespace clsGsmar.CouldUpload
 
                 // No token -> perform interactive auth
                 // Use the redirect URI from credentials (must match what you registered)
-                var redirectUri = "http://localhost:5000/"; // googleSecrets.Secrets.RedirectUris?.FirstOrDefault()
-                                  //?? "http://localhost:5000/";
+                var redirectUri = "http://localhost:5000/"; // googleSecrets.Secrets.RedirectUris?.FirstOrDefault() ?? "http://localhost:5000/";
 
                 // Build the authorization URL
                 var authUrl = flow.CreateAuthorizationCodeRequest(redirectUri).Build();
@@ -135,12 +122,13 @@ namespace clsGsmar.CouldUpload
                 return credential;
             }
 
-            /// <summary>
-            /// Upload a file to Google Drive (DriveFile scope: file created is owned by the user and visible in their Drive).
-            /// </summary>
-            /// <param name="filePath">Full path to local file</param>
-            /// <param name="progress">Optional progress reporter (bytes uploaded)</param>
-            public async Task<string> UploadFileAsync(string filePath, IProgress<string>? progress = null)
+        /// <summary>
+        /// Upload a file to Google Drive (DriveFile scope: file created is owned by the user and visible in their Drive).
+        /// </summary>
+        /// <param name="filePath">Full path to local file</param>
+        /// <param name="progress">Optional progress reporter (bytes uploaded)</param>
+        [Obsolete]
+        public async Task<string> UploadFileAsync(string filePath, IProgress<string>? progress = null)
             {
                 if (!File.Exists(filePath))
                     throw new FileNotFoundException("File to upload not found.", filePath);
@@ -174,4 +162,3 @@ namespace clsGsmar.CouldUpload
             }
         }
     }
-}
