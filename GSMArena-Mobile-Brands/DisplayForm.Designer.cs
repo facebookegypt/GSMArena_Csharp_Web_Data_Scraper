@@ -379,6 +379,7 @@
             googleDriveToolStripMenuItem.Size = new Size(180, 24);
             googleDriveToolStripMenuItem.Text = "Google Drive";
             googleDriveToolStripMenuItem.TextAlign = ContentAlignment.MiddleLeft;
+            googleDriveToolStripMenuItem.Click += googleDriveToolStripMenuItem_Click;
             // 
             // tsmReset
             // 

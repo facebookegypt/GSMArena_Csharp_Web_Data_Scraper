@@ -1,4 +1,6 @@
 ﻿using clsGsmar.CloudUpload;
+using clsGsmar.CouldUpload;
+using clsGsmar.CouldUpload.clsGsmar.CloudUpload;
 using clsGsmar.Models;
 using clsGsmar.Services;
 using Dropbox.Api.Files;
@@ -44,6 +46,7 @@ namespace GSMArena_Mobile_Brands
         //===========================
         private DropBoxUploader uploader = new DropBoxUploader();
         private OneDriveUploader Oneuploader = new OneDriveUploader();
+        private GoogleDriveUploader googleDriveUploader = new GoogleDriveUploader();
         private void LoadCustomFonts()
         {
             AddFontFromBytes(Properties.Resources.COOPBL);
@@ -748,6 +751,36 @@ namespace GSMArena_Mobile_Brands
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Dropbox Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void googleDriveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string? path = tstSelected.Text?.Replace("Export completed: ", "").Trim();
+
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+            {
+                MessageBox.Show("Exported file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var uploader = new GoogleDriveUploader();
+                // Optional: pass a progress reporter to update TwaitForm or status strip
+                var link = await uploader.UploadFileAsync(path, new Progress<string>(msg =>
+                {
+                    // update UI e.g. tstlMessage or your TwaitForm
+                    tstSelected.Text = msg;
+                }));
+
+                MessageBox.Show("File uploaded to Google Drive!\n" + link, "Google Drive Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TstShare.Visible = true;
+                TstShare.Text = "Google Drive, OK!";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error uploading to Google Drive:\n{ex.Message}", "Google Drive Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
